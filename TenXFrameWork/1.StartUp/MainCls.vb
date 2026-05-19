@@ -33,6 +33,7 @@ Public Class MainCls
 
 
     Public ObjVatReport As ClsVatReports
+    Public objformulacosting As ClsFormulaCosting
     Public ObjPayloadD As ClsPayloadD
     ' Public ObjClsCorpTax As ClsCorpTax
     Public ObjClsCorpTaxMstr As ClsCropTaxMstr
@@ -181,6 +182,7 @@ Public Class MainCls
         ObjCorporateTaxConfiguration = New clsCorporateTexConfig
         ObjCorporateTaxCalculation = New ClsCorporateTaxCalcu
         ObjVatReport = New ClsVatReports
+        OBJFormulaCosting = New ClsFormulaCosting
         objInvPost = New ClsInvPost
         objOnboarding = New ClsOnboarding
         ObjPayloadD = New ClsPayloadD
@@ -271,8 +273,109 @@ Public Class MainCls
     Public Sub CreateIPUDO()
         If Not Me.UDOExists("TNX_IPUDO") Then
             Dim findaliasdescription = New String(,) {{"DocNum", "DocNum"}}
-            Me.registerUDO("TNX_IPUDO", "Invoice Posting UDO", SAPbobsCOM.BoUDOObjType.boud_Document, findaliasdescription, "TNX_IP", "TNX_IP_C0")
+            Me.registerUDO("TNX_IPUDO", "Invoice PostingUDO", SAPbobsCOM.BoUDOObjType.boud_Document, findaliasdescription, "TNX_IP", "TNX_IP_C0")
             findaliasdescription = Nothing
+        End If
+    End Sub
+
+
+
+    '=========================================================
+    ' 1. SOP Category Master
+    '=========================================================
+    Public Sub SOPCategoryMasterUDO()
+        If Not Me.UDOExists("TNX_SOPCAT_UDO") Then
+            Dim findAliasNDescription = New String(,) {{"Code", "Code"}}
+            Me.registerUDONoLog("TNX_SOPCAT_UDO", "SOPCategoryMaster", SAPbobsCOM.BoUDOObjType.boud_MasterData, findAliasNDescription, "TNX_SOPCAT")
+            findAliasNDescription = Nothing
+        End If
+    End Sub
+
+    '=========================================================
+    ' 2. Department Master
+    '=========================================================
+    Public Sub DepartmentMasterUDO()
+        If Not Me.UDOExists("TNX_DEPT_UDO") Then
+            Dim findAliasNDescription = New String(,) {{"Code", "Code"}}
+            Me.registerUDONoLog("TNX_DEPT_UDO", "DepartmentMaster", SAPbobsCOM.BoUDOObjType.boud_MasterData, findAliasNDescription, "TNX_DEPT")
+            findAliasNDescription = Nothing
+        End If
+    End Sub
+
+    '=========================================================
+    ' 3. Training Type Master
+    '=========================================================
+    Public Sub TrainingTypeMasterUDO()
+        If Not Me.UDOExists("TNX_TRNTYP_UDO") Then
+            Dim findAliasNDescription = New String(,) {{"Code", "Code"}}
+            Me.registerUDONoLog("TNX_TRNTYP_UDO", "TrainingTypeMaster", SAPbobsCOM.BoUDOObjType.boud_MasterData, findAliasNDescription, "TNX_TRNTYP")
+            findAliasNDescription = Nothing
+        End If
+    End Sub
+
+    '=========================================================
+    ' 4. Validation Type Master
+    '=========================================================
+    Public Sub ValidationTypeMasterUDO()
+        If Not Me.UDOExists("TNX_VALTYP_UDO") Then
+            Dim findAliasNDescription = New String(,) {{"Code", "Code"}}
+            Me.registerUDONoLog("TNX_VALTYP_UDO", "ValidationTypeMaster", SAPbobsCOM.BoUDOObjType.boud_MasterData, findAliasNDescription, "TNX_VALTYP")
+            findAliasNDescription = Nothing
+        End If
+    End Sub
+
+    '=========================================================
+    ' 5. Equipment Master
+    '=========================================================
+    Public Sub EquipmentMasterUDO()
+        If Not Me.UDOExists("TNX_EQP_UDO") Then
+            Dim findAliasNDescription = New String(,) {{"Code", "Code"}}
+            Me.registerUDONoLog("TNX_EQP_UDO", "EquipmentMaster", SAPbobsCOM.BoUDOObjType.boud_MasterData, findAliasNDescription, "TNX_EQP")
+            findAliasNDescription = Nothing
+        End If
+    End Sub
+
+    '=========================================================
+    ' 6. Risk Classification Master
+    '=========================================================
+    Public Sub RiskClassificationMasterUDO()
+        If Not Me.UDOExists("TNX_RISK_UDO") Then
+            Dim findAliasNDescription = New String(,) {{"Code", "Code"}}
+            Me.registerUDONoLog("TNX_RISK_UDO", "RiskClassificationMaster", SAPbobsCOM.BoUDOObjType.boud_MasterData, findAliasNDescription, "TNX_RISK")
+            findAliasNDescription = Nothing
+        End If
+    End Sub
+
+    '=========================================================
+    ' 7. CAPA Category Master
+    '=========================================================
+    Public Sub CAPACategoryMasterUDO()
+        If Not Me.UDOExists("TNX_CAPACAT_UDO") Then
+            Dim findAliasNDescription = New String(,) {{"Code", "Code"}}
+            Me.registerUDONoLog("TNX_CAPACAT_UDO", "CAPACategoryMaster", SAPbobsCOM.BoUDOObjType.boud_MasterData, findAliasNDescription, "TNX_CAPACAT")
+            findAliasNDescription = Nothing
+        End If
+    End Sub
+
+    '=========================================================
+    ' 8. Audit Type Master
+    '=========================================================
+    Public Sub AuditTypeMasterUDO()
+        If Not Me.UDOExists("TNX_AUDTYP_UDO") Then
+            Dim findAliasNDescription = New String(,) {{"Code", "Code"}}
+            Me.registerUDONoLog("TNX_AUDTYP_UDO", "AuditTypeMaster", SAPbobsCOM.BoUDOObjType.boud_MasterData, findAliasNDescription, "TNX_AUDTYP")
+            findAliasNDescription = Nothing
+        End If
+    End Sub
+
+    '=========================================================
+    ' 9. Root Cause Master
+    '=========================================================
+    Public Sub RootCauseMasterUDO()
+        If Not Me.UDOExists("TNX_ROOT_UDO") Then
+            Dim findAliasNDescription = New String(,) {{"Code", "Code"}}
+            Me.registerUDONoLog("TNX_ROOT_UDO", "RootCauseMaster", SAPbobsCOM.BoUDOObjType.boud_MasterData, findAliasNDescription, "TNX_ROOT")
+            findAliasNDescription = Nothing
         End If
     End Sub
 
@@ -280,6 +383,15 @@ Public Class MainCls
         If Not Me.UDOExists("UDO_TNX_FRM_VER") Then
             Dim findaliasdescription = New String(,) {{"DocNum", "DocNum"}}
             Me.registerUDO("UDO_TNX_FRM_VER", "UDO_TNX_FRM_VER", SAPbobsCOM.BoUDOObjType.boud_Document, findaliasdescription, "TNX_FRM_VER_H", "TNX_FRM_VER_D1", "TNX_FRM_VER_D2", "TNX_FRM_VER_D3", "TNX_FRM_VER_D4", "TNX_FRM_VER_D5", "TNX_FRM_VER_AUD")
+            findaliasdescription = Nothing
+        End If
+    End Sub
+
+    'Submission Tracker UDO
+    Public Sub SubmissionTrackerUDO()
+        If Not Me.UDOExists("UDO_REG_SUB") Then
+            Dim findaliasdescription = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDO("UDO_REG_SUB", "10XRegulatorySubmissionTracker", SAPbobsCOM.BoUDOObjType.boud_Document, findaliasdescription, "TNX_REG_SUBH", "TNX_REG_SUBL", "TNX_REG_QRY", "TNX_REG_STAT", "TNX_REG_APRV", "TNX_ATTACHMENT_C3")
             findaliasdescription = Nothing
         End If
     End Sub
@@ -589,7 +701,8 @@ Public Class MainCls
                     If objSAPAlertWindow IsNot Nothing Then
                         objSAPAlertWindow.ItemEvent(FormUID, pVal, BubbleEvent)
                     End If
-
+                Case "FORMULACOSTING"
+                    objformulacosting.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "ME_ASR"
                     ObjApproval.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "GRID"
@@ -671,6 +784,9 @@ Public Class MainCls
                 '    ObjSUBTYPE.MenuEvent(pVal, BubbleEvent)
                 '    'Find
 
+                Case "10X_COST"
+                    objformulacosting.MenuEvent(pVal, BubbleEvent)
+
                 Case "IK_ESTMT"
                     objEstimation.MenuEvent(pVal, BubbleEvent)
 
@@ -739,6 +855,8 @@ Public Class MainCls
                         ObjClsLkMstr.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "License" Then
                         objLicenceNew.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "FORMULACOSTING" Then
+                        objformulacosting.MenuEvent(pVal, BubbleEvent)
                     End If
 
 
@@ -808,6 +926,9 @@ Public Class MainCls
                     If objform.TypeEx = "CTAXCAL" Then
                         ObjCorporateTaxCalculation.MenuEvent(pVal, BubbleEvent)
                     End If
+                    If objform.TypeEx = "FORMULACOSTING" Then
+                        objformulacosting.MenuEvent(pVal, BubbleEvent)
+                    End If
                     '    'ADD ROW
                 Case "1282"
                     objform = objMain.objApplication.Forms.ActiveForm
@@ -874,7 +995,8 @@ Public Class MainCls
                         ObjAPTEMP.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "DEVICE" Then
                         objDevice.MenuEvent(pVal, BubbleEvent)
-
+                    ElseIf objform.TypeEx = "FORMULACOSTING" Then
+                        objformulacosting.MenuEvent(pVal, BubbleEvent)
                         'ElseIf objform.TypeEx = "TNX_USR" Then
                         '    oSubParameterSelection.MenuEvent(pVal, BubbleEvent)
                     End If

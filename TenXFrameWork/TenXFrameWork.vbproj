@@ -232,6 +232,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\DeviceMaster.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\FlickINVModel.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\LinkMaster.vb" />
+    <Compile Include="4.BusinessClasses\ClsFormulaCosting.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -279,8 +280,8 @@
     <EmbeddedResource Include="SQLQuery\ARCreditnote.sql" />
     <EmbeddedResource Include="SQLQuery\TNXPLByBranch.sql" />
     <Content Include="5.XML\CorporatetaxMstr.xml" />
-    <EmbeddedResource Include="5.XML\CorpTax.xml" />
     <EmbeddedResource Include="5.XML\Device.xml" />
+    <EmbeddedResource Include="5.XML\FormulaCosting.xml" />
     <Content Include="5.XML\FtavatMstr.xml" />
     <EmbeddedResource Include="5.XML\LicenceNew.xml" />
     <Content Include="5.XML\Linkmaster.xml" />

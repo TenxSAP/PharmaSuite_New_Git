@@ -5,9 +5,9 @@ Public Class DatabaseCreation
 
 #Region "Declaration"
     Private objUtilities As Utilities
-    Dim DBCode As String = "v0.148"
-    Dim DBName As String = "v0.148"
-    Dim Version As String = "v0.148"
+    Dim DBCode As String = "v0.282"
+    Dim DBName As String = "v0.282"
+    Dim Version As String = "v0.280"
 #End Region
 
 #Region "DB Creation Main"
@@ -45,6 +45,9 @@ Public Class DatabaseCreation
 
                 Me.CreateFormulaVersionControl()
                 objMain.FormulaCostingUDO()
+
+                Me.CreateSubmissionTracker()
+                objMain.SubmissionTrackerUDO()
                 '=1
                 Me.CreateStabilityStudy()
                 objMain.StabilityStudyUDO()
@@ -61,6 +64,43 @@ Public Class DatabaseCreation
                 Me.CreateCAPA()
                 objMain.CAPAUDO()
 
+                ' 1. SOP Category Master
+                CreateSOPCategoryMaster()
+
+                ' 2. Department Master
+                CreateDepartmentMaster()
+
+                ' 3. Training Type Master
+                CreateTrainingTypeMaster()
+
+                ' 4. Validation Type Master
+                CreateValidationTypeMaster()
+
+                ' 5. Equipment Master
+                CreateEquipmentMaster()
+
+                ' 6. Risk Classification Master
+                CreateRiskClassificationMaster()
+
+                ' 7. CAPA Category Master
+                CreateCAPACategoryMaster()
+
+                ' 8. Audit Type Master
+                CreateAuditTypeMaster()
+
+                ' 9. Root Cause Master
+                CreateRootCauseMaster()
+
+
+                objMain.SOPCategoryMasterUDO()
+                objMain.DepartmentMasterUDO()
+                objMain.TrainingTypeMasterUDO()
+                objMain.ValidationTypeMasterUDO()
+                objMain.EquipmentMasterUDO()
+                objMain.RiskClassificationMasterUDO()
+                objMain.CAPACategoryMasterUDO()
+                objMain.AuditTypeMasterUDO()
+                objMain.RootCauseMasterUDO()
 
                 'Me.CreateAPPROVALTemplates()
                 'objMain.DDUDO()
@@ -438,6 +478,14 @@ Public Class DatabaseCreation
 
     'End Sub
 
+    '====================================================================
+    ' 1. Specifications Master
+    ' UDO Code     : TNX_QC_SPEC_UDO
+    ' Header Table : @TNX_QC_SPEC_H
+    ' Line Table   : @TNX_QC_SPEC_L
+    '====================================================================
+
+
     'Formula Costing
     Sub CreateFormulaVersionControl()
 
@@ -525,21 +573,320 @@ Public Class DatabaseCreation
         objMain.objUtilities.AddAlphaMemoField("@TNX_FRM_VER_AUD", "NEW_VAL", "New Value", 5000)
         objMain.objUtilities.AddAlphaMemoField("@TNX_FRM_VER_AUD", "REMARKS", "Remarks", 5000)
 
-
-        objMain.objUtilities.CreateTable("TNX_FRM_VER_D6", "Casting Attachment", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
+        objMain.objUtilities.CreateTable("TNX_ATTACH_C3", "VAT Report Child2", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
         '.objUtilities.AddAlphaField("@TNX_ATTACH_C3", "TPA", "Target Path", 254)
-        objMain.objUtilities.AddLinkField("@TNX_FRM_VER_D6", "TPA", "Target Path", 250, SAPbobsCOM.BoFldSubTypes.st_Link)
-        objMain.objUtilities.AddAlphaField("@TNX_FRM_VER_D6", "FN", "File Name", 254)
-        objMain.objUtilities.AddAlphaField("@TNX_FRM_VER_D6", "FTT", "Free Text", 254)
-        objMain.objUtilities.AddDateField("@TNX_FRM_VER_D6", "ATD", "Attachment Date", SAPbobsCOM.BoFldSubTypes.st_None)
-
-        objMain.objUtilities.CreateTable("TNX_FRM_VER_AT", "Casting Attachment", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
-        '.objUtilities.AddAlphaField("@TNX_ATTACH_C3", "TPA", "Target Path", 254)
-        objMain.objUtilities.AddLinkField("@TNX_FRM_VER_AT", "TPA", "Target Path", 250, SAPbobsCOM.BoFldSubTypes.st_Link)
-        objMain.objUtilities.AddAlphaField("@TNX_FRM_VER_AT", "FN", "File Name", 254)
-        objMain.objUtilities.AddAlphaField("@TNX_FRM_VER_AT", "FTT", "Free Text", 254)
-        objMain.objUtilities.AddDateField("@TNX_FRM_VER_AT", "ATD", "Attachment Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddLinkField("@TNX_ATTACH_C3", "TPA", "Target Path", 250, SAPbobsCOM.BoFldSubTypes.st_Link)
+        objMain.objUtilities.AddAlphaField("@TNX_ATTACH_C3", "FN", "File Name", 254)
+        objMain.objUtilities.AddAlphaField("@TNX_ATTACH_C3", "FTT", "Free Text", 254)
+        objMain.objUtilities.AddDateField("@TNX_ATTACH_C3", "ATD", "Attachment Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        'objMain.objUtilities.AddFloatField("@TNX_ATTACH_C3", "VATA", "VAT Amount(AED)", SAPbobsCOM.BoFldSubTypes.st_Quantity)
     End Sub
+
+    'Submission Tracker
+    Sub CreateSubmissionTracker()
+
+        '==========================================================
+        ' Header Table : @TNX_REG_SUBH
+        '==========================================================
+        objMain.objUtilities.CreateTable("TNX_REG_SUBH", "Reg Submission Header", SAPbobsCOM.BoUTBTableType.bott_Document)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "SubNo", "Submission No", 50)
+        objMain.objUtilities.AddFloatField("@TNX_REG_SUBH", "PrRegDoc", "Product Registration Doc", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "PrRegNo", "Product Registration No", 50)
+        objMain.objUtilities.AddFloatField("@TNX_REG_SUBH", "DsrDoc", "Dossier Doc", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "DsrNo", "Dossier No", 50)
+        objMain.objUtilities.AddFloatField("@TNX_REG_SUBH", "ArtwDoc", "Artwork Doc", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "ArtwNo", "Artwork No", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "ItemCode", "Item Code", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "ItemName", "Item Name", 200)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "GenName", "Generic Name", 200)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "DosaForm", "Dosage Form", 100)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "Strength", "Strength", 100)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "Country", "Country", 100)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "AuthCode", "Authority Code", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "AuthName", "Authority Name", 200)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "SubType", "Submission Type", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "SubMode", "Submission Mode", 50)
+        objMain.objUtilities.AddDateField("@TNX_REG_SUBH", "SubDate", "Submission Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddDateField("@TNX_REG_SUBH", "TgtAprDt", "Target Approval Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "RefNo", "Reference No", 100)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "AckNo", "Acknowledgement No", 100)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "ApprNo", "Approval No", 100)
+        objMain.objUtilities.AddDateField("@TNX_REG_SUBH", "ApprDate", "Approval Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddDateField("@TNX_REG_SUBH", "ExpDate", "Expiry Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "SubStatus", "Submission Status", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "RiskLvl", "Risk Level", 30)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "Priority", "Priority", 30)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "AssignTo", "Assigned To", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "LocAgent", "Local Agent", 100)
+        objMain.objUtilities.AddFloatField("@TNX_REG_SUBH", "FeeAmt", "Fee Amount", SAPbobsCOM.BoFldSubTypes.st_Price)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "Currency", "Currency", 10)
+        objMain.objUtilities.AddFloatField("@TNX_REG_SUBH", "AtcEntry", "Attachment Entry", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaMemoField("@TNX_REG_SUBH", "Remarks", "Remarks", 5000)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "CreateBy", "Created By", 50)
+        objMain.objUtilities.AddDateField("@TNX_REG_SUBH", "CreateDt", "Created Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBH", "ApprBy", "Approved By", 50)
+        objMain.objUtilities.AddDateField("@TNX_REG_SUBH", "ApprvDt", "Approved Date", SAPbobsCOM.BoFldSubTypes.st_None)
+
+        '==========================================================
+        ' Child Table 1 : @TNX_REG_SUBL
+        '==========================================================
+        objMain.objUtilities.CreateTable("TNX_REG_SUBL", "Submitted Document Lines", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBL", "DocCtgy", "Document Category", 100)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBL", "DocType", "Document Type", 100)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBL", "DocName", "Document Name", 200)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBL", "DocNo", "Document No", 100)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBL", "DocVer", "Document Version", 20)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBL", "SrcDocTy", "Source Doc Type", 50)
+        objMain.objUtilities.AddFloatField("@TNX_REG_SUBL", "SrcDocEn", "Source Doc Entry", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddFloatField("@TNX_REG_SUBL", "SrcLineId", "Source Line Id", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBL", "Mandatry", "Mandatory", 1)
+        objMain.objUtilities.AddFloatField("@TNX_REG_SUBL", "AtchEntr", "Attachment Entry", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBL", "Submitd", "Submitted", 1)
+        objMain.objUtilities.AddDateField("@TNX_REG_SUBL", "SubmDate", "Submission Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBL", "AcptAuth", "Accepted By Authority", 1)
+        objMain.objUtilities.AddAlphaMemoField("@TNX_REG_SUBL", "AuthRmk", "Authority Remarks", 5000)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBL", "Status", "Status", 50)
+        objMain.objUtilities.AddAlphaMemoField("@TNX_REG_SUBL", "Remarks", "Remarks", 5000)
+
+        '==========================================================
+        ' Child Table 2 : @TNX_REG_QRY
+        '==========================================================
+        objMain.objUtilities.CreateTable("TNX_REG_QRY", "Authority Query / Deficiency Lines", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_QRY", "QueryNo", "Query No", 50)
+        objMain.objUtilities.AddDateField("@TNX_REG_QRY", "QueryDt", "Query Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_QRY", "QueryTyp", "Query Type", 100)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_QRY", "QuerySev", "Query Severity", 30)
+        objMain.objUtilities.AddAlphaMemoField("@TNX_REG_QRY", "QueryDsc", "Query Description", 5000)
+        objMain.objUtilities.AddDateField("@TNX_REG_QRY", "RespDueDt", "Response Due Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_QRY", "RespOwnr", "Response Owner", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_QRY", "RespStat", "Response Status", 50)
+        objMain.objUtilities.AddDateField("@TNX_REG_QRY", "RespDate", "Response Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddFloatField("@TNX_REG_QRY", "RespDoc", "Response Document", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_QRY", "IntRevRq", "Internal Review Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_QRY", "QARevBy", "QA Review By", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_QRY", "RegRevBy", "Reg Review By", 50)
+        objMain.objUtilities.AddDateField("@TNX_REG_QRY", "CloseDt", "Closed Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaMemoField("@TNX_REG_QRY", "Remarks", "Remarks", 5000)
+
+        '==========================================================
+        ' Child Table 3 : @TNX_REG_STAT
+        '==========================================================
+        objMain.objUtilities.CreateTable("TNX_REG_STAT", "Submission Status History", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
+
+        objMain.objUtilities.AddDateField("@TNX_REG_STAT", "StatDate", "Status Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "FromStat", "From Status", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "ToStatus", "To Status", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "ChangBy", "Changed By", 50)
+        objMain.objUtilities.AddAlphaMemoField("@TNX_REG_STAT", "Reason", "Reason", 5000)
+
+        '==========================================================
+        ' Child Table 4 : @TNX_REG_APRV
+        '==========================================================
+        objMain.objUtilities.CreateTable("TNX_REG_APRV", "Submission Approval History", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRV", "ApprStg", "Approval Stage", 100)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRV", "ApprUser", "Approver User", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRV", "ApprStat", "Approval Status", 50)
+        objMain.objUtilities.AddDateField("@TNX_REG_APRV", "ApprDate", "Approval Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaMemoField("@TNX_REG_APRV", "ApprRmk", "Approval Remarks", 5000)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRV", "EscalTo", "Escalated To", 50)
+        objMain.objUtilities.AddDateField("@TNX_REG_APRV", "EscalDt", "Escalation Date", SAPbobsCOM.BoFldSubTypes.st_None)
+
+        '==========================================================
+        ' Attachment Table : @TNX_ATTACHMENT_C0
+        '==========================================================
+        objMain.objUtilities.CreateTable("TNX_ATTACHMENT_C3", "Submission Attachment", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
+
+        objMain.objUtilities.AddLinkField("@TNX_ATTACHMENT_C3", "TPA", "Target Path", 250, SAPbobsCOM.BoFldSubTypes.st_Link)
+        objMain.objUtilities.AddAlphaField("@TNX_ATTACHMENT_C3", "FN", "File Name", 254)
+        objMain.objUtilities.AddAlphaField("@TNX_ATTACHMENT_C3", "FTT", "Free Text", 254)
+        objMain.objUtilities.AddDateField("@TNX_ATTACHMENT_C3", "ATD", "Attachment Date", SAPbobsCOM.BoFldSubTypes.st_None)
+
+    End Sub
+
+
+    '=========================================================
+    ' 1. SOP Category Master
+    ' UDO Code   : UDO_TNX_SOPCAT
+    ' Table Name : @TNX_SOPCAT
+    ' Type       : Master Data
+    '=========================================================
+    '=========================================================
+    ' 1. SOP Category Master
+    ' UDO Code   : UDO_TNX_SOPCAT
+    ' Table Name : @TNX_SOPCAT
+    '=========================================================
+    Public Sub CreateSOPCategoryMaster()
+
+        objMain.objUtilities.CreateTable("TNX_SOPCAT", "SOP Category Master", SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddAlphaField("@TNX_SOPCAT", "DeptCode", "Department Code", 20)
+        objMain.objUtilities.AddAlphaField("@TNX_SOPCAT", "GMPReq", "GMP Required", 1)
+        objMain.objUtilities.AddFloatField("@TNX_SOPCAT", "ReviewFr", "Review Frequency", SAPbobsCOM.BoFldSubTypes.st_Quantity)
+        objMain.objUtilities.AddAlphaField("@TNX_SOPCAT", "TrainReq", "Training Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_SOPCAT", "ApprRoute", "Approval Route", 30)
+        objMain.objUtilities.AddAlphaField("@TNX_SOPCAT", "Active", "Active", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_SOPCAT", "Remarks", "Remarks", 254)
+
+    End Sub
+
+    '=========================================================
+    ' 2. Department Master
+    ' UDO Code   : UDO_TNX_DEPT
+    ' Table Name : @TNX_DEPT
+    '=========================================================
+    Public Sub CreateDepartmentMaster()
+
+        objMain.objUtilities.CreateTable("TNX_DEPT", "Department Master", SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddAlphaField("@TNX_DEPT", "DeptHead", "Department Head", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_DEPT", "QAReview", "QA Reviewer", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_DEPT", "CompOwnr", "Compliance Owner", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_DEPT", "CostCent", "Cost Center", 20)
+        objMain.objUtilities.AddAlphaField("@TNX_DEPT", "Active", "Active", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_DEPT", "Remarks", "Remarks", 254)
+
+    End Sub
+
+    '=========================================================
+    ' 3. Training Type Master
+    ' UDO Code   : UDO_TNX_TRNTYP
+    ' Table Name : @TNX_TRNTYP
+    '=========================================================
+    Public Sub CreateTrainingTypeMaster()
+
+        objMain.objUtilities.CreateTable("TNX_TRNTYP", "Training Type Master", SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddAlphaField("@TNX_TRNTYP", "AssessReq", "Assessment Required", 1)
+        objMain.objUtilities.AddFloatField("@TNX_TRNTYP", "PassScore", "Pass Score", SAPbobsCOM.BoFldSubTypes.st_Quantity)
+        objMain.objUtilities.AddAlphaField("@TNX_TRNTYP", "CertReq", "Certificate Required", 1)
+        objMain.objUtilities.AddFloatField("@TNX_TRNTYP", "RetrainF", "Retraining Frequency", SAPbobsCOM.BoFldSubTypes.st_Quantity)
+        objMain.objUtilities.AddAlphaField("@TNX_TRNTYP", "TrainerR", "Trainer Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_TRNTYP", "AttachReq", "Attachment Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_TRNTYP", "Active", "Active", 1)
+
+    End Sub
+
+    '=========================================================
+    ' 4. Validation Type Master
+    ' UDO Code   : UDO_TNX_VALTYP
+    ' Table Name : @TNX_VALTYP
+    '=========================================================
+    Public Sub CreateValidationTypeMaster()
+
+        objMain.objUtilities.CreateTable("TNX_VALTYP", "Validation Type Master", SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddAlphaField("@TNX_VALTYP", "IQReq", "IQ Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_VALTYP", "OQReq", "OQ Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_VALTYP", "PQReq", "PQ Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_VALTYP", "ProtoReq", "Protocol Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_VALTYP", "ReportReq", "Report Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_VALTYP", "ApprRoute", "Approval Route", 30)
+        objMain.objUtilities.AddFloatField("@TNX_VALTYP", "RevalFr", "Revalidation Frequency", SAPbobsCOM.BoFldSubTypes.st_Quantity)
+        objMain.objUtilities.AddAlphaField("@TNX_VALTYP", "Active", "Active", 1)
+
+    End Sub
+
+    '=========================================================
+    ' 5. Equipment Master
+    ' UDO Code   : UDO_TNX_EQP
+    ' Table Name : @TNX_EQP
+    '=========================================================
+    Public Sub CreateEquipmentMaster()
+
+        objMain.objUtilities.CreateTable("TNX_EQP", "Equipment Master", SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddAlphaField("@TNX_EQP", "EquipType", "Equipment Type", 30)
+        objMain.objUtilities.AddAlphaField("@TNX_EQP", "Departmnt", "Department", 20)
+        objMain.objUtilities.AddAlphaField("@TNX_EQP", "Location", "Location", 100)
+        objMain.objUtilities.AddAlphaField("@TNX_EQP", "SerialNo", "Serial Number", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_EQP", "Manufactr", "Manufacturer", 100)
+        objMain.objUtilities.AddAlphaField("@TNX_EQP", "ModelNo", "Model Number", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_EQP", "CalibReq", "Calibration Required", 1)
+        objMain.objUtilities.AddFloatField("@TNX_EQP", "CalibFrq", "Calibration Frequency", SAPbobsCOM.BoFldSubTypes.st_Quantity)
+        objMain.objUtilities.AddAlphaField("@TNX_EQP", "ValReq", "Validation Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_EQP", "ValType", "Validation Type", 20)
+        objMain.objUtilities.AddAlphaField("@TNX_EQP", "CleanReq", "Cleaning Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_EQP", "Status", "Status", 20)
+        objMain.objUtilities.AddAlphaField("@TNX_EQP", "Active", "Active", 1)
+
+    End Sub
+
+    '=========================================================
+    ' 6. Risk Classification Master
+    ' UDO Code   : UDO_TNX_RISK
+    ' Table Name : @TNX_RISK
+    '=========================================================
+    Public Sub CreateRiskClassificationMaster()
+
+        objMain.objUtilities.CreateTable("TNX_RISK", "Risk Classification Master", SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddAlphaField("@TNX_RISK", "RiskLevel", "Risk Level", 20)
+        objMain.objUtilities.AddFloatField("@TNX_RISK", "MinScore", "Minimum Score", SAPbobsCOM.BoFldSubTypes.st_Quantity)
+        objMain.objUtilities.AddFloatField("@TNX_RISK", "MaxScore", "Maximum Score", SAPbobsCOM.BoFldSubTypes.st_Quantity)
+        objMain.objUtilities.AddAlphaField("@TNX_RISK", "QAApprvl", "QA Approval", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_RISK", "MgmtAppr", "Management Approval", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_RISK", "CAPAReq", "CAPA Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_RISK", "ValidReq", "Validation Required", 1)
+        objMain.objUtilities.AddFloatField("@TNX_RISK", "EscDays", "Escalation Days", SAPbobsCOM.BoFldSubTypes.st_Quantity)
+        objMain.objUtilities.AddAlphaField("@TNX_RISK", "Active", "Active", 1)
+
+    End Sub
+
+    '=========================================================
+    ' 7. CAPA Category Master
+    ' UDO Code   : UDO_TNX_CAPACAT
+    ' Table Name : @TNX_CAPACAT
+    '=========================================================
+    Public Sub CreateCAPACategoryMaster()
+
+        objMain.objUtilities.CreateTable("TNX_CAPACAT", "CAPA Category Master", SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddAlphaField("@TNX_CAPACAT", "DefRisk", "Default Risk", 20)
+        objMain.objUtilities.AddAlphaField("@TNX_CAPACAT", "EffectReq", "Effectiveness Required", 1)
+        objMain.objUtilities.AddFloatField("@TNX_CAPACAT", "TargetDay", "Target Days", SAPbobsCOM.BoFldSubTypes.st_Quantity)
+        objMain.objUtilities.AddAlphaField("@TNX_CAPACAT", "ApprRoute", "Approval Route", 30)
+        objMain.objUtilities.AddAlphaField("@TNX_CAPACAT", "Active", "Active", 1)
+
+    End Sub
+
+    '=========================================================
+    ' 8. Audit Type Master
+    ' UDO Code   : UDO_TNX_AUDTYP
+    ' Table Name : @TNX_AUDTYP
+    '=========================================================
+    Public Sub CreateAuditTypeMaster()
+
+        objMain.objUtilities.CreateTable("TNX_AUDTYP", "Audit Type Master", SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddFloatField("@TNX_AUDTYP", "AuditFrq", "Audit Frequency", SAPbobsCOM.BoFldSubTypes.st_Quantity)
+        objMain.objUtilities.AddAlphaField("@TNX_AUDTYP", "CheckReq", "Checklist Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_AUDTYP", "CAPAReq", "CAPA Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_AUDTYP", "ReportReq", "Report Required", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_AUDTYP", "ApprRoute", "Approval Route", 30)
+        objMain.objUtilities.AddAlphaField("@TNX_AUDTYP", "Active", "Active", 1)
+
+    End Sub
+
+    '=========================================================
+    ' 9. Root Cause Master
+    ' UDO Code   : UDO_TNX_ROOT
+    ' Table Name : @TNX_ROOT
+    '=========================================================
+    Private Sub CreateRootCauseMaster()
+
+        objMain.objUtilities.CreateTable("TNX_ROOT", "Root Cause Master", SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddAlphaField("@TNX_ROOT", "Category", "Category", 30)
+        objMain.objUtilities.AddAlphaField("@TNX_ROOT", "Descript", "Description", 254)
+        objMain.objUtilities.AddAlphaField("@TNX_ROOT", "DefCAPA", "Default CAPA", 20)
+        objMain.objUtilities.AddAlphaField("@TNX_ROOT", "Active", "Active", 1)
+
+    End Sub
+
 
     '==1
     Private Sub CreateStabilityStudy()
