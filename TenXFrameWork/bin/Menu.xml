@@ -1,0 +1,417 @@
+﻿<Application>
+	<Menus>
+		<action type="add">
+
+			<!-- ===================================================== -->
+			<!-- Main Menu : 10X PharmaSuite -->
+			<!-- ===================================================== -->
+			<Menu UniqueID="10X_PHARMA"
+				  Type="2"
+				  String="10X PharmaSuite"
+				  FatherUID="43520"
+				  Position="15"
+				  Enabled="1"
+				  Checked="0">
+
+				<Menus>
+					<action type="add">
+
+						<!-- 10X Pharma R&D -->
+						<Menu UniqueID="10X_RD"
+							  Type="2"
+							  String="Pharma R&amp;D"
+							  FatherUID="10X_PHARMA"
+							  Position="1"
+							  Enabled="1"
+							  Checked="0">
+							<Menus>
+								<action type="add">
+									<Menu UniqueID="10X_FRM_MST" Type="1" String="Formula Master" FatherUID="10X_RD" Position="1" Enabled="1"/>
+									<Menu UniqueID="10X_FRMC_MST" Type="1" String="Formula Costing" FatherUID="10X_RD" Position="2" Enabled="1"/>
+									<Menu UniqueID="10X_EXP_MGT" Type="1" String="Experiment Management" FatherUID="10X_RD" Position="3" Enabled="1"/>
+									<Menu UniqueID="10X_PILOT" Type="1" String="Pilot Batch" FatherUID="10X_RD" Position="4" Enabled="1"/>
+									<Menu UniqueID="10X_COST" Type="1" String="Formula Version Control" FatherUID="10X_RD" Position="5" Enabled="1"/>
+									<Menu UniqueID="10X_INLIB" Type="1" String="Ingredient Library" FatherUID="10X_RD" Position="6" Enabled="1"/>
+									<Menu UniqueID="10X_RDREPORTS" Type="2" String="Reports" FatherUID="10X_RD" Position="7" Enabled="1"/>
+
+								</action>
+							</Menus>
+						</Menu>
+
+						<Menu UniqueID="10X_QAQC"
+			  Type="2"
+			  String="Pharma QA/QC"
+			  FatherUID="10X_PHARMA"
+			  Position="2"
+			  Enabled="1"
+			  Checked="0">
+							<Menus>
+								<action type="add">
+									<Menu UniqueID="10X_SAMPLE" Type="1" String="Sample Registration" FatherUID="10X_QAQC" Position="1" Enabled="1"/>
+									<Menu UniqueID="10X_SAMPCOL" Type="1" String="Sample Collection" FatherUID="10X_QAQC" Position="2" Enabled="1"/>
+									<Menu UniqueID="10X_LABTEST" Type="1" String="Lab Testing" FatherUID="10X_QAQC" Position="3" Enabled="1"/>
+									<Menu UniqueID="10X_SPEC" Type="1" String="Specifications Master" FatherUID="10X_QAQC" Position="4" Enabled="1"/>
+									<Menu UniqueID="10X_STABTEST" Type="1" String="Stability Testing" FatherUID="10X_QAQC" Position="5" Enabled="1"/>
+									<Menu UniqueID="10X_COA" Type="1" String="COA Management" FatherUID="10X_QAQC" Position="6" Enabled="1"/>
+									<Menu UniqueID="10X_BATCHREL" Type="1" String="Batch Release" FatherUID="10X_QAQC" Position="7" Enabled="1"/>
+									<Menu UniqueID="10X_DEVIATION" Type="1" String="Deviation Management" FatherUID="10X_QAQC" Position="8" Enabled="1"/>
+									<Menu UniqueID="10X_CAPA" Type="1" String="CAPA Management" FatherUID="10X_QAQC" Position="9" Enabled="1"/>
+									<!--<Menu UniqueID="10X_AUDITMGT" Type="1" String="Audit Management" FatherUID="10X_QAQC" Position="10" Enabled="1"/>
+									<Menu UniqueID="10X_ENVMON" Type="1" String="Environmental Monitoring" FatherUID="10X_QAQC" Position="11" Enabled="1"/>-->
+									<Menu UniqueID="10X_CALIB" Type="1" String="Instrument Calibration" FatherUID="10X_QAQC" Position="12" Enabled="1"/>
+									<!--<Menu UniqueID="10X_MICRO" Type="1" String="Microbiology Testing" FatherUID="10X_QAQC" Position="13" Enabled="1"/>
+									<Menu UniqueID="10X_DOCATT" Type="1" String="Document Attachments" FatherUID="10X_QAQC" Position="14" Enabled="1"/>
+									<Menu UniqueID="10X_QA_APPR" Type="1" String="Approval Center" FatherUID="10X_QAQC" Position="15" Enabled="1"/>-->
+									<!--<Menu UniqueID="10X_QADASH" Type="1" String="QA Dashboards" FatherUID="10X_QAQC" Position="16" Enabled="1"/>
+									<Menu UniqueID="10X_QAAUDITLOG" Type="1" String="Audit Logs" FatherUID="10X_QAQC" Position="17" Enabled="1"/>-->
+								</action>
+							</Menus>
+						</Menu>
+
+						<!-- 10X Pharma Production -->
+						<Menu UniqueID="10X_PROD"
+							  Type="2"
+							  String="Pharma Production"
+							  FatherUID="10X_PHARMA"
+							  Position="3"
+							  Enabled="1"
+							  Checked="0">
+							<Menus>
+								<action type="add">
+									<Menu UniqueID="10X_PROD_ORD" Type="1" String="Production Order" FatherUID="10X_PROD" Position="1" Enabled="1"/>
+									<Menu UniqueID="10X_LINE_CLR" Type="1" String="Line Clearance" FatherUID="10X_PROD" Position="2" Enabled="1"/>
+									<Menu UniqueID="10X_DISP" Type="1" String="Dispensing" FatherUID="10X_PROD" Position="3" Enabled="1"/>
+									<Menu UniqueID="10X_BMRR" Type="1" String="BMR" FatherUID="10X_PROD" Position="4" Enabled="1"/>
+									<Menu UniqueID="10X_IPQC" Type="1" String="In-process QC" FatherUID="10X_PROD" Position="5" Enabled="1"/>
+									<Menu UniqueID="10X_YIELD" Type="1" String="Yield Analysis" FatherUID="10X_PROD" Position="6" Enabled="1"/>
+									<Menu UniqueID="10X_BPR" Type="1" String="BPR" FatherUID="10X_PROD" Position="7" Enabled="1"/>
+									<Menu UniqueID="10X_PRODREPORTS" Type="1" String="Reports" FatherUID="10X_PROD" Position="8" Enabled="1"/>
+								</action>
+							</Menus>
+						</Menu>
+
+
+						<Menu UniqueID="10X_STAB"
+							  Type="2"
+							  String="Pharma Stability"
+							  FatherUID="10X_PHARMA"
+							  Position="4"
+							  Enabled="1"
+							  Checked="0">
+
+							<Menus>
+								<action type="add">
+									<Menu UniqueID="10X_STB_STUDY" Type="1" String="Stability Study" FatherUID="10X_STAB" Position="3" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_RESULT" Type="1" String="Stability Result" FatherUID="10X_STAB" Position="7" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_CHMON" Type="1" String="Chamber Monitoring" FatherUID="10X_STAB" Position="8" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_SHELFL" Type="1" String="Shelf Life Analysis" FatherUID="10X_STAB" Position="9" Enabled="1" Checked="0"/>
+
+								</action>
+							</Menus>
+						</Menu>
+
+						<Menu UniqueID="10X_REGHUB"
+							  Type="2"
+							  String="Pharma Regulatory Hub"
+							  FatherUID="10X_PHARMA"
+							  Position="4"
+							  Enabled="1"
+							  Checked="0">
+							<Menus>
+								<action type="add">
+									<Menu UniqueID="10X_REG_PROD" Type="1" String="Product Registration" FatherUID="10X_REGHUB" Position="0" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_REG_DOSS" Type="1" String="Dossier Management" FatherUID="10X_REGHUB" Position="1" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_REG_ART" Type="1" String="Artwork Approval" FatherUID="10X_REGHUB" Position="2" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_REG_SUB" Type="1" String="Submission Tracker" FatherUID="10X_REGHUB" Position="3" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_REG_AUTH" Type="1" String="Authority Query Management" FatherUID="10X_REGHUB" Position="4" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_REG_RENEW" Type="1" String="Registration Renewal" FatherUID="10X_REGHUB" Position="5" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_REG_REPO" Type="1" String="Regulatory Repository" FatherUID="10X_REGHUB" Position="6" Enabled="1" Checked="0"/>
+								</action>
+							</Menus>
+						</Menu>
+
+						<!-- 10X Pharma Compliance -->
+						<Menu UniqueID="10X_COMP"
+							  Type="2"
+							  String="Pharma Compliance"
+							  FatherUID="10X_PHARMA"
+							  Position="5"
+							  Enabled="1"
+							  Checked="0">
+							<Menus>
+								<action type="add">
+									<Menu UniqueID="10X_COMP_SOP" Type="1" String="SOP Management" FatherUID="10X_COMP" Position="0" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMP_TRN" Type="1" String="Training Management" FatherUID="10X_COMP" Position="1" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMP_VAL" Type="1" String="Validation Management" FatherUID="10X_COMP" Position="2" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMP_CC" Type="1" String="Change Control" FatherUID="10X_COMP" Position="3" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMP_AUD" Type="1" String="Audit Trail Viewer" FatherUID="10X_COMP" Position="6" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMPTP" Type="1" String="Training Plan" FatherUID="10X_COMP" Position="11" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMPTE" Type="1" String="Training Excecution" FatherUID="10X_COMP" Position="12" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMPTC" Type="1" String="Training Certificate" FatherUID="10X_COMP" Position="13" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMPET" Type="1" String="Employee Training" FatherUID="10X_COMP" Position="14" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMPREPORTS" Type="2" String="Reports" FatherUID="10X_COMP" Position="15" Enabled="1" Checked="0"/>
+
+								</action>
+							</Menus>
+						</Menu>
+
+						<!-- 10X Pharma Regulatory Hub -->
+						<!--
+						<Menu UniqueID="10X_REG"
+							  Type="2"
+							  String="Pharma Regulatory Hub"
+							  FatherUID="10X_PHARMA"
+							  Position="6"
+							  Enabled="1"
+							  Checked="0"/>-->
+
+					</action>
+				</Menus>
+			</Menu>
+
+
+			<!-- ===================================================== -->
+			<!-- 10X Pharma QA/QC -->
+			<!-- This menu should appear under 10X PharmaSuite only -->
+			<!-- ===================================================== -->
+
+
+			<!-- ===================================================== -->
+			<!-- 10X Pharma Masters -->
+			<!-- Administration -> Setup -->
+			<!-- ===================================================== -->
+
+			<Menu UniqueID="10X_PH_MAST"
+				  Type="2"
+				  String="10X Pharma"
+				  FatherUID="43525"
+				  Position="19"
+				  Enabled="1"
+				  Checked="0">
+
+				<Menus>
+					<action type="add">
+
+						<!-- ===================================================== -->
+						<!-- 10X Pharma Production Masters -->
+						<!-- ===================================================== -->
+
+						<Menu UniqueID="10X_PROD_MST"
+							  Type="2"
+							  String="Pharma Production"
+							  FatherUID="10X_PH_MAST"
+							  Position="4"
+							  Enabled="1"
+							  Checked="0">
+
+							<Menus>
+								<action type="add">
+									<Menu UniqueID="10X_PMS_EQP" Type="1" String="Equipment" FatherUID="10X_PROD_MST" Position="0" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_PMS_STAGE" Type="1" String="Production Stage" FatherUID="10X_PROD_MST" Position="1" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_PMS_CLEAN" Type="1" String="Cleaning Method" FatherUID="10X_PROD_MST" Position="2" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_PMS_DTR" Type="1" String="Downtime Reason" FatherUID="10X_PROD_MST" Position="3" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_PMS_LCC" Type="1" String="Line Clearance Checklist" FatherUID="10X_PROD_MST" Position="4" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_PMS_IPQC" Type="1" String="In-process QC Checklist" FatherUID="10X_PROD_MST" Position="5" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_PMS_YIELD" Type="1" String="Yield Tolerance" FatherUID="10X_PROD_MST" Position="6" Enabled="1" Checked="0"/>
+								</action>
+							</Menus>
+
+						</Menu>
+
+						<!-- ===================================================== -->
+						<!-- 10X Pharma QA/QC Masters -->
+						<!-- ===================================================== -->
+
+						<Menu UniqueID="10X_QC_MAST"
+							  Type="2"
+							  String="Pharma QA/QC"
+							  FatherUID="10X_PH_MAST"
+							  Position="2"
+							  Enabled="1"
+							  Checked="0">
+
+							<Menus>
+								<action type="add">
+									<Menu UniqueID="10X_QC_SPEC" Type="1" String="Specifications" FatherUID="10X_QC_MAST" Position="0" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_TPARM" Type="1" String="Test Parameters" FatherUID="10X_QC_MAST" Position="1" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_TMETHOD" Type="1" String="Test Methods" FatherUID="10X_QC_MAST" Position="2" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_SPLAN" Type="1" String="Sampling Plan" FatherUID="10X_QC_MAST" Position="3" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_INSTR" Type="1" String="Instrument" FatherUID="10X_QC_MAST" Position="4" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_CHAMBER" Type="1" String="Stability Chamber" FatherUID="10X_QC_MAST" Position="5" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_MICRO" Type="1" String="Microbiology Test" FatherUID="10X_QC_MAST" Position="6" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_ENV" Type="1" String="Environmental Monitoring" FatherUID="10X_QC_MAST" Position="7" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_COAT" Type="1" String="COA Template" FatherUID="10X_QC_MAST" Position="8" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_DEVCAT" Type="1" String="Deviation Category" FatherUID="10X_QC_MAST" Position="9" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_CAPACAT" Type="1" String="CAPA Category" FatherUID="10X_QC_MAST" Position="10" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_AUDCHK" Type="1" String="Audit Checklist" FatherUID="10X_QC_MAST" Position="11" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_SOP" Type="1" String="SOP Master" FatherUID="10X_QC_MAST" Position="12" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_RISK" Type="1" String="Risk Classification" FatherUID="10X_QC_MAST" Position="13" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_QC_STYPE" Type="1" String="Sample Type" FatherUID="10X_QC_MAST" Position="14" Enabled="1" Checked="0"/>
+
+								</action>
+							</Menus>
+
+						</Menu>
+
+						<!-- ===================================================== -->
+						<!-- 10X Pharma Compliance Masters -->
+						<!-- ===================================================== -->
+
+						<Menu UniqueID="10X_COMP_MST"
+		  Type="2"
+		  String="Pharma Compliance"
+		  FatherUID="10X_PH_MAST"
+		  Position="3"
+		  Enabled="1"
+		  Checked="0">
+
+							<Menus>
+								<action type="add">
+
+									<Menu UniqueID="10X_CMS_SOPCAT" Type="1" String="SOP Category" FatherUID="10X_COMP_MST" Position="0" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_DEPT" Type="1" String="Department" FatherUID="10X_COMP_MST" Position="1" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_TRNTYP" Type="1" String="Training Type" FatherUID="10X_COMP_MST" Position="2" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_VALTYP" Type="1" String="Validation Type" FatherUID="10X_COMP_MST" Position="3" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_EQP" Type="1" String="Equipment Master" FatherUID="10X_COMP_MST" Position="4" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_RISK" Type="1" String="Risk Classification" FatherUID="10X_COMP_MST" Position="5" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_CAPACAT" Type="1" String="CAPA Category" FatherUID="10X_COMP_MST" Position="6" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_AUDTYP" Type="1" String="Audit Type" FatherUID="10X_COMP_MST" Position="7" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_ROOT" Type="1" String="Root Cause" FatherUID="10X_COMP_MST" Position="8" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_CORACT" Type="1" String="Corrective Action" FatherUID="10X_COMP_MST" Position="9" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_PREACT" Type="1" String="Preventive Action" FatherUID="10X_COMP_MST" Position="10" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_APPMTX" Type="1" String="Approval Matrix" FatherUID="10X_COMP_MST" Position="11" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_DOCNUM" Type="1" String="Document Numbering Setup" FatherUID="10X_COMP_MST" Position="12" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_RETPOL" Type="1" String="Retention Policy" FatherUID="10X_COMP_MST" Position="13" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_ESIGN" Type="1" String="Electronic Signature Policy" FatherUID="10X_COMP_MST" Position="14" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_COMPSET" Type="1" String="Compliance Settings" FatherUID="10X_COMP_MST" Position="15" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_CMS_INCCAT" Type="1" String="Incident Category" FatherUID="10X_COMP_MST" Position="16" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMP_INC" Type="1" String="Incident Management" FatherUID="10X_COMP_MST" Position="17" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMP_CAPA" Type="1" String="CAPA Linkage" FatherUID="10X_COMP_MST" Position="18" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMP_ATT" Type="1" String="Compliance Attachments" FatherUID="10X_COMP_MST" Position="19" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMP_DASH" Type="1" String="Compliance Dashboard" FatherUID="10X_COMP_MST" Position="20" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMP_SETUP" Type="1" String="Compliance Setup" FatherUID="10X_COMP_MST" Position="21" Enabled="1" Checked="0"/>
+
+
+								</action>
+							</Menus>
+
+						</Menu>
+
+						<Menu UniqueID="10X_RDMAST"
+					  Type="2"
+					  String="Pharma RD"
+					  FatherUID="10X_PH_MAST"
+					  Position="1"
+					  Enabled="1"
+					  Checked="0">
+							<Menus>
+								<action type="add">
+
+									<Menu UniqueID="10X_RD_PCAT" Type="1" String="Product Category Master" FatherUID="10X_RDMAST" Position="0" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RD_DFORM" Type="1" String="Dosage Form Master" FatherUID="10X_RDMAST" Position="1" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RD_INGTYP" Type="1" String="Ingredient Type Master" FatherUID="10X_RDMAST" Position="2" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RD_INGLIB" Type="1" String="Ingredient Library Extension" FatherUID="10X_RDMAST" Position="3" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RD_STAGE" Type="1" String="Process Stage Master" FatherUID="10X_RDMAST" Position="4" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RD_EQP" Type="1" String="Equipment Master" FatherUID="10X_RDMAST" Position="5" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RD_TPARAM" Type="1" String="Test Parameter Master" FatherUID="10X_RDMAST" Position="6" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RD_SPEC" Type="1" String="Specification Master" FatherUID="10X_RDMAST" Position="7" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RD_VERCTRL" Type="1" String="Version Control Setup" FatherUID="10X_RDMAST" Position="8" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RD_ATTYPE" Type="1" String="Attachment Type Master" FatherUID="10X_RDMAST" Position="9" Enabled="1" Checked="0"/>
+								</action>
+							</Menus>
+
+						</Menu>
+
+
+						<!-- ===================================================== -->
+						<!-- 10X Pharma Stability Masters -->
+						<!-- ===================================================== -->
+
+						<Menu UniqueID="10X_STAB_MST"
+							  Type="2"
+							  String="Pharma Stability"
+							  FatherUID="10X_PH_MAST"
+							  Position="5"
+							  Enabled="1"
+							  Checked="0">
+
+
+							<Menus>
+								<action type="add">
+
+									<Menu UniqueID="10X_STB_STORE" Type="1" String="Storage Condition" FatherUID="10X_STAB_MST" Position="1" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_TIMEPT" Type="1" String="Time Point" FatherUID="10X_STAB_MST" Position="4" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_EXPREQ" Type="1" String="Expiry Extension Request" FatherUID="10X_STAB_MST" Position="10" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_RETEST" Type="1" String="Retest Date Update" FatherUID="10X_STAB_MST" Position="11" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_EXCUR" Type="1" String="Chamber Excursion" FatherUID="10X_STAB_MST" Position="12" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_DEVLINK" Type="1" String="Deviation Link" FatherUID="10X_STAB_MST" Position="13" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_APPR" Type="1" String="Approval Center" FatherUID="10X_STAB_MST" Position="14" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_CAPA" Type="1" String="CAPA Link" FatherUID="10X_STAB_MST" Position="15" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_PULLSCH" Type="1" String="Pull Schedule" FatherUID="10X_STAB_MST" Position="16" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_SMPULL" Type="1" String="Sample Pull" FatherUID="10X_STAB_MST" Position="17" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_PROTO" Type="1" String="Stability Protocol" FatherUID="10X_STAB_MST" Position="18" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_STB_CHMBR" Type="1" String="Chamber" FatherUID="10X_STAB_MST" Position="19" Enabled="1" Checked="0"/>
+
+
+								</action>
+							</Menus>
+
+						</Menu>
+
+						<!-- ===================================================== -->
+						<!-- 10X Pharma Regulatory Masters -->
+						<!-- ===================================================== -->
+
+						<Menu UniqueID="10X_REG_MST"
+							  Type="2"
+							  String="Pharma Regulatory"
+							  FatherUID="10X_PH_MAST"
+							  Position="4"
+							  Enabled="1"
+							  Checked="0">
+
+							<Menus>
+								<action type="add">
+									<Menu UniqueID="10X_RMS_AUTH" Type="1" String="Regulatory Authority " FatherUID="10X_REG_MST" Position="0" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RMS_CNFG" Type="1" String="Country Regulatory Configuration" FatherUID="10X_REG_MST" Position="1" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RMS_DOCTYP" Type="1" String="Regulatory Document Type" FatherUID="10X_REG_MST" Position="2" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RMS_DOSSEC" Type="1" String="Dossier Section" FatherUID="10X_REG_MST" Position="3" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RMS_ARTTYP" Type="1" String="Artwork Type" FatherUID="10X_REG_MST" Position="4" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RMS_SUBTYP" Type="1" String="Submission Type" FatherUID="10X_REG_MST" Position="5" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RMS_STAT" Type="1" String="Registration Status" FatherUID="10X_REG_MST" Position="6" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_RMS_APPMTX" Type="1" String="Approval Matrix" FatherUID="10X_REG_MST" Position="7" Enabled="1" Checked="0"/>
+
+								</action>
+							</Menus>
+
+						</Menu>
+
+					</action>
+				</Menus>
+
+			</Menu>
+
+
+			<!-- ===================================================== -->
+			<!-- Approval Process Menu -->
+			<!-- ===================================================== -->
+			<Menu UniqueID="Apprvl"
+				  Type="2"
+				  String="10X Approval Process"
+				  FatherUID="14848"
+				  Position="14"
+				  Enabled="1"
+				  Checked="0">
+				<Menus>
+					<action type="add">
+						<Menu UniqueID="ME_ASR" Type="1" String="Approval Status Report" FatherUID="Apprvl" Position="1" Enabled="1" Checked="0"/>
+						<Menu UniqueID="ME_ADR" Type="1" String="Approval Decision Report" FatherUID="Apprvl" Position="2" Enabled="1" Checked="0"/>
+						<Menu UniqueID="SBO_AST" Type="1" String="Approval Stages" FatherUID="Apprvl" Position="3" Enabled="1" Checked="0"/>
+						<Menu UniqueID="Temp" Type="1" String="Approval Templates" FatherUID="Apprvl" Position="4" Enabled="1" Checked="0"/>
+					</action>
+				</Menus>
+			</Menu>
+
+		</action>
+	</Menus>
+</Application>
