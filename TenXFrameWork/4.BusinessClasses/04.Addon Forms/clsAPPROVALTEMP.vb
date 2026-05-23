@@ -721,14 +721,100 @@ Public Class clsAPPROVALTEMP
             Select Case pVal.EventType
                 Case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED
 
-                    If pVal.ItemUID = "Rect" And pVal.BeforeAction = True Then
+                    'If pVal.ItemUID = "Rect" And pVal.BeforeAction = True Then
+                    '    Disable_Checkboxes()
+                    '    'objForm.Items.Item("Item_11").Enabled = True
+                    '    objForm.Items.Item("Item_13").Enabled = True
+                    '    objForm.Items.Item("Item_15").Enabled = True
+                    '    objForm.Items.Item("Item_38").Enabled = True
+
+                    'End If
+                    'Akhila
+                    'If pVal.ItemUID = "RD" And pVal.BeforeAction = True Then
+                    '    Disable_Checkboxes()
+                    '    'objForm.Items.Item("Item_11").Enabled = True
+                    '    objForm.Items.Item("FMS").Enabled = True
+                    '    objForm.Items.Item("EMG").Enabled = True
+                    '    objForm.Items.Item("PBT").Enabled = True
+                    '    objForm.Items.Item("FCTG").Enabled = True
+
+                    'End If
+
+                    If pVal.ItemUID = "RD" And pVal.BeforeAction = True Then
+
+                        objForm.Freeze(True)
+
                         Disable_Checkboxes()
-                        'objForm.Items.Item("Item_11").Enabled = True
-                        objForm.Items.Item("Item_13").Enabled = True
-                        objForm.Items.Item("Item_15").Enabled = True
-                        objForm.Items.Item("Item_38").Enabled = True
+
+                        objForm.Items.Item("FMS").Enabled = True
+                        objForm.Items.Item("EMG").Enabled = True
+                        objForm.Items.Item("PBT").Enabled = True
+                        objForm.Items.Item("FCTG").Enabled = True
+
+                        objForm.Freeze(False)
 
                     End If
+
+
+                    If pVal.ItemUID = "PQA" And pVal.BeforeAction = True Then
+                        objForm.Freeze(True)
+                        Disable_Checkboxes1()
+                        objForm.Items.Item("SAM").Enabled = True
+                        objForm.Items.Item("SLCN").Enabled = True
+                        objForm.Items.Item("LBC").Enabled = True
+                        objForm.Items.Item("STBT").Enabled = True
+                        objForm.Items.Item("COA").Enabled = True
+                        objForm.Freeze(False)
+                    End If
+                    If pVal.ItemUID = "PPD" And pVal.BeforeAction = True Then
+                        objForm.Freeze(True)
+                        Disable_Checkboxes2()
+                        objForm.Items.Item("PROR").Enabled = True
+                        objForm.Items.Item("LICL").Enabled = True
+                        objForm.Items.Item("DISP").Enabled = True
+                        objForm.Items.Item("YIELD").Enabled = True
+                        objForm.Items.Item("BPR").Enabled = True
+                        objForm.Freeze(False)
+                    End If
+
+                    If pVal.ItemUID = "PDMS" And pVal.BeforeAction = True Then
+                        objForm.Freeze(True)
+                        Disable_Checkboxes3()
+                        objForm.Items.Item("EQMS").Enabled = True
+                        objForm.Items.Item("PDOR").Enabled = True
+                        objForm.Items.Item("CLMD").Enabled = True
+                        objForm.Items.Item("LCLR").Enabled = True
+                        objForm.Items.Item("INPR").Enabled = True
+                        objForm.Items.Item("YIEL").Enabled = True
+                        objForm.Items.Item("REGUL").Enabled = True
+                        objForm.Items.Item("CONT").Enabled = True
+                        objForm.Items.Item("APPL").Enabled = True
+
+                        objForm.Freeze(False)
+                    End If
+
+
+
+
+
+
+
+
+
+
+
+                    If pVal.ItemUID = "PHC" And pVal.BeforeAction = True Then
+                        objForm.Freeze(True)
+                        Disable_Checkboxes4()
+                        objForm.Items.Item("SOP").Enabled = True
+                        objForm.Items.Item("TRMG").Enabled = True
+                        objForm.Items.Item("VMG").Enabled = True
+                        objForm.Items.Item("CHCO").Enabled = True
+                        objForm.Items.Item("ICMG").Enabled = True
+                        objForm.Freeze(False)
+                    End If
+
+
                     If pVal.ItemUID = "HR" And pVal.BeforeAction = True Then
                         Disable_Checkboxes()
                         objForm.Items.Item("Item_12").Enabled = True
@@ -851,13 +937,14 @@ Public Class clsAPPROVALTEMP
                             TERM = pVal.ItemUID
 
                     End Select
-                Case SAPbouiCOM.BoEventTypes.et_VALIDATE
-                    If pVal.ItemUID = "T1" And pVal.BeforeAction = True Then
-                        If objForm.Items.Item("T1").Specific.Value.ToString().Length() > 10 Then
-                            objMain.objApplication.StatusBar.SetText("Name should be less then 10 characters.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
-                            BubbleEvent = False
-                        End If
-                    End If
+                    'Akhila
+                'Case SAPbouiCOM.BoEventTypes.et_VALIDATE
+                '    If pVal.ItemUID = "T1" And pVal.BeforeAction = True Then
+                '        If objForm.Items.Item("T1").Specific.Value.ToString().Length() > 10 Then
+                '            objMain.objApplication.StatusBar.SetText("Name should be less then 10 characters.", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                '            BubbleEvent = False
+                '        End If
+                '    End If
 
 
                 Case SAPbouiCOM.BoEventTypes.et_CLICK
@@ -976,10 +1063,58 @@ Public Class clsAPPROVALTEMP
 
     Public Function Disable_Checkboxes()
         Try
-            'objForm.Items.Item("Item_11").Enabled = False
-            'objForm.Items.Item("Item_13").Enabled = False
-            'objForm.Items.Item("Item_15").Enabled = False
-            'objForm.Items.Item("Item_38").Enabled = False
+            objForm.Items.Item("PPD").Enabled = True
+            objForm.Items.Item("PROR").Enabled = False
+            objForm.Items.Item("LICL").Enabled = False
+            objForm.Items.Item("DISP").Enabled = False
+            objForm.Items.Item("YIELD").Enabled = False
+            objForm.Items.Item("BPR").Enabled = False
+
+
+            objForm.Items.Item("FMS").Enabled = False
+            objForm.Items.Item("EMG").Enabled = False
+            objForm.Items.Item("PBT").Enabled = False
+            objForm.Items.Item("FCTG").Enabled = False
+            objForm.Items.Item("SAM").Enabled = False
+            objForm.Items.Item("SLCN").Enabled = False
+            objForm.Items.Item("LBC").Enabled = False
+            objForm.Items.Item("STBT").Enabled = False
+            objForm.Items.Item("COA").Enabled = False
+            objForm.Items.Item("APPL").Enabled = False
+
+            objForm.Items.Item("SOP").Enabled = False
+            objForm.Items.Item("TRMG").Enabled = False
+            objForm.Items.Item("VMG").Enabled = False
+            objForm.Items.Item("CHCO").Enabled = False
+            objForm.Items.Item("ICMG").Enabled = False
+
+            objForm.Items.Item("PDMS").Enabled = True
+            objForm.Items.Item("PHC").Enabled = True
+            objForm.Items.Item("PQA").Enabled = True
+
+            objForm.Items.Item("EQMS").Enabled = False
+            objForm.Items.Item("PDOR").Enabled = False
+            objForm.Items.Item("CLMD").Enabled = False
+            objForm.Items.Item("LCLR").Enabled = False
+
+            objForm.Items.Item("INPR").Enabled = False
+            objForm.Items.Item("YIEL").Enabled = False
+            objForm.Items.Item("REGUL").Enabled = False
+            objForm.Items.Item("CONT").Enabled = False
+
+            objForm.Items.Item("Price").Enabled = False
+            objForm.Items.Item("SuppReb").Enabled = False
+            objForm.Items.Item("IMP").Enabled = False
+            objForm.Items.Item("ITEML").Enabled = False
+
+            objForm.Items.Item("BP").Enabled = False
+            objForm.Items.Item("Item_25").Enabled = False
+            objForm.Items.Item("CPA").Enabled = False
+            objForm.Items.Item("Rect").Enabled = False
+
+
+
+
 
             'objForm.Items.Item("Item_12").Enabled = False
             'objForm.Items.Item("Item_18").Enabled = False
@@ -1023,7 +1158,205 @@ Public Class clsAPPROVALTEMP
         End Try
         'End If
     End Function
+    Sub Disable_Checkboxes1()
+        objForm.Items.Item("PPD").Enabled = True
+        objForm.Items.Item("PROR").Enabled = False
+        objForm.Items.Item("LICL").Enabled = False
+        objForm.Items.Item("DISP").Enabled = False
+        objForm.Items.Item("YIELD").Enabled = False
+        objForm.Items.Item("BPR").Enabled = False
 
+        objForm.Items.Item("FMS").Enabled = False
+        objForm.Items.Item("EMG").Enabled = False
+        objForm.Items.Item("PBT").Enabled = False
+        objForm.Items.Item("FCTG").Enabled = False
+        objForm.Items.Item("APPL").Enabled = False
+        objForm.Items.Item("RD").Enabled = True
+
+        objForm.Items.Item("SOP").Enabled = False
+        objForm.Items.Item("TRMG").Enabled = False
+        objForm.Items.Item("VMG").Enabled = False
+        objForm.Items.Item("CHCO").Enabled = False
+        objForm.Items.Item("ICMG").Enabled = False
+
+        objForm.Items.Item("PDMS").Enabled = True
+        objForm.Items.Item("PHC").Enabled = True
+
+        objForm.Items.Item("EQMS").Enabled = False
+        objForm.Items.Item("PDOR").Enabled = False
+        objForm.Items.Item("CLMD").Enabled = False
+        objForm.Items.Item("LCLR").Enabled = False
+
+        objForm.Items.Item("INPR").Enabled = False
+        objForm.Items.Item("YIEL").Enabled = False
+        objForm.Items.Item("REGUL").Enabled = False
+        objForm.Items.Item("CONT").Enabled = False
+
+        objForm.Items.Item("Price").Enabled = False
+        objForm.Items.Item("SuppReb").Enabled = False
+        objForm.Items.Item("IMP").Enabled = False
+        objForm.Items.Item("ITEML").Enabled = False
+
+        objForm.Items.Item("BP").Enabled = False
+        objForm.Items.Item("Item_25").Enabled = False
+        objForm.Items.Item("CPA").Enabled = False
+        objForm.Items.Item("Rect").Enabled = False
+    End Sub
+
+    Sub Disable_Checkboxes2()
+        objForm.Items.Item("PPD").Enabled = False
+
+        objForm.Items.Item("FMS").Enabled = False
+        objForm.Items.Item("EMG").Enabled = False
+        objForm.Items.Item("PBT").Enabled = False
+        objForm.Items.Item("FCTG").Enabled = False
+        objForm.Items.Item("APPL").Enabled = False
+        objForm.Items.Item("RD").Enabled = True
+
+        objForm.Items.Item("SOP").Enabled = False
+        objForm.Items.Item("TRMG").Enabled = False
+        objForm.Items.Item("VMG").Enabled = False
+        objForm.Items.Item("CHCO").Enabled = False
+        objForm.Items.Item("ICMG").Enabled = False
+
+        objForm.Items.Item("PDMS").Enabled = True
+        objForm.Items.Item("PHC").Enabled = True
+
+        objForm.Items.Item("EQMS").Enabled = False
+        objForm.Items.Item("PDOR").Enabled = False
+        objForm.Items.Item("CLMD").Enabled = False
+        objForm.Items.Item("LCLR").Enabled = False
+
+        objForm.Items.Item("INPR").Enabled = False
+        objForm.Items.Item("YIEL").Enabled = False
+        objForm.Items.Item("REGUL").Enabled = False
+        objForm.Items.Item("CONT").Enabled = False
+
+        objForm.Items.Item("Price").Enabled = False
+        objForm.Items.Item("SuppReb").Enabled = False
+        objForm.Items.Item("IMP").Enabled = False
+        objForm.Items.Item("ITEML").Enabled = False
+
+        objForm.Items.Item("BP").Enabled = False
+        objForm.Items.Item("Item_25").Enabled = False
+        objForm.Items.Item("CPA").Enabled = False
+        objForm.Items.Item("Rect").Enabled = False
+
+
+        objForm.Items.Item("PQA").Enabled = True
+        objForm.Items.Item("SAM").Enabled = False
+        objForm.Items.Item("SLCN").Enabled = False
+        objForm.Items.Item("LBC").Enabled = False
+        objForm.Items.Item("STBT").Enabled = False
+        objForm.Items.Item("COA").Enabled = False
+
+
+    End Sub
+
+    Sub Disable_Checkboxes3()
+        objForm.Items.Item("PPD").Enabled = True
+
+        objForm.Items.Item("FMS").Enabled = False
+        objForm.Items.Item("EMG").Enabled = False
+        objForm.Items.Item("PBT").Enabled = False
+        objForm.Items.Item("FCTG").Enabled = False
+        objForm.Items.Item("APPL").Enabled = False
+        objForm.Items.Item("RD").Enabled = True
+
+        objForm.Items.Item("SOP").Enabled = False
+        objForm.Items.Item("TRMG").Enabled = False
+        objForm.Items.Item("VMG").Enabled = False
+        objForm.Items.Item("CHCO").Enabled = False
+        objForm.Items.Item("ICMG").Enabled = False
+
+        objForm.Items.Item("PDMS").Enabled = False
+        objForm.Items.Item("PHC").Enabled = True
+
+        objForm.Items.Item("EQMS").Enabled = False
+        objForm.Items.Item("PDOR").Enabled = False
+        objForm.Items.Item("CLMD").Enabled = False
+        objForm.Items.Item("LCLR").Enabled = False
+
+        objForm.Items.Item("INPR").Enabled = False
+        objForm.Items.Item("YIEL").Enabled = False
+        objForm.Items.Item("REGUL").Enabled = False
+        objForm.Items.Item("CONT").Enabled = False
+
+        objForm.Items.Item("Price").Enabled = False
+        objForm.Items.Item("SuppReb").Enabled = False
+        objForm.Items.Item("IMP").Enabled = False
+        objForm.Items.Item("ITEML").Enabled = False
+
+        objForm.Items.Item("BP").Enabled = False
+        objForm.Items.Item("Item_25").Enabled = False
+        objForm.Items.Item("CPA").Enabled = False
+        objForm.Items.Item("Rect").Enabled = False
+
+
+        objForm.Items.Item("PQA").Enabled = True
+        objForm.Items.Item("SAM").Enabled = False
+        objForm.Items.Item("SLCN").Enabled = False
+        objForm.Items.Item("LBC").Enabled = False
+        objForm.Items.Item("STBT").Enabled = False
+        objForm.Items.Item("COA").Enabled = False
+        objForm.Items.Item("PROR").Enabled = False
+        objForm.Items.Item("LICL").Enabled = False
+        objForm.Items.Item("DISP").Enabled = False
+        objForm.Items.Item("YIELD").Enabled = False
+        objForm.Items.Item("BPR").Enabled = False
+    End Sub
+    Sub Disable_Checkboxes4()
+        objForm.Items.Item("PPD").Enabled = True
+
+        objForm.Items.Item("FMS").Enabled = False
+        objForm.Items.Item("EMG").Enabled = False
+        objForm.Items.Item("PBT").Enabled = False
+        objForm.Items.Item("FCTG").Enabled = False
+        objForm.Items.Item("APPL").Enabled = False
+        objForm.Items.Item("RD").Enabled = True
+
+        objForm.Items.Item("SOP").Enabled = False
+        objForm.Items.Item("TRMG").Enabled = False
+        objForm.Items.Item("VMG").Enabled = False
+        objForm.Items.Item("CHCO").Enabled = False
+        objForm.Items.Item("ICMG").Enabled = False
+
+        objForm.Items.Item("PDMS").Enabled = True
+        objForm.Items.Item("PHC").Enabled = True
+
+        objForm.Items.Item("EQMS").Enabled = False
+        objForm.Items.Item("PDOR").Enabled = False
+        objForm.Items.Item("CLMD").Enabled = False
+        objForm.Items.Item("LCLR").Enabled = False
+
+        objForm.Items.Item("INPR").Enabled = False
+        objForm.Items.Item("YIEL").Enabled = False
+        objForm.Items.Item("REGUL").Enabled = False
+        objForm.Items.Item("CONT").Enabled = False
+
+        objForm.Items.Item("Price").Enabled = False
+        objForm.Items.Item("SuppReb").Enabled = False
+        objForm.Items.Item("IMP").Enabled = False
+        objForm.Items.Item("ITEML").Enabled = False
+
+        objForm.Items.Item("BP").Enabled = False
+        objForm.Items.Item("Item_25").Enabled = False
+        objForm.Items.Item("CPA").Enabled = False
+        objForm.Items.Item("Rect").Enabled = False
+
+
+        objForm.Items.Item("PQA").Enabled = True
+        objForm.Items.Item("SAM").Enabled = False
+        objForm.Items.Item("SLCN").Enabled = False
+        objForm.Items.Item("LBC").Enabled = False
+        objForm.Items.Item("STBT").Enabled = False
+        objForm.Items.Item("COA").Enabled = False
+        objForm.Items.Item("PROR").Enabled = False
+        objForm.Items.Item("LICL").Enabled = False
+        objForm.Items.Item("DISP").Enabled = False
+        objForm.Items.Item("YIELD").Enabled = False
+        objForm.Items.Item("BPR").Enabled = False
+    End Sub
 
 #Region " Right Click Event"
     Public Sub RightClickEvent(ByRef eventInfo As SAPbouiCOM.ContextMenuInfo, ByRef BubbleEvent As Boolean)

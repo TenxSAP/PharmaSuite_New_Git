@@ -163,6 +163,8 @@ Public Class ClsFormulaCosting
             'End If
             '  Me.CreateForm()
             oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_FRM_VER", "Primary"))
+            oDBs_Head.SetValue("U_REV_DATE", 0, DateTime.Now.ToString("yyyyMMdd"))
+
             objComboBox1 = objForm.Items.Item("STATUS").Specific
             objComboBox1.Select("Open", SAPbouiCOM.BoSearchKey.psk_ByValue)
             objForm.PaneLevel = 1
@@ -833,12 +835,12 @@ Public Class ClsFormulaCosting
 
                 Dim str As String = "SELECT 'V' || LPAD(" & "TO_NVARCHAR(IFNULL(MAX(TO_INTEGER(REPLACE(""U_APPI"", 'V', ''))),0)+1), 6, '0') AS ""AppId"" " & "FROM ""@TNX_VATRP"""
 
-                rsAppId.DoQuery(str)
+            rsAppId.DoQuery(str)
 
-                oDBs_Head.SetValue("U_APPI", 0, rsAppId.Fields.Item("AppId").Value.ToString())
+            oDBs_Head.SetValue("U_APPI", 0, rsAppId.Fields.Item("AppId").Value.ToString())
 
-            Catch ex As Exception
-                objMain.objApplication.StatusBar.SetText("AutoDocentryNumber Error : " & ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+        Catch ex As Exception
+            objMain.objApplication.StatusBar.SetText("AutoDocentryNumber Error : " & ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
             End Try
 
         End Sub
