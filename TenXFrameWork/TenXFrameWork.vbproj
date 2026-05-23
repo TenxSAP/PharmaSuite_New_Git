@@ -396,6 +396,7 @@
     <EmbeddedResource Include="5.XML\YieldAnalysis.xml" />
     <EmbeddedResource Include="5.XML\Validation_v1.xml" />
     <EmbeddedResource Include="5.XML\YeildToleranceMaster.xml" />
+    <Content Include="bin\Menu.xml" />
     <Content Include="SQLQuery\TNX_VatReturnRtp.sql" />
     <EmbeddedResource Include="SQLQuery\VatReport Approved.sql" />
     <EmbeddedResource Include="SQLQuery\VatReportOandP.sql" />
