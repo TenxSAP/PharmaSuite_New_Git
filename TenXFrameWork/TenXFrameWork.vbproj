@@ -266,6 +266,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\LineClerenceChecklist.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\LinkMaster.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ProductionStage.vb" />
+    <Compile Include="4.BusinessClasses\04.Addon Forms\ProductRegistration.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\RegulatoryAuthority.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\Specificationmaster.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\Yeildtolorance.vb" />
@@ -390,6 +391,7 @@
     <EmbeddedResource Include="5.XML\RiskClassification.xml" />
     <EmbeddedResource Include="5.XML\SampleType.xml" />
     <EmbeddedResource Include="5.XML\SOPMaster.xml" />
+    <EmbeddedResource Include="5.XML\PRODUCTREGISTRATION.xml" />
     <Content Include="5.XML\TrainingCertificate.xml" />
     <Content Include="5.XML\TrainingExecution.xml" />
     <Content Include="5.XML\TrainingPlan.xml" />

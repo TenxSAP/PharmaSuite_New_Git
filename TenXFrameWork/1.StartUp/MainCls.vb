@@ -37,6 +37,8 @@ Public Class MainCls
     Public ObjSOP As ClsSOPMaster
     Public ObjRisk As ClsRiskMaster
     Public ObjSample As ClsSampleType
+    'Manohar
+    Public objProductRegistration As ProductRegistration
 
     'vsm
     Public objInprogresschecklist As Inprocesschecklist
@@ -247,6 +249,7 @@ Public Class MainCls
         ObjclsDevidation = New ClsDevidationCategory
 
         ObjclsAudit = New ClsAuditChecklist
+        objProductRegistration = New ProductRegistration
 
         ObjclsMstrCorrectiveAction = New clsMstrCorrectiveAction
         ObjclsMstrPreventiveAction = New clsMstrPreventiveAction
@@ -1295,6 +1298,8 @@ Public Class MainCls
                     ObjRisk.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_STYPE"
                     ObjSample.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "UDO_F_UDO_REG_PRDREG"
+                    objProductRegistration.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "FORMULACOSTING"
                     objformulacosting.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "BMRR"
@@ -1433,6 +1438,8 @@ Public Class MainCls
                     ObjCAPAMaster.MenuEvent(pVal, BubbleEvent)
                 Case "10X_QC_SOP"
                     ObjSOP.MenuEvent(pVal, BubbleEvent)
+                Case "10X_REG_PROD"
+                    objProductRegistration.MenuEvent(pVal, BubbleEvent)
                 Case "10X_QC_RISK"
                     ObjRisk.MenuEvent(pVal, BubbleEvent)
                 Case "10X_QC_STYPE"
@@ -1655,7 +1662,8 @@ Public Class MainCls
                         SampleCollection.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_CMS_ESIGN" Then
                         ObjclsElectronicSignaturePolicy.MenuEvent(pVal, BubbleEvent)
-
+                    ElseIf objform.TypeEx = "UDO_F_UDO_REG_PRDREG" Then
+                        objProductRegistration.MenuEvent(pVal, BubbleEvent)
                     End If
 
 
@@ -1728,7 +1736,8 @@ Public Class MainCls
                         ObjRisk.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_STYPE" Then
                         ObjSample.MenuEvent(pVal, BubbleEvent)
-
+                        'ElseIf objform.TypeEx = "UDO_F_UDO_REG_PRDREG" Then
+                        '    objProductRegistration.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_DOSFORM" Then
                         ObjClsMstrDosageForm.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "CTAXCAL" Then
@@ -1844,6 +1853,8 @@ Public Class MainCls
                         ObjCAPAMaster.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_SOP" Then
                         ObjSOP.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "UDO_F_UDO_REG_PRDREG" Then
+                        objProductRegistration.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_RISK" Then
                         ObjRisk.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_STYPE" Then
@@ -1882,6 +1893,8 @@ Public Class MainCls
                         ObjClsCorpTax.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "FTAV" Then
                         ObjclsFtaVat.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "UDO_F_UDO_REG_PRDREG" Then
+                        objProductRegistration.MenuEvent(pVal, BubbleEvent)
                     End If
                 Case "1284"
                     objform = objMain.objApplication.Forms.ActiveForm
@@ -1921,6 +1934,8 @@ Public Class MainCls
                         ObjSOP.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_RISK" Then
                         ObjRisk.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "UDO_F_UDO_REG_PRDREG" Then
+                        objProductRegistration.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_STYPE" Then
                         ObjSample.MenuEvent(pVal, BubbleEvent)
 
@@ -2012,11 +2027,11 @@ Public Class MainCls
                         objPharmaDispensing.MenuEvent(pVal, BubbleEvent)
 
                     End If
-                    'Case "Delete Row"
-                    '    objform = objMain.objApplication.Forms.ActiveForm
-                    '    If objform.TypeEx = "FORCAST" Then
-                    '        ObjFORCAST.MenuEvent(pVal, BubbleEvent)
-                    '    End If
+                Case "Delete Row"
+                    objform = objMain.objApplication.Forms.ActiveForm
+                    If objform.TypeEx = "UDO_F_UDO_REG_PRDREG" Then
+                        objProductRegistration.MenuEvent(pVal, BubbleEvent)
+                    End If
             End Select
         Catch ex As Exception
             objMain.objApplication.StatusBar.SetText(ex.Message)
@@ -2063,6 +2078,9 @@ Public Class MainCls
         'If objForm.TypeEx = "FORCAST" Then
         '    'ObjFORCAST.RightClickEvent(eventInfo, BubbleEvent)
         'End If
+        If objForm.TypeEx = "UDO_F_UDO_REG_PRDREG" Then
+            objProductRegistration.RightClickEvent(eventInfo, BubbleEvent)
+        End If
     End Sub
 #End Region
 
