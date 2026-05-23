@@ -5,9 +5,9 @@ Public Class DatabaseCreation
 
 #Region "Declaration"
     Private objUtilities As Utilities
-    Dim DBCode As String = "v0.400"
-    Dim DBName As String = "v0.400"
-    Dim Version As String = "v0.400"
+    Dim DBCode As String = "v0.00"
+    Dim DBName As String = "v0.901"
+    Dim Version As String = "v0.9012"
 #End Region
 
 #Region "DB Creation Main"
@@ -177,11 +177,28 @@ Public Class DatabaseCreation
                 Me.YieldToleranceMaster()
                 Me.TNXRegulatoryAuthority()
                 Me.TNXCountryRegConfig()
+                Me.TNXApprovalMatrix()
+                Me.CreateMissingUserFieldsWithUtilities()
+                Me.TNXRegistrationStatus()
+                Me.TNXSubmissionType()
+                Me.TNXDossierSection()
+                Me.TNXCTDTemplate()
+                Me.TNXRegulatoryDocType()
+
+                Me.TNXArtworkType()
+                Me.YieldToleranceMaster()
                 objMain.InProcessQCChecklistUDO()
                 objMain.YieldToleranceMasterUDO()
                 objMain.TNXCountryRegulatoryUDO()
                 objMain.TNXRegulatoryUDO()
 
+                objMain.TNXRegulatoryDocumentUDO()  ' Regulatory Document Type Master (Master Data)
+                objMain.TNXDossierUDO()             ' Dossier Section Master (Master Data)
+                objMain.TNXTemplateUDO()            ' CTD/eCTD Template Master (Document + Lines)
+                objMain.TNXArtworkUDO()             ' Artwork Type Master (Master Data)
+                objMain.TNXSubmissionUDO()          ' Submission Type Master (Master Data)
+                objMain.TNXRegistrationUDO()        ' Registration Status Master (Master Data)
+                objMain.TNXApprovalUDO()            ' Approval Matrix Master (Document + Lines)
                 'Me.CorpTax1()
                 'objMain.CorpTaxUDO1()
                 'Me.FtaVat1()
@@ -191,7 +208,8 @@ Public Class DatabaseCreation
                 'Me.CorporateTaxConfiguration()
                 'objMain.CTAXConifgUDO()
 
-
+                Me.LineClearanceMaster()
+                objMain.LineClearanceUDO()
                 Me.Errorlogs()
                 'objMain.objUtilities.AddDateField("OINV", "EIDate", "EInvoice Date", SAPbobsCOM.BoFldSubTypes.st_None)
                 'objMain.objUtilities.AddDateField("OINV", "EITime", "EInvoice Time", SAPbobsCOM.BoFldSubTypes.st_Time)
@@ -266,6 +284,283 @@ Public Class DatabaseCreation
 #Region "Create Tables"
 
 
+    Public Sub TNXRegistrationStatus()
+
+        objMain.objUtilities.CreateTable("TNX_REG_STAT",
+                                    "Registration Status Master",
+                                    SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "StatGroup", "Status Group", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "AppForm", "Applicable Form", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "Editable", "Is Editable", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "Final", "Is Final", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "AllowCopy", "Allow Copy To", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "ReqAppr", "Require Approval", 1)
+
+        objMain.objUtilities.AddInteger("@TNX_REG_STAT", "SeqNo", "Sequence Number", SAPbobsCOM.BoFldSubTypes.st_None, 11)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "Status", "Status", 20)
+
+    End Sub
+    '================================================================
+    ' 7. SUBMISSION TYPE MASTER
+    '================================================================
+    Public Sub TNXSubmissionType()
+
+        objMain.objUtilities.CreateTable("TNX_REG_SUBTYP",
+                                    "Submission Type Master",
+                                    SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBTYP", "Category", "Category", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBTYP", "DossReq", "Dossier Required", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBTYP", "ArtReq", "Artwork Required", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBTYP", "ApprReq", "Approval Required", 1)
+
+        objMain.objUtilities.AddInteger("@TNX_REG_SUBTYP", "ExpDays", "Expected Days", SAPbobsCOM.BoFldSubTypes.st_None, 11)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBTYP", "QueryAll", "Query Allowed", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBTYP", "CCReq", "Change Control Required", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBTYP", "Status", "Status", 20)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_SUBTYP", "Remarks", "Remarks", 254)
+
+    End Sub
+
+    Public Sub CreateMissingUserFieldsWithUtilities()
+        '======================================================================================
+        ' Missing User-Defined Fields Generation Using objUtilities Factories
+        '======================================================================================
+
+        ' 1. @SBO_APPAUT
+        objMain.objUtilities.AddAlphaField("@SBO_APPAUT", "NAME", "NAME", 50)
+
+        ' 2. @SBO_APPHDR
+        objMain.objUtilities.AddAlphaField("@SBO_APPHDR", "Conds", "Conds", 50)
+
+        ' 3-9. @TNX_PCLM_H (Header)
+        objMain.objUtilities.AddAlphaField("@TNX_PCLM_H", "ApprovalReq", "ApprovalReq", 10)
+        ' Note: "Code" and "Name" are skipped as they are system primary keys for Master Data tables.
+        objMain.objUtilities.AddAlphaField("@TNX_PCLM_H", "Equipmenttype", "Equipment type", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_PCLM_H", "QARequired", "QA Required", 10)
+        objMain.objUtilities.AddAlphaField("@TNX_PCLM_H", "RinseRequirement", "RinseReq", 1)
+        objMain.objUtilities.AddInteger("@TNX_PCLM_H", "ValidHours", "Valid Hours", SAPbobsCOM.BoFldSubTypes.st_None, 8)
+
+        ' 10-15. @TNX_PCLM_L (Lines)
+        objMain.objUtilities.AddAlphaField("@TNX_PCLM_L", "Acceptcriteria", "Acceptance criteria", 254)
+        objMain.objUtilities.AddAlphaField("@TNX_PCLM_L", "CheckPoint", "Check Point", 150)
+        objMain.objUtilities.AddInteger("@TNX_PCLM_L", "Contacttime", "Contact time", SAPbobsCOM.BoFldSubTypes.st_None, 8)
+        ' Note: "LineId" is skipped as it is managed natively by SAP for line child tables.
+        objMain.objUtilities.AddAlphaField("@TNX_PCLM_L", "Mandatory", "Mandatory", 1)
+        objMain.objUtilities.AddAlphaField("@TNX_PCLM_L", "ResultType", "Result Type", 30)
+
+        ' 16. @TNX_QC_SPLAN_H
+        objMain.objUtilities.AddDateField("@TNX_QC_SPLAN_H", "DSR", "Document Date", SAPbobsCOM.BoFldSubTypes.st_None)
+
+        ' 17-18. @TNX_REG_ARTTYP
+        objMain.objUtilities.AddAlphaField("@TNX_REG_ARTTYP", "CompType", "Component Type", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_ARTTYP", "LangReq", "Language Required", 1)
+
+        ' 19. @TNX_REG_RENQ
+        objMain.objUtilities.AddAlphaMemoField("@TNX_REG_RENQ", "QueryDescription", "Query Details", 254)
+
+        ' 20-28. @TNX_REG_STAT
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "ChangBy", "Changed By", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "ChangedBy", "User", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "FromStat", "From Status", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "FromStatus", "Previous Status", 50)
+        ' Note: "LineId" skipped (System property)
+        objMain.objUtilities.AddAlphaMemoField("@TNX_REG_STAT", "Reason", "Reason", 254)
+        objMain.objUtilities.AddDateField("@TNX_REG_STAT", "StatDate", "Status Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddDateField("@TNX_REG_STAT", "StatusDate", "Status Change Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "ToStatus", "To Status", 50)
+
+        ' 29. @TNX_STAB_CHMBR
+        ' Note: "DocNum" skipped as it is managed natively by SAP for document headers.
+
+    End Sub
+
+    '================================================================
+    ' 9. APPROVAL MATRIX MASTER
+    '================================================================
+    Public Sub TNXApprovalMatrix()
+
+        objMain.objUtilities.CreateTable("TNX_REG_APRH",
+                                    "Approval Matrix Header",
+                                    SAPbobsCOM.BoUTBTableType.bott_Document)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRH", "FormType", "Form Type", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRH", "Country", "Country", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRH", "SubType", "Submission Type", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRH", "DocTypCod", "Document Type Code", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRH", "ArtTyp", "Artwork Type", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRH", "RiskClass", "Risk Class", 50)
+
+        objMain.objUtilities.AddDateField("@TNX_REG_APRH", "ActFrom", "Active From", SAPbobsCOM.BoFldSubTypes.st_None)
+
+        objMain.objUtilities.AddDateField("@TNX_REG_APRH", "ActTo", "Active To", SAPbobsCOM.BoFldSubTypes.st_None)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRH", "Status", "Status", 20)
+
+
+        objMain.objUtilities.CreateTable("TNX_REG_APRL",
+                                    "Approval Matrix Lines",
+                                    SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
+
+        objMain.objUtilities.AddInteger("@TNX_REG_APRL", "LevelNo", "Level Number", SAPbobsCOM.BoFldSubTypes.st_None, 11)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRL", "ApprRole", "Approver Role", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRL", "ApprUser", "Approver User", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRL", "Mandatory", "Mandatory", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRL", "Parallel", "Parallel Approval", 1)
+
+        objMain.objUtilities.AddInteger("@TNX_REG_APRL", "EscDays", "Escalation Days", SAPbobsCOM.BoFldSubTypes.st_None, 11)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRL", "EscUser", "Escalation User", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_APRL", "Remarks", "Remarks", 254)
+
+    End Sub
+    '================================================================
+    ' 3. REGULATORY DOCUMENT TYPE MASTER
+    '================================================================
+    Public Sub TNXRegulatoryDocType()
+
+        objMain.objUtilities.CreateTable("TNX_REG_DOCTYP",
+                                    "Regulatory Document Type",
+                                    SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOCTYP", "DocCat", "Document Category", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOCTYP", "ValidReq", "Default Validity Required", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOCTYP", "VerCtrl", "Version Control Required", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOCTYP", "ApprReq", "Approval Required", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOCTYP", "AttachMan", "Attachment Mandatory", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOCTYP", "Confid", "Confidential", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOCTYP", "Status", "Status", 20)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOCTYP", "Remarks", "Remarks", 254)
+
+    End Sub
+    '================================================================
+    ' 4. DOSSIER SECTION MASTER
+    '================================================================
+    Public Sub TNXDossierSection()
+
+        objMain.objUtilities.CreateTable("TNX_REG_DOSSEC",
+                                    "Dossier Section Master",
+                                    SAPbobsCOM.BoUTBTableType.bott_MasterData)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOSSEC", "ModuleNo", "Module Number", 20)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOSSEC", "ParentSec", "Parent Section", 50)
+
+        objMain.objUtilities.AddInteger("@TNX_REG_DOSSEC", "SecSeq", "Section Sequence", SAPbobsCOM.BoFldSubTypes.st_None, 11)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOSSEC", "DocTypCod", "Document Type Code", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOSSEC", "Mandatory", "Mandatory", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOSSEC", "AllowMulti", "Allow Multiple Documents", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOSSEC", "ApprReq", "Approval Required", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOSSEC", "Status", "Status", 20)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_DOSSEC", "Remarks", "Remarks", 254)
+
+    End Sub
+    '================================================================
+    ' 5. CTD/eCTD TEMPLATE MASTER
+    '================================================================
+    Public Sub TNXCTDTemplate()
+
+        objMain.objUtilities.CreateTable("TNX_REG_CTDTMP",
+                                    "CTD Template Master",
+                                    SAPbobsCOM.BoUTBTableType.bott_Document)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDTMP", "Country", "Country", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDTMP", "AuthCode", "Authority Code", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDTMP", "TempType", "Template Type", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDTMP", "ProdType", "Product Type", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDTMP", "VersionNo", "Version Number", 20)
+
+        objMain.objUtilities.AddDateField("@TNX_REG_CTDTMP", "EffDate", "Effective Date", SAPbobsCOM.BoFldSubTypes.st_None)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDTMP", "Status", "Status", 20)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDTMP", "Remarks", "Remarks", 254)
+
+
+        objMain.objUtilities.CreateTable("TNX_REG_CTDL",
+                                    "CTD Template Lines",
+                                    SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDL", "ModuleNo", "Module Number", 20)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDL", "SecCode", "Section Code", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDL", "SecName", "Section Name", 200)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDL", "DocTypCod", "Document Type Code", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDL", "Mandatory", "Mandatory", 1)
+
+        objMain.objUtilities.AddInteger("@TNX_REG_CTDL", "SeqNo", "Sequence Number", SAPbobsCOM.BoFldSubTypes.st_None, 11)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDL", "AllowMulti", "Allow Multiple Docs", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDL", "AttachReq", "Attachment Required", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_CTDL", "ApprReq", "Approval Required", 1)
+
+    End Sub
+    Public Sub TNXArtworkType()
+
+        objMain.objUtilities.CreateTable("TNX_REG_ARTTYP",
+                                   "Artwork Type Master",
+                                   SAPbobsCOM.BoUTBTableType.bott_MasterData)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_ARTTYP", "VerCtrl", "Version Control Required", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_ARTTYP", "QAAppr", "QA Approval Required", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_ARTTYP", "RegAppr", "Regulatory Approval Required", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_ARTTYP", "MktAppr", "Marketing Approval Required", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_ARTTYP", "AttachMan", "Attachment Mandatory", 1)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_ARTTYP", "Status", "Status", 20)
+
+        objMain.objUtilities.AddAlphaField("@TNX_REG_ARTTYP", "Remarks", "Remarks", 254)
+
+    End Sub
     Sub RemincgPilotBatchfields()
         ' =====================================================
         ' PILOT BATCH HEADER TABLE
@@ -685,6 +980,7 @@ Public Class DatabaseCreation
         objMain.objUtilities.AddFloatField("@TNX_STAB_SHELF_L", "TRENDS", "Trend", SAPbobsCOM.BoFldSubTypes.st_Price)
         objMain.objUtilities.AddAlphaField("@TNX_STAB_SHELF_L", "RISK", "Risk Level", 20)
     End Sub
+
     Public Sub CleaningMethodMaster()
 
         '====================================================
@@ -1115,7 +1411,131 @@ Public Class DatabaseCreation
         objMain.objUtilities.AddAlphaField("@TNX_PSTG_L", "DevReq", "Deviation Required", 1)
 
     End Sub
+    Private Sub LineClearanceMaster()
 
+        '========================================================
+        ' HEADER TABLE
+        '========================================================
+
+        objMain.objUtilities.CreateTable("TNX_PLCL_H", "Line Clearance Header", SAPbobsCOM.BoUTBTableType.bott_Document)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "LCType", "LC Type", 30)
+
+        objMain.objUtilities.AddInteger("@TNX_PLCL_H", "ProdOrdEntry", "Production Order Entry", SAPbobsCOM.BoFldSubTypes.st_None, 11)
+
+        objMain.objUtilities.AddInteger("@TNX_PLCL_H", "ProdOrdNo", "Production Order No", SAPbobsCOM.BoFldSubTypes.st_None, 11)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "ItemCode", "Item Code", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "ItemName", "Item Name", 150)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "BatchNo", "Batch Number", 50)
+
+        objMain.objUtilities.AddFloatField("@TNX_PLCL_H", "PlannedQty", "Planned Quantity", SAPbobsCOM.BoFldSubTypes.st_Quantity)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "UOM", "UOM", 30)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "WhsCode", "Warehouse Code", 30)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "AreaCode", "Area Code", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "AreaName", "Area Name", 150)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "LineCode", "Line Code", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "EquipCode", "Main Equipment", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "PreviousBatch", "Previous Batch", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "PreviousItem", "Previous Product", 150)
+
+        objMain.objUtilities.AddDateField("@TNX_PLCL_H", "ClearanceDate", "Clearance Date", SAPbobsCOM.BoFldSubTypes.st_None)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "ClearanceTime", "Clearance Time", 20)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "RequestedBy", "Requested By", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "CheckedBy", "Checked By", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "VerifiedBy", "Verified By", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "Status", "Status", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "ApprovalStatus", "Approval Status", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "ApprovedBy", "Approved By", 100)
+
+        objMain.objUtilities.AddDateField("@TNX_PLCL_H", "ApprovedDate", "Approved Date", SAPbobsCOM.BoFldSubTypes.st_None)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_H", "Remarks", "Remarks", 254)
+
+
+
+        '========================================================
+        ' CHECKLIST LINES
+        '========================================================
+
+        objMain.objUtilities.CreateTable("TNX_PLCL_L", "Line Clearance Checklist", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_L", "CheckCode", "Check Code", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_L", "CheckPoint", "Checkpoint", 200)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_L", "Category", "Category", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_L", "Expected", "Expected Condition", 254)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_L", "Observed", "Observed Condition", 254)
+
+        ' objMain.objUtilities.AddDateField("@TNX_PLCL_L", "CheckedDate", "Checked Date", SAPbobsCOM.BoFldSubTypes.st_None)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_L", "CheckedBy", "Checked By", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_L", "Result", "Result", 30)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_L", "Remarks", "Remarks", 254)
+
+
+
+        '========================================================
+        ' EQUIPMENT LINES
+        '========================================================
+
+        objMain.objUtilities.CreateTable("TNX_PLCL_EQP", "Line Clearance Equipment", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_EQP", "EquipCode", "Equipment Code", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_EQP", "EquipName", "Equipment Name", 150)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_EQP", "CleaningLogNo", "Cleaning Log Number", 100)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_EQP", "CleaningStatus", "Cleaning Status", 50)
+
+        objMain.objUtilities.AddDateField("@TNX_PLCL_EQP", "CalibDueDate", "Calibration Due Date", SAPbobsCOM.BoFldSubTypes.st_None)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_EQP", "CalibStatus", "Calibration Status", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_EQP", "ReadyStatus", "Ready Status", 50)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_EQP", "Rmarks", "Remarks", 254)
+
+
+
+        '========================================================
+        ' ATTACHMENTS
+        '========================================================
+
+        objMain.objUtilities.CreateTable("TNX_PLCL_ATT", "Line Clearance Attachments", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
+
+        objMain.objUtilities.AddLinkField("@TNX_PLCL_ATT", "TPA", "Target Path", 254, SAPbobsCOM.BoFldSubTypes.st_Link)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_ATT", "FN", "File Name", 254)
+
+        objMain.objUtilities.AddDateField("@TNX_PLCL_ATT", "ATD", "Attachment Date", SAPbobsCOM.BoFldSubTypes.st_None)
+
+        objMain.objUtilities.AddAlphaField("@TNX_PLCL_ATT", "FTT", "Free Text", 254)
+
+    End Sub
     '================================================================
     ' 1. REGULATORY AUTHORITY MASTER
     '================================================================
@@ -2904,13 +3324,17 @@ Public Class DatabaseCreation
         '==========================================================
         ' Child Table 3 : @TNX_REG_STAT
         '==========================================================
-        objMain.objUtilities.CreateTable("TNX_REG_STAT", "Submission Status History", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
+        objMain.objUtilities.CreateTable("TNX_REG_STAT1", "Submission Status History", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
 
-        objMain.objUtilities.AddDateField("@TNX_REG_STAT", "StatDate", "Status Date", SAPbobsCOM.BoFldSubTypes.st_None)
-        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "FromStat", "From Status", 50)
-        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "ToStatus", "To Status", 50)
-        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT", "ChangBy", "Changed By", 50)
-        objMain.objUtilities.AddAlphaMemoField("@TNX_REG_STAT", "Reason", "Reason", 5000)
+        objMain.objUtilities.AddDateField("@TNX_REG_STAT1", "StatDate", "Status Date", SAPbobsCOM.BoFldSubTypes.st_None)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT1", "FromStat", "From Status", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT1", "ToStatus", "To Status", 50)
+        objMain.objUtilities.AddAlphaField("@TNX_REG_STAT1", "ChangBy", "Changed By", 50)
+        objMain.objUtilities.AddAlphaMemoField("@TNX_REG_STAT1", "Reason", "Reason", 5000)
+
+
+
+
 
         '==========================================================
         ' Child Table 4 : @TNX_REG_APRV
@@ -3705,7 +4129,6 @@ select :error, :error_message FROM dummy;
         objMain.objUtilities.AddAlphaField("@TNX_COA_A", "UPU", "Uploaded By", 50)
         objMain.objUtilities.AddDateField("@TNX_COA_A", "UPD", "Uploaded Date", SAPbobsCOM.BoFldSubTypes.st_None)
         objMain.objUtilities.AddAlphaField("@TNX_COA_A", "RM", "Remarks", 254)
-
 
         objMain.objUtilities.CreateTable("TNX_COA_APP", "COA Approval Details", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
 
