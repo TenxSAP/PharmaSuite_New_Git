@@ -450,6 +450,153 @@ Public Class MainCls
         End If
     End Sub
 
+
+    '============================================================
+    ' Regulatory Document Type Master
+    '============================================================
+    Public Sub TNXRegulatoryDocumentUDO()
+        If Not Me.UDOExists("UDO_REG_DOCTYP") Then
+
+            Dim findAlias3 = New String(,) {{"Code", "Code"}}
+
+            Me.registerUDO("UDO_REG_DOCTYP",
+                        "Regulatory Document Type Master",
+                        SAPbobsCOM.BoUDOObjType.boud_MasterData,
+                        findAlias3,
+                        "TNX_REG_DOCTYP")
+
+            findAlias3 = Nothing
+
+        End If
+    End Sub
+
+    '============================================================
+    ' Dossier Section Master
+    '============================================================
+    Public Sub TNXDossierUDO()
+        If Not Me.UDOExists("UDO_REG_DOSSEC") Then
+
+            Dim findAlias4 = New String(,) {{"Code", "Code"}}
+
+            Me.registerUDONoLog("UDO_REG_DOSSEC",
+                        "Dossier Section Master",
+                        SAPbobsCOM.BoUDOObjType.boud_MasterData,
+                        findAlias4,
+                        "TNX_REG_DOSSEC")
+
+            findAlias4 = Nothing
+
+        End If
+    End Sub
+
+    '============================================================
+    ' CTD/eCTD Template Master
+    '============================================================
+    Public Sub TNXTemplateUDO()
+        If Not Me.UDOExists("UDO_REG_CTDTMP") Then
+
+            Dim findAlias5 = New String(,) {{"DocNum", "DocNum"}}
+
+            Me.registerUDO("UDO_REG_CTDTMP",
+                        "CTD eCTD Template Master",
+                        SAPbobsCOM.BoUDOObjType.boud_Document,
+                        findAlias5,
+                        "TNX_REG_CTDTMP",
+                        "TNX_REG_CTDL")
+
+            findAlias5 = Nothing
+
+        End If
+    End Sub
+
+    '============================================================
+    ' Artwork Type Master
+    '============================================================
+    Public Sub TNXArtworkUDO()
+        If Not Me.UDOExists("UDO_REG_ARTTYP") Then
+
+            Dim findAlias6 = New String(,) {{"Code", "Code"}}
+
+            Me.registerUDONoLog("UDO_REG_ARTTYP",
+                        "Artwork Type Master",
+                        SAPbobsCOM.BoUDOObjType.boud_MasterData,
+                        findAlias6,
+                        "TNX_REG_ARTTYP")
+
+            findAlias6 = Nothing
+
+        End If
+
+    End Sub
+    Public Sub TNXSubmissionUDO()
+        '============================================================
+        ' Submission Type Master
+        '============================================================
+        If Not Me.UDOExists("UDO_REG_SUBTYP") Then
+
+            Dim findAlias7 = New String(,) {{"Code", "Code"}}
+
+            Me.registerUDO("UDO_REG_SUBTYP",
+                        "Submission Type Master",
+                        SAPbobsCOM.BoUDOObjType.boud_MasterData,
+                        findAlias7,
+                        "TNX_REG_SUBTYP")
+
+            findAlias7 = Nothing
+
+        End If
+    End Sub
+    Public Sub TNXRegistrationUDO()
+        '============================================================
+        ' Registration Status Master
+        '============================================================
+        If Not Me.UDOExists("UDO_REG_STAT") Then
+
+            Dim findAlias8 = New String(,) {{"Code", "Code"}}
+
+            Me.registerUDONoLog("UDO_REG_STAT",
+                        "Registration Status Master",
+                        SAPbobsCOM.BoUDOObjType.boud_MasterData,
+                        findAlias8,
+                        "TNX_REG_STAT")
+
+            findAlias8 = Nothing
+
+        End If
+    End Sub
+    Public Sub LineClearanceUDO()
+
+        If Not Me.UDOExists("TNX_PLCL") Then
+
+            Dim findAliasNDescription = New String(,) {{"DocNum", "Document Number"}}
+
+            Me.registerUDO("TNX_PLCL", "10X Pharma Line Clearance", SAPbobsCOM.BoUDOObjType.boud_Document, findAliasNDescription, "TNX_PLCL_H", "TNX_PLCL_L", "TNX_PLCL_EQP", "TNX_PLCL_ATT")
+
+            findAliasNDescription = Nothing
+
+        End If
+
+    End Sub
+    Public Sub TNXApprovalUDO()
+
+        '============================================================
+        ' Approval Matrix Master
+        '============================================================
+        If Not Me.UDOExists("UDO_REG_APRMAT") Then
+
+            Dim findAlias9 = New String(,) {{"DocNum", "DocNum"}}
+
+            Me.registerUDO("UDO_REG_APRMAT",
+                        "Approval Matrix Master",
+                        SAPbobsCOM.BoUDOObjType.boud_Document,
+                        findAlias9,
+                        "TNX_REG_APRH",
+                        "TNX_REG_APRL")
+
+            findAlias9 = Nothing
+
+        End If
+    End Sub
     Public Sub TNXRegulatoryUDO()
 
         '============================================================
@@ -974,7 +1121,7 @@ Public Class MainCls
     Public Sub SubmissionTrackerUDO()
         If Not Me.UDOExists("UDO_REG_SUB") Then
             Dim findaliasdescription = New String(,) {{"DocNum", "DocNum"}}
-            Me.registerUDO("UDO_REG_SUB", "10XRegulatorySubmissionTracker", SAPbobsCOM.BoUDOObjType.boud_Document, findaliasdescription, "TNX_REG_SUBH", "TNX_REG_SUBL", "TNX_REG_QRY", "TNX_REG_STAT", "TNX_REG_APRV", "TNX_ATTACHMENT_C3")
+            Me.registerUDO("UDO_REG_SUB", "10XRegulatorySubmissionTracker", SAPbobsCOM.BoUDOObjType.boud_Document, findaliasdescription, "TNX_REG_SUBH", "TNX_REG_SUBL", "TNX_REG_QRY", "TNX_REG_STAT1", "TNX_REG_APRV", "TNX_ATTACHMENT_C3")
             findaliasdescription = Nothing
         End If
     End Sub
@@ -1339,7 +1486,7 @@ Public Class MainCls
         End Try
     End Function
 
-    Function registerUDONoLog(ByVal UDOCode As String, ByVal UDOName As String, ByVal UDOType As SAPbobsCOM.BoUDOObjType, ByVal findAliasNDescription As String(,), ByVal parentTableName As String, Optional ByVal childTable1 As String = "", Optional ByVal childTable2 As String = "", Optional ByVal childTable3 As String = "", Optional ByVal childTable4 As String = "", Optional ByVal childTable5 As String = "", Optional ByVal LogOption As SAPbobsCOM.BoYesNoEnum = SAPbobsCOM.BoYesNoEnum.tNO) As Boolean
+    Function registerUDONoLog(ByVal UDOCode As String, ByVal UDOName As String, ByVal UDOType As SAPbobsCOM.BoUDOObjType, ByVal findAliasNDescription As String(,), ByVal parentTableName As String, Optional ByVal childTable1 As String = "", Optional ByVal childTable2 As String = "", Optional ByVal childTable3 As String = "", Optional ByVal childTable4 As String = "", Optional ByVal childTable5 As String = "", Optional ByVal childTable6 As String = "", Optional ByVal LogOption As SAPbobsCOM.BoYesNoEnum = SAPbobsCOM.BoYesNoEnum.tNO) As Boolean
         Dim actionSuccess As Boolean = False
         Try
             registerUDONoLog = False
@@ -1384,6 +1531,10 @@ Public Class MainCls
             End If
             If childTable5 <> "" Then
                 v_udoMD.ChildTables.TableName = childTable5
+                v_udoMD.ChildTables.Add()
+            End If
+            If childTable6 <> "" Then
+                v_udoMD.ChildTables.TableName = childTable6
                 v_udoMD.ChildTables.Add()
             End If
 

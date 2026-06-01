@@ -164,7 +164,7 @@
 
                         ' Re-number the unique index identifier mappings sequentially
                         For i As Integer = 1 To targetMatrix.VisualRowCount
-                            targetMatrix.Columns.Item("#").Cells.Item(i).Specific.Value = i.ToString()
+                            targetMatrix.Columns.Item("LineId").Cells.Item(i).Specific.Value = i.ToString()
                         Next
                 End Select
             End If
@@ -263,78 +263,128 @@
 #End Region
 
 #Region "New Grid Row Allocation Blueprints"
-    ''' <summary>
-    ''' Generates empty placeholder allocation space targeting Details Matrix 1 (Tab index 1)
-    ''' </summary>
+
     Public Sub SetNewLine(ByVal FormUID As String)
+
         Try
             objForm = objMain.objApplication.Forms.Item(FormUID)
             oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_REG_PRL")
             objMatrix = objForm.Items.Item("0_U_G").Specific
 
             objForm.Freeze(True)
+
             objMatrix.AddRow()
-            oDBs_Details.SetValue("LineID", oDBs_Details.Offset, objMatrix.VisualRowCount)
-            oDBs_Details.SetValue("U_Country", oDBs_Details.Offset, "")
-            oDBs_Details.SetValue("U_RegNo", oDBs_Details.Offset, "")
-            oDBs_Details.SetValue("U_Status", oDBs_Details.Offset, "Active")
+
+            Dim row As Integer = oDBs_Details.Size - 1
+
+            oDBs_Details.SetValue("LineId", row, objMatrix.VisualRowCount.ToString())
+            oDBs_Details.SetValue("U_Country", row, "")
+            oDBs_Details.SetValue("U_AuthorityCode", row, "")
+            oDBs_Details.SetValue("U_AuthorityName", row, "")
+            oDBs_Details.SetValue("U_RegNo", row, "")
+            oDBs_Details.SetValue("U_RegCategory", row, "")
+            oDBs_Details.SetValue("U_SubmissionDate", row, "")
+            oDBs_Details.SetValue("U_ApprovalDate", row, "")
+            oDBs_Details.SetValue("U_EffectiveDate", row, "")
+            oDBs_Details.SetValue("U_ExpiryDate", row, "")
+            oDBs_Details.SetValue("U_RenewalDueDate", row, "")
+            oDBs_Details.SetValue("U_Status", row, "Active")
+            oDBs_Details.SetValue("U_RenewalReq", row, "N")
+            oDBs_Details.SetValue("U_LocalAgent", row, "")
+            oDBs_Details.SetValue("U_MarketStatus", row, "")
+            oDBs_Details.SetValue("U_CertificateAttach", row, "")
+            oDBs_Details.SetValue("U_Remarks", row, "")
 
             objMatrix.SetLineData(objMatrix.VisualRowCount)
             objMatrix.AutoResizeColumns()
-            objForm.Freeze(False)
+
         Catch ex As Exception
+            objMain.objApplication.StatusBar.SetText(
+            "Line Insertion 1 Failure : " & ex.Message,
+            SAPbouiCOM.BoMessageTime.bmt_Short,
+            SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+
+        Finally
             objForm.Freeze(False)
-            objMain.objApplication.StatusBar.SetText("Line Insertion 1 Failure: " & ex.Message)
         End Try
+
     End Sub
 
-    ''' <summary>
-    ''' Generates empty placeholder allocation space targeting Details Matrix 2 (Tab index 2)
-    ''' </summary>
     Public Sub SetNewLine1(ByVal FormUID As String)
+
         Try
             objForm = objMain.objApplication.Forms.Item(FormUID)
             oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_REG_PRD")
             ObjMatrix2 = objForm.Items.Item("1_U_G").Specific
 
             objForm.Freeze(True)
+
             ObjMatrix2.AddRow()
-            oDBs_Details2.SetValue("LineID", oDBs_Details2.Offset, ObjMatrix2.VisualRowCount)
-            oDBs_Details2.SetValue("U_DocType", oDBs_Details2.Offset, "")
-            oDBs_Details2.SetValue("U_DocName", oDBs_Details2.Offset, "")
-            oDBs_Details2.SetValue("U_DocDate", oDBs_Details2.Offset, DateTime.Now.ToString("yyyyMMdd"))
+
+            Dim row As Integer = oDBs_Details2.Size - 1
+
+            oDBs_Details2.SetValue("LineId", row, ObjMatrix2.VisualRowCount.ToString())
+            oDBs_Details2.SetValue("U_DocType", row, "")
+            oDBs_Details2.SetValue("U_DocName", row, "")
+            oDBs_Details2.SetValue("U_DocNo", row, "")
+            oDBs_Details2.SetValue("U_DocVersion", row, "")
+            oDBs_Details2.SetValue("U_DocDate", row, DateTime.Now.ToString("yyyyMMdd"))
+            oDBs_Details2.SetValue("U_ValidFrom", row, "")
+            oDBs_Details2.SetValue("U_ValidTo", row, "")
+            oDBs_Details2.SetValue("U_Mandatory", row, "N")
+            oDBs_Details2.SetValue("U_AttachEntry", row, "")
+            oDBs_Details2.SetValue("U_Status", row, "Active")
+            oDBs_Details2.SetValue("U_Remarks", row, "")
 
             ObjMatrix2.SetLineData(ObjMatrix2.VisualRowCount)
             ObjMatrix2.AutoResizeColumns()
-            objForm.Freeze(False)
+
         Catch ex As Exception
+            objMain.objApplication.StatusBar.SetText(
+            "Line Insertion 2 Failure : " & ex.Message,
+            SAPbouiCOM.BoMessageTime.bmt_Short,
+            SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+
+        Finally
             objForm.Freeze(False)
-            objMain.objApplication.StatusBar.SetText("Line Insertion 2 Failure: " & ex.Message)
         End Try
+
     End Sub
 
-    ''' <summary>
-    ''' Generates empty placeholder allocation space targeting Details Matrix 3 (Tab index 3)
-    ''' </summary>
     Public Sub SetNewLine2(ByVal FormUID As String)
+
         Try
             objForm = objMain.objApplication.Forms.Item(FormUID)
             oDBs_Details3 = objForm.DataSources.DBDataSources.Item("@TNX_REG_PRA")
             ObjMatrix3 = objForm.Items.Item("2_U_G").Specific
 
             objForm.Freeze(True)
+
             ObjMatrix3.AddRow()
-            oDBs_Details3.SetValue("LineID", oDBs_Details3.Offset, ObjMatrix3.VisualRowCount)
-            oDBs_Details3.SetValue("U_Level", oDBs_Details3.Offset, "")
-            oDBs_Details3.SetValue("U_ApproverUser", oDBs_Details3.Offset, "")
+
+            Dim row As Integer = oDBs_Details3.Size - 1
+
+            oDBs_Details3.SetValue("LineId", row, ObjMatrix3.VisualRowCount.ToString())
+            oDBs_Details3.SetValue("U_Level", row, "")
+            oDBs_Details3.SetValue("U_ApproverRole", row, "")
+            oDBs_Details3.SetValue("U_ApproverUser", row, "")
+            oDBs_Details3.SetValue("U_Status", row, "Pending")
+            oDBs_Details3.SetValue("U_ActionDate", row, "")
+            oDBs_Details3.SetValue("U_Remarks", row, "")
 
             ObjMatrix3.SetLineData(ObjMatrix3.VisualRowCount)
             ObjMatrix3.AutoResizeColumns()
-            objForm.Freeze(False)
+
         Catch ex As Exception
+            objMain.objApplication.StatusBar.SetText(
+            "Line Insertion 3 Failure : " & ex.Message,
+            SAPbouiCOM.BoMessageTime.bmt_Short,
+            SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+
+        Finally
             objForm.Freeze(False)
-            objMain.objApplication.StatusBar.SetText("Line Insertion 3 Failure: " & ex.Message)
         End Try
+
     End Sub
 #End Region
 
@@ -389,7 +439,7 @@
                 If objForm.Mode <> SAPbouiCOM.BoFormMode.fm_FIND_MODE AndAlso objForm.Mode <> SAPbouiCOM.BoFormMode.fm_VIEW_MODE Then
 
                     ' Verify focus indicator highlights row indices inside our matrices
-                    If (eventInfo.ItemUID = "0_U_G" OrElse eventInfo.ItemUID = "1_U_G" OrElse eventInfo.ItemUID = "2_U_G") AndAlso eventInfo.ColUID = "#" Then
+                    If (eventInfo.ItemUID = "0_U_G" OrElse eventInfo.ItemUID = "1_U_G" OrElse eventInfo.ItemUID = "2_U_G") AndAlso eventInfo.ColUID = "LineId" Then
                         oMenuItem = objMain.objApplication.Menus.Item("1280") ' Main 'Data' block 
                         oMenus = oMenuItem.SubMenus
                         If Not oMenus.Exists("Delete Row") Then
@@ -398,12 +448,7 @@
                             oCreationPackage.Enabled = True
                             oMenus.AddEx(oCreationPackage)
                         End If
-                    Else
-                        ' Remove element context dynamically if clicking blank regions
-                        Try
-                            objMain.objApplication.Menus.RemoveEx("Delete Row")
-                        Catch
-                        End Try
+
                     End If
                 End If
             End If
