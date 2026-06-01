@@ -42,7 +42,7 @@ Public Class clsTrainingCertificate
 
     Sub MenuEvent(ByRef pVal As SAPbouiCOM.MenuEvent, ByRef BubbleEvent As Boolean)
         Try
-            If pVal.MenuUID = "TRAINC" And pVal.BeforeAction = False Then
+            If pVal.MenuUID = "10X_COMPTC" And pVal.BeforeAction = False Then
                 Me.CreateForm()
 
             ElseIf pVal.MenuUID = "1281" And pVal.BeforeAction = False Then

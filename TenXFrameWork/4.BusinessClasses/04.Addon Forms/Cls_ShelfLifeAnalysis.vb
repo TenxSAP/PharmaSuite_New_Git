@@ -95,7 +95,7 @@ Public Class Cls_ShelfLifeAnalysis
 
         Try
 
-            If pVal.MenuUID = "STAB_SHELF" And pVal.BeforeAction = False Then
+            If pVal.MenuUID = "10X_STB_SHELFL" And pVal.BeforeAction = False Then
                 Me.CreateForm()
 
             ElseIf pVal.MenuUID = "1282" And pVal.BeforeAction = False Then

@@ -409,7 +409,7 @@ Public Class LabTesting
                 SetNewLine_Result(objForm.UniqueID)
                 SetNewLine_Attachment(objForm.UniqueID)
                 SetNewLine_Approval(objForm.UniqueID)
-                oMatrixAttach = objForm.Items.Item("MXT_3").Specific
+                '        oMatrixAttach = objForm.Items.Item("MXT_3").Specific
                 ' objForm.Items.Item("APPI").Enabled = False
                 ' Me.SetNewLine(objForm.UniqueID)
             ElseIf pVal.MenuUID = "1281" And pVal.BeforeAction = False Then
@@ -770,6 +770,9 @@ Public Class LabTesting
             If pVal.EventType = BoEventTypes.et_ITEM_PRESSED _
                     AndAlso pVal.BeforeAction = False Then
                 objForm = objMain.objApplication.Forms.Item(FormUID)
+                If pVal.ItemUID = "1" Then
+                    Me.CreateForm()
+                End If
 
                 '    If pVal.ItemUID = "Item_8" Then
 

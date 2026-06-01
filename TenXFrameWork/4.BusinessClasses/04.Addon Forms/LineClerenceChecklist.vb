@@ -19,7 +19,7 @@ Public Class LineClerenceChecklist
     Public Sub CreateForm()
 
         Try
-            objMain.objUtilities.LoadForm("lineclerencechecklist.xml", "TNX_PLCC", ResourceType.Embeded)
+            objMain.objUtilities.LoadForm("LineClerencechecklist.xml", "TNX_PLCC", ResourceType.Embeded)
 
             objForm = objMain.objApplication.Forms.GetForm("TNX_PLCC",
                       objMain.objApplication.Forms.ActiveForm.TypeCount)

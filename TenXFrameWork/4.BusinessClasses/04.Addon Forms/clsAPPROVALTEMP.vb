@@ -900,7 +900,7 @@ Public Class clsAPPROVALTEMP
                             oDBs_Details3 = objForm.DataSources.DBDataSources.Item("@SBO_APPAUT")
                             Dim c As String = oDT.GetValue("Code", 0)
                             Dim d As String = oDT.GetValue("U_SDesc", 0)
-                            oDBs_Details3.SetValue("LineId", oDBs_Details3.Offset, pVal.Row)
+                            oDBs_Details3.SetValue("LineID", oDBs_Details3.Offset, pVal.Row)
                             oDBs_Details3.SetValue("U_M3_1", oDBs_Details3.Offset, c)
                             oDBs_Details3.SetValue("U_M3_2", oDBs_Details3.Offset, d)
                             objMatrix2.SetLineData(pVal.Row)

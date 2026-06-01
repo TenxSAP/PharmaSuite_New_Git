@@ -99,7 +99,7 @@ Public Class ClS_StabilityStudy
 
         Try
 
-            If pVal.MenuUID = "SSTUD" And pVal.BeforeAction = False Then
+            If pVal.MenuUID = "10X_STB_STUDY" And pVal.BeforeAction = False Then
                 Me.CreateForm()
 
             ElseIf pVal.MenuUID = "1282" And pVal.BeforeAction = False Then

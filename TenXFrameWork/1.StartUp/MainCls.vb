@@ -39,11 +39,17 @@ Public Class MainCls
     Public ObjSample As ClsSampleType
     'Manohar
     Public objProductRegistration As ProductRegistration
-
+    Public objSopCategoryCompliance As ClsSOPCategoryCompliance
+    Public ObjValidationTypeMaster As ClsValidationTypeMasterCompliance
     'vsm
     Public objInprogresschecklist As Inprocesschecklist
     Public ObjclsMstrProductCategory As ClsMstrProductCategory
     Public ObjClsMstrDosageForm As ClsMstrDosageForm
+    Public ObjSubmission As ClsSubmissiontracking
+    Public ObjRegulatory As ClsRegulatory
+    Public ObjRegistration As ClsRegistration
+    Public ObjTestMaster As ClsTestMaster
+    Public ObjTestMethod As ClsTestMethod
     'vsm
     Public ObjClsCorpTax As ClsCorpTax
     Public ObjclsFtaVat As clsFtaVat
@@ -104,13 +110,28 @@ Public Class MainCls
     Public ObjVIEW As ClsVIEWFORAPP
     Public objSAPAlertWindow As clsSAPAlertWindow
     Public objFormulaMaster As ClsFormulaMaster
-
+    Public ObjClsMstrSpecificationHD As ClsMstrSpecificationHD
+    Public ObjClsMstrIngredientType As ClsMstrIngredientType
+    Public ObjClsMstrIngredientLibrary As ClsMstrIngredientLibrary
+    Public ObjClsMstrProcessStage As ClsMstrProcessStage
+    Public ObjClsMstrEquipmentMaster As ClsMstrEquipmentMaster
+    Public ObjClsMstrTestParameter As ClsMstrTestParameter
+    Public ObjClsMstrVersionControlSetup As ClsMstrVersionControlSetup
+    Public ObjClsMstrAttachmentType As ClsMstrAttachmentType
     Public objExperimentManagement As ClsExperimentManagement
     Public Objclsvalidation As ClsValidationManage
     Public ObjclsIncident As ClsIncidentManage
 
     Public objAREinvoice As CLSEinvoiceButton
 
+    Public objItemMaster As New ClsItemMaster
+    Public objLineClearance As LineClerence
+    Public objDossierSelection As DossierSelection
+    Public objArtrworkMaster As ArtworkMaster
+    Public ObjRegulatoryStatus As RegulatoryStatus
+    Public objregulatorySubmission As RegulatorySubmission
+    Public ObjClsMstrDocumentRelationship As ClsMstrDocumentRelationship
+    Public ObjClsMstrPharmaLeadTimeMaster As ClsMstrPharmaLeadTimeMaster
     Public objInvPost As ClsInvPost
     Public objOnboarding As ClsOnboarding
     'Vamshi Sai
@@ -131,6 +152,7 @@ Public Class MainCls
     Public sCmp1 As SAPbobsCOM.CompanyService
     Public oGeneralParams1 As SAPbobsCOM.GeneralDataParams
     Public oitem As SAPbouiCOM.Item
+
     Dim SOSeries As String = ""
     Dim SODocNum As String = ""
     Dim PaymentType As String = ""
@@ -231,6 +253,7 @@ Public Class MainCls
         objARCreditMemo = New clsARCreditMemo
         objARDownPayment = New clsARDownPayment
         objAREinvoice = New CLSEinvoiceButton
+
         objPayLoad = New ClsPayLoad
         ObjCorporateTaxConfiguration = New clsCorporateTexConfig
         ObjCorporateTaxCalculation = New ClsCorporateTaxCalcu
@@ -242,12 +265,17 @@ Public Class MainCls
         'Vamshi Sai
         objInvoicePosting = New ClsInvoicePsoting
         SampleCollection = New Cls_SampleCollection
-
+        ObjSubmission = New ClsSubmissiontracking
+        ObjRegulatory = New ClsRegulatory
+        ObjRegistration = New ClsRegistration
+        ObjTestMaster = New ClsTestMaster
+        ObjTestMethod = New ClsTestMethod
         SampleRegistration = New Cls_SampleRegistration
         ObjclsCOMTemplate = New ClsCOMTemplate
 
         ObjclsDevidation = New ClsDevidationCategory
-
+        objSopCategoryCompliance = New ClsSOPCategoryCompliance
+        ObjValidationTypeMaster = New ClsValidationTypeMasterCompliance
         ObjclsAudit = New ClsAuditChecklist
         objProductRegistration = New ProductRegistration
 
@@ -274,6 +302,7 @@ Public Class MainCls
         objInprogresschecklist = New Inprocesschecklist
         objClerenceMaster = New ClerenceMaster
         objYeildtolorance = New Yeildtolorance
+        objItemMaster = New ClsItemMaster
 
         objLicenceNew = New Cfrm_LicenceAdministrationNew
         objDevice = New DeviceMaster
@@ -301,14 +330,30 @@ Public Class MainCls
         Stabilitystudy = New ClS_StabilityStudy
         Stabilityprotocal = New Cls_StabilityProtocol
         Shelflife = New Cls_ShelfLifeAnalysis
+        ObjClsMstrSpecificationHD = New ClsMstrSpecificationHD
+        ObjClsMstrIngredientType = New ClsMstrIngredientType
+        ObjClsMstrIngredientLibrary = New ClsMstrIngredientLibrary
+        ObjClsMstrProcessStage = New ClsMstrProcessStage
+        ObjClsMstrEquipmentMaster = New ClsMstrEquipmentMaster
+        ObjClsMstrTestParameter = New ClsMstrTestParameter
+        ObjClsMstrVersionControlSetup = New ClsMstrVersionControlSetup
+        ObjClsMstrAttachmentType = New ClsMstrAttachmentType
+        objArtrworkMaster = New ArtworkMaster
+        objDossierSelection = New DossierSelection
+        ObjRegulatoryStatus = New RegulatoryStatus
+        objLineClearance = New LineClerence
+        objregulatorySubmission = New RegulatorySubmission
+        objDowntimeReason = New DowntimeReason
+        ObjClsMstrDocumentRelationship = New ClsMstrDocumentRelationship
+        ObjClsMstrPharmaLeadTimeMaster = New ClsMstrPharmaLeadTimeMaster
     End Sub
 #End Region
 
 #Region "Create UDO"
     Public Sub CreateApprovalTemplatesUDO()
-        If Not Me.UDOExists("SBOAPPUDO") Then
+        If Not Me.UDOExists("SBO_APP") Then
             Dim findAliasNDescription = New String(,) {{"Code", "Code"}}
-            Me.registerUDO("SBOAPPUDO", "SBOAPPUDO", SAPbobsCOM.BoUDOObjType.boud_MasterData, findAliasNDescription, "SBO_APPHDR", "SBO_APPREQ", "SBO_APPDOC", "SBO_APPAUT")
+            Me.registerUDO("SBO_APP", "SBO_APP", SAPbobsCOM.BoUDOObjType.boud_MasterData, findAliasNDescription, "SBO_APPHDR", "SBO_APPREQ", "SBO_APPDOC", "SBO_APPAUT")
             findAliasNDescription = Nothing
         End If
     End Sub
@@ -1023,6 +1068,192 @@ Public Class MainCls
             findaliasndescription = Nothing
         End If
     End Sub
+    ' --- Vendor management UDO registrations for 10X Pharma Procurement Compliance
+    Public Sub CreateVendorQualificationUDO()
+        If Not Me.UDOExists("UDO_TNX_VQR") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDO("UDO_TNX_VQR",
+                      "10X Vendor Qualification Request",
+                      SAPbobsCOM.BoUDOObjType.boud_Document,
+                      findAlias,
+                      "TNX_VQR_H",
+                      "TNX_VQR_DOC",
+                      "TNX_VQR_REV")
+            findAlias = Nothing
+        End If
+    End Sub
+
+    Public Sub CreateVendorAuditUDO()
+        If Not Me.UDOExists("UDO_TNX_VAUD") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDO("UDO_TNX_VAUD",
+                      "10X Vendor Audit",
+                      SAPbobsCOM.BoUDOObjType.boud_Document,
+                      findAlias,
+                      "TNX_VAUD_H",
+                      "TNX_VAUD_CHK",
+                      "TNX_VAUD_OBS",
+                      "TNX_VAUD_CAPA")
+            findAlias = Nothing
+        End If
+    End Sub
+
+    Public Sub CreateApprovedVendorListUDO()
+        If Not Me.UDOExists("UDO_TNX_AVL") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            ' Approved Vendor List stored as Master Data (lookup by Code/Name)
+            Me.registerUDONoLog("UDO_TNX_AVL",
+                           "10X Approved Vendor List",
+                           SAPbobsCOM.BoUDOObjType.boud_Document,
+                           findAlias,
+                           "TNX_AVL_H",
+                           "TNX_AVL_MAT",
+                           "TNX_AVL_HIS")
+            findAlias = Nothing
+        End If
+    End Sub
+
+    Public Sub CreateVendorRequalificationUDO()
+        If Not Me.UDOExists("UDO_TNX_VREQ") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDO("UDO_TNX_VREQ",
+                      "10X Vendor Requalification",
+                      SAPbobsCOM.BoUDOObjType.boud_Document,
+                      findAlias,
+                      "TNX_VREQ_H",
+                      "TNX_VREQ_DOC",
+                      "TNX_VREQ_ACT")
+            findAlias = Nothing
+        End If
+    End Sub
+
+    Public Sub CreateVendorRiskAssessmentUDO()
+        If Not Me.UDOExists("UDO_TNX_VRA") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDO("UDO_TNX_VRA",
+                      "10X Vendor Risk Assessment",
+                      SAPbobsCOM.BoUDOObjType.boud_Document,
+                      findAlias,
+                      "TNX_VRA_H",
+                      "TNX_VRA_SCORE",
+                      "TNX_VRA_REC")
+            findAlias = Nothing
+        End If
+    End Sub
+
+    Public Sub CreateVendorPerformanceReviewUDO()
+        If Not Me.UDOExists("UDO_TNX_VPR") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDO("UDO_TNX_VPR",
+                      "10X Vendor Performance Review",
+                      SAPbobsCOM.BoUDOObjType.boud_Document,
+                      findAlias,
+                      "TNX_VPR_H",
+                      "TNX_VPR_KPI",
+                      "TNX_VPR_ACT")
+            findAlias = Nothing
+        End If
+    End Sub
+
+
+    ' Material Qualification UDOs
+    Public Sub CreateMaterialNewRequestUDO()
+        If Not Me.UDOExists("UDO_TNX_MQ_NMR") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDO("UDO_TNX_MQ_NMR",
+                          "New Material Request",
+                          SAPbobsCOM.BoUDOObjType.boud_Document,
+                          findAlias,
+                          "TNX_MQ_NMR_H",
+                          "TNX_MQ_NMR_ATT",
+                          "TNX_MQ_NMR_APP")
+            findAlias = Nothing
+        End If
+    End Sub
+
+    Public Sub CreateMaterialTechnicalEvaluationUDO()
+        If Not Me.UDOExists("UDO_TNX_MQ_MTE") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDO("UDO_TNX_MQ_MTE",
+                          "Material Technical Evaluation",
+                          SAPbobsCOM.BoUDOObjType.boud_Document,
+                          findAlias,
+                          "TNX_MQ_MTE_H",
+                          "TNX_MQ_MTE_T",
+                          "TNX_MQ_MTE_APP")
+            findAlias = Nothing
+        End If
+    End Sub
+
+    Public Sub CreateMaterialSpecUDO()
+        If Not Me.UDOExists("UDO_TNX_MQ_SPEC") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDONoLog("UDO_TNX_MQ_SPEC",
+                               "Material Specification",
+                               SAPbobsCOM.BoUDOObjType.boud_Document,
+                               findAlias,
+                               "TNX_MQ_SPEC_H",
+                               "TNX_MQ_SPEC_L",
+                               "TNX_MQ_SPEC_REV")
+            findAlias = Nothing
+        End If
+    End Sub
+
+    Public Sub CreateTrialSampleUDO()
+        If Not Me.UDOExists("UDO_TNX_MQ_TRIAL") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDO("UDO_TNX_MQ_TRIAL",
+                          "Trial Sample Management",
+                          SAPbobsCOM.BoUDOObjType.boud_Document,
+                          findAlias,
+                          "TNX_MQ_TRL_H",
+                          "TNX_MQ_TRL_L",
+                          "TNX_MQ_TRL_QC")
+            findAlias = Nothing
+        End If
+    End Sub
+
+    Public Sub CreateMaterialApprovalUDO()
+        If Not Me.UDOExists("UDO_TNX_MQ_MAPR") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDO("UDO_TNX_MQ_MAPR",
+                          "Material Approval",
+                          SAPbobsCOM.BoUDOObjType.boud_Document,
+                          findAlias,
+                          "TNX_MQ_MAPR_H",
+                          "TNX_MQ_MAPR_APP",
+                          "TNX_MQ_MAPR_AVL")
+            findAlias = Nothing
+        End If
+    End Sub
+
+    Public Sub CreateMaterialRequalificationUDO()
+        If Not Me.UDOExists("UDO_TNX_MQ_REQUAL") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDO("UDO_TNX_MQ_REQUAL",
+                          "Material Requalification",
+                          SAPbobsCOM.BoUDOObjType.boud_Document,
+                          findAlias,
+                          "TNX_MQ_REQ_H",
+                          "TNX_MQ_REQ_QC",
+                          "TNX_MQ_REQ_APP")
+            findAlias = Nothing
+        End If
+    End Sub
+
+    Public Sub CreateMaterialRiskAssessmentUDO()
+        If Not Me.UDOExists("UDO_TNX_MQ_RISK") Then
+            Dim findAlias = New String(,) {{"DocNum", "DocNum"}}
+            Me.registerUDO("UDO_TNX_MQ_RISK",
+                          "Material Risk Assessment",
+                          SAPbobsCOM.BoUDOObjType.boud_Document,
+                          findAlias,
+                          "TNX_MQ_RISK_H",
+                          "TNX_MQ_RISK_L",
+                          "TNX_MQ_RISK_CTRL")
+            findAlias = Nothing
+        End If
+    End Sub
 
 #End Region
 
@@ -1229,6 +1460,8 @@ Public Class MainCls
                 '    oApprovedForecating.ItemEvent(FormUID, pVal, BubbleEvent
                 Case "133"
                     objARInvoice.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "150"
+                    objItemMaster.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "179"
                     objARCreditMemo.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "65300"
@@ -1310,8 +1543,8 @@ Public Class MainCls
                     ObjGRID.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "ME_ADR"
                     ObjADR.ItemEvent(FormUID, pVal, BubbleEvent)
-                'Case "SBO_AST"
-                '    ObjAStg.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "SBO_AST"
+                    ObjAStg.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "GRIDES"
                     ObjGRIDES.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "SBO_Draft"
@@ -1354,6 +1587,16 @@ Public Class MainCls
                     ObjclsBatch.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_CAPA"
                     ObjclsCAPAManage.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_REG_SUB"
+                    ObjSubmission.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_REG_REPO"
+                    ObjRegulatory.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_REG_RENEW"
+                    ObjRegistration.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_TPARM"
+                    ObjTestMaster.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_QC_TM"
+                    ObjTestMethod.ItemEvent(FormUID, pVal, BubbleEvent)
 
                 'Case "License"
                 '    objLicenceNew.ItemEvent(FormUID, pVal, BubbleEvent)
@@ -1382,6 +1625,36 @@ Public Class MainCls
                     ObjclsTrainingCertificate.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "frm_TRNMAT"
                     ObjclsEmployeeTraining.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_INGTYPE"
+                    ObjClsMstrIngredientType.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_INGLIB"
+                    ObjClsMstrIngredientLibrary.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_PSTAGE"
+                    ObjClsMstrProcessStage.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_EQUIP"
+                    ObjClsMstrEquipmentMaster.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_TPARAM"
+                    ObjClsMstrTestParameter.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_VERSET"
+                    ObjClsMstrVersionControlSetup.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_ATTTYPE"
+                    ObjClsMstrAttachmentType.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_SPEC"
+                    ObjClsMstrSpecificationHD.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "REG_DOSSEC"
+                    objDossierSelection.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "REG_ARTTYP"
+                    objArtrworkMaster.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "TNX_REG_SUBTYP"
+                    objregulatorySubmission.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "REG_STAT"
+                    ObjRegulatoryStatus.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "TNX_PLCL"
+                    objLineClearance.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_DOCREL"
+                    ObjClsMstrDocumentRelationship.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_LEAD"
+                    ObjClsMstrPharmaLeadTimeMaster.ItemEvent(FormUID, pVal, BubbleEvent)
             End Select
         Catch ex As Exception
             objApplication.MessageBox(ex.Message)
@@ -1467,8 +1740,8 @@ Public Class MainCls
                     'ObjGRID.MenuEvent(pVal, BubbleEvent)
                 Case "ME_ADR"
                     ObjADR.MenuEvent(pVal, BubbleEvent)
-                'Case "SBO_AST"
-                '    ObjAStg.MenuEvent(pVal, BubbleEvent)
+                Case "SBO_AST"
+                    ObjAStg.MenuEvent(pVal, BubbleEvent)
                 Case "Temp"
                     ObjAPTEMP.MenuEvent(pVal, BubbleEvent)
                 Case "GRIDES"
@@ -1499,15 +1772,15 @@ Public Class MainCls
                     ObjclsPilotBatch.MenuEvent(pVal, BubbleEvent)
                 Case "10X_COMP_SOP"
                     ObjclsSOPManagement.MenuEvent(pVal, BubbleEvent)
-                Case "TRAINP"
+                Case "10X_COMPTP"
                     ObjclsTrainingPlan.MenuEvent(pVal, BubbleEvent)
-                Case "TRAINE"
+                Case "10X_COMPTE"
                     ObjclsTrainingExecution.MenuEvent(pVal, BubbleEvent)
-                Case "TRAINC"
+                Case "10X_COMPTC"
                     ObjclsTrainingCertificate.MenuEvent(pVal, BubbleEvent)
-                Case "TRAINET"
+                Case "10X_COMPET"
                     ObjclsEmployeeTraining.MenuEvent(pVal, BubbleEvent)
-                Case "10X_BMR"
+                Case "10X_BMRR"
                     ObjBmr.MenuEvent(pVal, BubbleEvent)
                 Case "10X_SAMPLE"
                     SampleRegistration.MenuEvent(pVal, BubbleEvent)
@@ -1570,7 +1843,51 @@ Public Class MainCls
 
                 Case "10X_STB_SHELFL"
                     Shelflife.MenuEvent(pVal, BubbleEvent)
+                Case "10X_CMS_SOPCAT"
+                    objSopCategoryCompliance.MenuEvent(pVal, BubbleEvent)
 
+                Case "10X_CMS_VALTYP"
+                    ObjValidationTypeMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_REG_SUB"
+                    ObjSubmission.MenuEvent(pVal, BubbleEvent)
+                Case "10X_REG_REPO"
+                    ObjRegulatory.MenuEvent(pVal, BubbleEvent)
+                Case "10X_REG_RENEW"
+                    ObjRegistration.MenuEvent(pVal, BubbleEvent)
+                Case "10X_QC_TPARM"
+                    ObjTestMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_QC_TMETHOD"
+                    ObjTestMethod.MenuEvent(pVal, BubbleEvent)
+                Case "10X_RD_INGTYP"
+                    ObjClsMstrIngredientType.MenuEvent(pVal, BubbleEvent)
+                Case "10X_RD_INGLIB"
+                    ObjClsMstrIngredientLibrary.MenuEvent(pVal, BubbleEvent)
+                Case "10X_RD_STAGE"
+                    ObjClsMstrProcessStage.MenuEvent(pVal, BubbleEvent)
+                Case "10X_RD_EQP"
+                    ObjClsMstrEquipmentMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_RD_TPARAM"
+                    ObjClsMstrTestParameter.MenuEvent(pVal, BubbleEvent)
+                Case "10X_RD_VERCTRL"
+                    ObjClsMstrVersionControlSetup.MenuEvent(pVal, BubbleEvent)
+                Case "10X_RD_ATTYPE"
+                    ObjClsMstrAttachmentType.MenuEvent(pVal, BubbleEvent)
+                Case "10X_RD_SPEC"
+                    ObjClsMstrSpecificationHD.MenuEvent(pVal, BubbleEvent)
+                Case "10X_LINE_CLR"
+                    objLineClearance.MenuEvent(pVal, BubbleEvent)
+                Case "10X_RMS_DOSSEC"
+                    objDossierSelection.MenuEvent(pVal, BubbleEvent)
+                Case "10X_RMS_STAT"
+                    ObjRegulatoryStatus.MenuEvent(pVal, BubbleEvent)
+                Case "10X_RMS_ARTTYP"
+                    objArtrworkMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_RMS_SUBTYP"
+                    objregulatorySubmission.MenuEvent(pVal, BubbleEvent)
+                Case "10X_DOCRLT"
+                    ObjClsMstrDocumentRelationship.MenuEvent(pVal, BubbleEvent)
+                Case "10X_PHRLEAD"
+                    ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
                 Case "1282"
                     objform = objMain.objApplication.Forms.ActiveForm
                     If objform.TypeEx = "133" Then
@@ -1664,6 +1981,18 @@ Public Class MainCls
                         ObjclsElectronicSignaturePolicy.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "UDO_F_UDO_REG_PRDREG" Then
                         objProductRegistration.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "BMRR" Then
+                        ObjBmr.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "REG_STAT" Then
+                        ObjRegulatoryStatus.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "REG_ARTTYP" Then
+                        objArtrworkMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "TNX_PLCL" Then
+                        objLineClearance.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "TNX_REG_SUBTYP" Then
+                        objregulatorySubmission.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "REG_DOSSEC" Then
+                        objDossierSelection.MenuEvent(pVal, BubbleEvent)
                     End If
 
 
@@ -1801,6 +2130,42 @@ Public Class MainCls
                         objDowntimeReason.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_AUTH" Then
                         objRegulatoryAuthority.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_REG_SUB" Then
+                        ObjSubmission.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_REG_REPO" Then
+                        ObjRegulatory.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_REG_RENEW" Then
+                        ObjRegistration.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_TPARM" Then
+                        ObjTestMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_QC_TM" Then
+                        ObjTestMethod.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_INGTYPE" Then
+                        ObjClsMstrIngredientType.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_INGLIB" Then
+                        ObjClsMstrIngredientLibrary.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_PSTAGE" Then
+                        ObjClsMstrProcessStage.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_EQUIP" Then
+                        ObjClsMstrEquipmentMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_TPARAM" Then
+                        ObjClsMstrTestParameter.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VERSET" Then
+                        ObjClsMstrVersionControlSetup.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_ATTTYPE" Then
+                        ObjClsMstrAttachmentType.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_SPEC" Then
+                        ObjClsMstrSpecificationHD.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "REG_STAT" Then
+                        ObjRegulatoryStatus.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "REG_ARTTYP" Then
+                        objArtrworkMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "TNX_PLCL" Then
+                        objLineClearance.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "TNX_REG_SUBTYP" Then
+                        objregulatorySubmission.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "REG_DOSSEC" Then
+                        objDossierSelection.MenuEvent(pVal, BubbleEvent)
                     End If
 
                 Case "774"
@@ -1859,7 +2224,20 @@ Public Class MainCls
                         ObjRisk.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_STYPE" Then
                         ObjSample.MenuEvent(pVal, BubbleEvent)
-
+                    ElseIf objform.TypeEx = "TNXPYLD" Then
+                        YieldAnalysis.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_REG_SUB" Then
+                        ObjSubmission.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_REG_REPO" Then
+                        ObjRegulatory.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_REG_RENEW" Then
+                        ObjRegistration.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_TPARM" Then
+                        ObjTestMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_QC_TM" Then
+                        ObjTestMethod.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_SPEC" Then
+                        ObjClsMstrSpecificationHD.MenuEvent(pVal, BubbleEvent)
                     End If
 
                     'Case "Add Row"
@@ -1918,6 +2296,8 @@ Public Class MainCls
                         ObjClsCorpTax.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_FTAVM" Then
                         ObjclsFtaVat.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "SBO_AST" Then
+                        ObjAStg.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "Temp" Then
                         ObjAPTEMP.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "DEVICE" Then
@@ -2025,7 +2405,46 @@ Public Class MainCls
                         objPhamaBpr.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_DISP" Then
                         objPharmaDispensing.MenuEvent(pVal, BubbleEvent)
-
+                    ElseIf objform.TypeEx = "10X_REG_SUB" Then
+                        ObjSubmission.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_REG_REPO" Then
+                        ObjRegulatory.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_REG_RENEW" Then
+                        ObjRegistration.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_TPARM" Then
+                        ObjTestMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_QC_TM" Then
+                        ObjTestMethod.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_INGTYPE" Then
+                        ObjClsMstrIngredientType.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_INGLIB" Then
+                        ObjClsMstrIngredientLibrary.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_PSTAGE" Then
+                        ObjClsMstrProcessStage.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_EQUIP" Then
+                        ObjClsMstrEquipmentMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_TPARAM" Then
+                        ObjClsMstrTestParameter.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VERSET" Then
+                        ObjClsMstrVersionControlSetup.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_ATTTYPE" Then
+                        ObjClsMstrAttachmentType.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_SPEC" Then
+                        ObjClsMstrSpecificationHD.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "REG_STAT" Then
+                        ObjRegulatoryStatus.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "REG_ARTTYP" Then
+                        objArtrworkMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "TNX_PLCL" Then
+                        objLineClearance.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "TNX_REG_SUBTYP" Then
+                        objregulatorySubmission.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "REG_DOSSEC" Then
+                        objDossierSelection.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_DOCREL" Then
+                        ObjClsMstrDocumentRelationship.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_LEAD" Then
+                        ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
                     End If
                 Case "Delete Row"
                     objform = objMain.objApplication.Forms.ActiveForm

@@ -754,6 +754,9 @@ Public Class Specificationmaster
              ByRef BubbleEvent As Boolean)
 
         If pVal.EventType = SAPbouiCOM.BoEventTypes.et_DOUBLE_CLICK AndAlso pVal.BeforeAction = False Then
+            If pVal.ItemUID = "1" Then
+                Me.CreateForm()
+            End If
             If pVal.ItemUID = "Item_4" Then
                 Try
                     objForm = objMain.objApplication.Forms.Item(FormUID)

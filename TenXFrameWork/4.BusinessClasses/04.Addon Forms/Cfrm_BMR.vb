@@ -55,7 +55,7 @@ Imports System.Configuration
 
         Sub MenuEvent(ByRef pVal As SAPbouiCOM.MenuEvent, ByRef BubbleEvent As Boolean)
             Try
-            If pVal.MenuUID = "10X_BMR" And pVal.BeforeAction = False Then
+            If pVal.MenuUID = "10X_BMRR" And pVal.BeforeAction = False Then
                 Me.CreateForm()
             ElseIf pVal.MenuUID = "1282" And pVal.BeforeAction = False Then
                 objMatrix1 = objForm.Items.Item("Mtx1").Specific

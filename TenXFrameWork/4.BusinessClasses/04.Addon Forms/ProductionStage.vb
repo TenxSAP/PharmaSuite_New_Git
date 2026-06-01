@@ -31,8 +31,9 @@ Public Class ProductionStage
             oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_PSTG_L")
 
             oDBs_Head.SetValue("DocEntry", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "TNX_PSTG", "Primary"))
+            oDBs_Head.SetValue("U_StageSeq", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "TNX_PSTG", "Primary"))
             'oDBs_Head.SetValue("U_DA", 0, DateTime.Now.ToString("yyyyMMdd"))
-
+            'objForm.DataBrowser.BrowseBy = "DocEntry"
             ' Production Stage Master - Auto Managed Attributes
             '========================================================================
 
@@ -73,7 +74,7 @@ Public Class ProductionStage
                 objForm.Items.Item(itemId).SetAutoManagedAttribute(
         SAPbouiCOM.BoAutoManagedAttr.ama_Editable,
         SAPbouiCOM.BoAutoFormMode.afm_Find,
-        SAPbouiCOM.BoModeVisualBehavior.mvb_False)
+        SAPbouiCOM.BoModeVisualBehavior.mvb_True)
 
             Next
 
@@ -107,7 +108,17 @@ Public Class ProductionStage
             objForm.Items.Item("1").SetAutoManagedAttribute(
     SAPbouiCOM.BoAutoManagedAttr.ama_Editable,
     SAPbouiCOM.BoAutoFormMode.afm_Find,
-    SAPbouiCOM.BoModeVisualBehavior.mvb_False)
+    SAPbouiCOM.BoModeVisualBehavior.mvb_True)
+
+            objForm.Items.Item("0_U_E").SetAutoManagedAttribute(
+    SAPbouiCOM.BoAutoManagedAttr.ama_Editable,
+    SAPbouiCOM.BoAutoFormMode.afm_Find,
+    SAPbouiCOM.BoModeVisualBehavior.mvb_True)
+
+            objForm.Items.Item("24_U_E").SetAutoManagedAttribute(
+    SAPbouiCOM.BoAutoManagedAttr.ama_Editable,
+    SAPbouiCOM.BoAutoFormMode.afm_Add,
+    SAPbouiCOM.BoModeVisualBehavior.mvb_True)
 
             '-----------------------------------------------------------------------
             ' Cancel Button
@@ -153,6 +164,8 @@ Public Class ProductionStage
             objMatrix.Columns.Item("LineId").Editable = False
 
             Me.objForm.EnableMenu("1282", True)
+
+            Me.objForm.EnableMenu("1281", True)
             Me.objForm.EnableMenu("519", True)
             Me.objForm.EnableMenu("520", True)
             'SetDefault(objForm.UniqueID)

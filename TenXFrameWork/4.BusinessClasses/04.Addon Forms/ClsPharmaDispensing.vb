@@ -25,9 +25,9 @@ Public Class ClsPharmaDispensing
             objutilities = New Utilities
             oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_PDSP_H")
             oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_PDSP_L")
-            oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@@TNX_PDSP_BT")
-            oDBs_Details3 = objForm.DataSources.DBDataSources.Item("@@TNX_PDSP_APR")
-            oDBs_Details4 = objForm.DataSources.DBDataSources.Item("@@TNX_PDSP_ATT")
+            oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_PDSP_BT")
+            oDBs_Details3 = objForm.DataSources.DBDataSources.Item("@TNX_PDSP_APR")
+            oDBs_Details4 = objForm.DataSources.DBDataSources.Item("@TNX_PDSP_ATT")
 
             objMatrix1 = objForm.Items.Item("MTX_1").Specific
             objMatrix2 = objForm.Items.Item("MTX_2").Specific
@@ -630,9 +630,9 @@ Public Class ClsPharmaDispensing
             objForm.Freeze(True)
             oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_PDSP_H")
             oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_PDSP_L")
-            oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@@TNX_PDSP_BT")
-            oDBs_Details3 = objForm.DataSources.DBDataSources.Item("@@TNX_PDSP_APR")
-            oDBs_Details4 = objForm.DataSources.DBDataSources.Item("@@TNX_PDSP_ATT")
+            oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_PDSP_BT")
+            oDBs_Details3 = objForm.DataSources.DBDataSources.Item("@TNX_PDSP_APR")
+            oDBs_Details4 = objForm.DataSources.DBDataSources.Item("@TNX_PDSP_ATT")
 
             objMatrix1 = objForm.Items.Item("MTX_1").Specific
             objMatrix2 = objForm.Items.Item("MTX_2").Specific

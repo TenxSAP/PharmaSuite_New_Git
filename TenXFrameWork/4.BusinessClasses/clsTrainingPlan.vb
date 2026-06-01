@@ -39,7 +39,7 @@ Public Class clsTrainingPlan
 
     Sub MenuEvent(ByRef pVal As SAPbouiCOM.MenuEvent, ByRef BubbleEvent As Boolean)
         Try
-            If pVal.MenuUID = "TRAINP" And pVal.BeforeAction = False Then
+            If pVal.MenuUID = "10X_COMPTP" And pVal.BeforeAction = False Then
                 Me.CreateForm()
 
             ElseIf pVal.MenuUID = "1281" And pVal.BeforeAction = False Then

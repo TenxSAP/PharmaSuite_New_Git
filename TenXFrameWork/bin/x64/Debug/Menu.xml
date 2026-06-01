@@ -16,6 +16,34 @@
 				<Menus>
 					<action type="add">
 
+						<!-- ===================================================== -->
+						<!-- Commercial Planning-->
+						<!-- ===================================================== -->
+
+						<Menu UniqueID="10X_COMPLAN"
+							  Type="2"
+							  String="Commercial Planning"
+							  FatherUID="10X_PHARMA"
+							  Position="1"
+							  Enabled="1"
+							  Checked="0">
+
+							<Menus>
+								<action type="add">
+
+									<Menu UniqueID="10X_DMDFOR" Type="1"  String="Demand Forecast" FatherUID="10X_COMPLAN" Position="1" Enabled="1"/>
+									<Menu UniqueID="10X_MOQCHK" Type="1" String="MOQ Check" FatherUID="10X_COMPLAN" Position="2" Enabled="1"/>
+									<Menu UniqueID="10X_CUST_RFQ" Type="1" String="Customer RFQ" FatherUID="10X_COMPLAN" Position="3"  Enabled="1"/>
+									<Menu UniqueID="10X_PRODCOST" Type="1" String="Product Costing" FatherUID="10X_COMPLAN" Position="4" Enabled="1"/>
+									<Menu UniqueID="10X_DELCOM" Type="1" String="Delivery Commitment"  FatherUID="10X_COMPLAN" Position="5" Enabled="1"/>
+									<Menu UniqueID="10X_OFFAPR" Type="1"  String="Commercial Offer Approval" FatherUID="10X_COMPLAN" Position="6" Enabled="1"/>
+									<Menu UniqueID="10X_CPO" Type="1"  String="Customer Purchase Order" FatherUID="10X_COMPLAN" Position="7"  Enabled="1"/>
+
+								</action>
+							</Menus>
+
+						</Menu>
+						
 						<!-- 10X Pharma R&D -->
 						<Menu UniqueID="10X_RD"
 							  Type="2"
@@ -155,6 +183,59 @@
 							</Menus>
 						</Menu>
 
+						<Menu UniqueID="10X_PRC_COMP" Type="2" String="Procurement Compliance" FatherUID="10X_PHARMA" Position="7" Enabled="1" Checked="0">
+							<Menus>
+								<action type="add">
+
+									<!-- Vendor Qualification -->
+									<Menu UniqueID="10X_VEN_QUAL"
+										  Type="2"
+										  String="Vendor Qualification"
+										  FatherUID="10X_PRC_COMP"
+										  Position="1"
+										  Enabled="1"
+										  Checked="0">
+										<Menus>
+											<action type="add">
+
+												<Menu UniqueID="10X_VQ_REQ" Type="1" String="Vendor Qualification Request" FatherUID="10X_VEN_QUAL" Position="0" Enabled="1" Checked="0"/> 
+												<Menu UniqueID="10X_VEN_AUD" Type="1" String="Vendor Audit" FatherUID="10X_VEN_QUAL" Position="1" Enabled="1" Checked="0"/>
+												<Menu UniqueID="10X_AVL" Type="1" String="Approved Vendor List" FatherUID="10X_VEN_QUAL" Position="2" Enabled="1" Checked="0"/>
+												<Menu UniqueID="10X_VEN_REQUAL" Type="1" String="Vendor Requalification" FatherUID="10X_VEN_QUAL" Position="3" Enabled="1" Checked="0"/>
+												<Menu UniqueID="10X_VEN_RISK" Type="1" String="Vendor Risk Assessment" FatherUID="10X_VEN_QUAL" Position="4" Enabled="1" Checked="0"/>
+												<Menu UniqueID="10X_VEN_PERF" Type="1" String="Vendor Performance Review" FatherUID="10X_VEN_QUAL" Position="5" Enabled="1" Checked="0"/>
+
+											</action>
+										</Menus>
+									</Menu>
+
+									<!-- Material Qualification -->
+									<Menu UniqueID="10X_MAT_QUAL"
+										  Type="2"
+										  String="Material Qualification"
+										  FatherUID="10X_PRC_COMP"
+										  Position="2"
+										  Enabled="1"
+										  Checked="0">
+										<Menus>
+											<action type="add">
+
+												<Menu UniqueID="10X_NMR" Type="1" String="New Material Request" FatherUID="10X_MAT_QUAL" Position="0" Enabled="1" Checked="0"/>
+												<Menu UniqueID="10X_MAT_TE" Type="1" String="Material Technical Evaluation" FatherUID="10X_MAT_QUAL" Position="1" Enabled="1" Checked="0"/>
+												<Menu UniqueID="10X_MAT_SPEC" Type="1" String="Material Specifications" FatherUID="10X_MAT_QUAL" Position="2" Enabled="1" Checked="0"/>
+												<Menu UniqueID="10X_TRIAL_SMP" Type="1" String="Trial Sample Management" FatherUID="10X_MAT_QUAL" Position="3" Enabled="1" Checked="0"/>
+												<Menu UniqueID="10X_MAT_APPR" Type="1" String="Material Approval" FatherUID="10X_MAT_QUAL" Position="4" Enabled="1" Checked="0"/>
+												<Menu UniqueID="10X_MAT_REQUAL" Type="1" String="Material Requalification" FatherUID="10X_MAT_QUAL" Position="5" Enabled="1" Checked="0"/>
+												<Menu UniqueID="10X_MAT_RISK" Type="1" String="Material Risk Assessment" FatherUID="10X_MAT_QUAL" Position="6" Enabled="1" Checked="0"/>
+
+											</action>
+										</Menus>
+									</Menu>
+
+								</action>
+							</Menus>
+						</Menu>
+
 						<!-- 10X Pharma Regulatory Hub -->
 						<!--
 						<Menu UniqueID="10X_REG"
@@ -191,6 +272,25 @@
 
 				<Menus>
 					<action type="add">
+						<!-- Commercial Planning Master-->
+						<Menu UniqueID="10X_COMPLANMSTR"
+							  Type="2"
+							  String="Commercial Planning"
+							  FatherUID="10X_PH_MAST"
+							  Position="1"
+							  Enabled="1"
+							  Checked="0">
+
+							<Menus>
+								<action type="add">
+									<Menu UniqueID="10X_MOQ" Type="1"  String="MOQ Rule" FatherUID="10X_COMPLANMSTR" Position="1" Enabled="1"/>
+									<Menu UniqueID="10X_COSTCPT" Type="1" String="Cost Component" FatherUID="10X_COMPLANMSTR" Position="2" Enabled="1"/>
+									<Menu UniqueID="10X_PHRLEAD" Type="1" String="Pharma LeadTime" FatherUID="10X_COMPLANMSTR" Position="3"  Enabled="1"/>
+									<Menu UniqueID="10X_DOCRLT" Type="1" String="Document Relationship" FatherUID="10X_COMPLANMSTR" Position="4" Enabled="1"/>
+								</action>
+							</Menus>
+
+						</Menu>
 
 						<!-- ===================================================== -->
 						<!-- 10X Pharma Production Masters -->
@@ -379,7 +479,7 @@
 									<Menu UniqueID="10X_RMS_ARTTYP" Type="1" String="Artwork Type" FatherUID="10X_REG_MST" Position="4" Enabled="1" Checked="0"/>
 									<Menu UniqueID="10X_RMS_SUBTYP" Type="1" String="Submission Type" FatherUID="10X_REG_MST" Position="5" Enabled="1" Checked="0"/>
 									<Menu UniqueID="10X_RMS_STAT" Type="1" String="Registration Status" FatherUID="10X_REG_MST" Position="6" Enabled="1" Checked="0"/>
-									<Menu UniqueID="10X_RMS_APPMTX" Type="1" String="Approval Matrix" FatherUID="10X_REG_MST" Position="7" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_REG_CTDTMP" Type="1" String="CTD Templete" FatherUID="10X_REG_MST" Position="7" Enabled="1" Checked="0"/>
 
 								</action>
 							</Menus>
