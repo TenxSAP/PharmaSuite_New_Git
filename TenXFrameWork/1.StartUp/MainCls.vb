@@ -132,6 +132,7 @@ Public Class MainCls
     Public objregulatorySubmission As RegulatorySubmission
     Public ObjClsMstrDocumentRelationship As ClsMstrDocumentRelationship
     Public ObjClsMstrPharmaLeadTimeMaster As ClsMstrPharmaLeadTimeMaster
+    Public objTriningTypeMaster As ClsTrainingTypeMasterCompliance
     Public objInvPost As ClsInvPost
     Public objOnboarding As ClsOnboarding
     'Vamshi Sai
@@ -259,7 +260,7 @@ Public Class MainCls
         ObjCorporateTaxConfiguration = New clsCorporateTexConfig
         ObjCorporateTaxCalculation = New ClsCorporateTaxCalcu
         ObjVatReport = New ClsVatReports
-        OBJFormulaCosting = New ClsFormulaCosting
+        objformulacosting = New ClsFormulaCosting
         objInvPost = New ClsInvPost
         objOnboarding = New ClsOnboarding
         ObjPayloadD = New ClsPayloadD
@@ -347,6 +348,9 @@ Public Class MainCls
         objDowntimeReason = New DowntimeReason
         ObjClsMstrDocumentRelationship = New ClsMstrDocumentRelationship
         ObjClsMstrPharmaLeadTimeMaster = New ClsMstrPharmaLeadTimeMaster
+        objTriningTypeMaster = New ClsTrainingTypeMasterCompliance
+        'sreeja
+        objCTDTemplateMaster = New CTDTemplateMaster
         'sreeja
         objCTDTemplateMaster = New CTDTemplateMaster
     End Sub
@@ -2048,6 +2052,8 @@ Public Class MainCls
                     ObjClsMstrDocumentRelationship.MenuEvent(pVal, BubbleEvent)
                 Case "10X_PHRLEAD"
                     ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_CMS_TRNTYP"
+                    objTriningTypeMaster.MenuEvent(pVal, BubbleEvent)
                 Case "1282"
                     objform = objMain.objApplication.Forms.ActiveForm
                     If objform.TypeEx = "133" Then
@@ -2622,11 +2628,13 @@ Public Class MainCls
                         objDossierSelection.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_DOCREL" Then
                         ObjClsMstrDocumentRelationship.MenuEvent(pVal, BubbleEvent)
-                    ElseIf objform.TypeEx = "frm_LEAD" Then
-                        ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "TRMSTR" Then
+                        objTriningTypeMaster.MenuEvent(pVal, BubbleEvent)
                         'sreeja
                     ElseIf objform.TypeEx = "REG_CTDTMP" Then
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_LEAD" Then
+                        ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
                     End If
                 Case "Delete Row"
                     objform = objMain.objApplication.Forms.ActiveForm

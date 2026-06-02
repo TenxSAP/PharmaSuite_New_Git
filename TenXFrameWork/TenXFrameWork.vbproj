@@ -267,6 +267,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsSubmissiontracking.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsTestMaster.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsTestMethod.vb" />
+    <Compile Include="4.BusinessClasses\04.Addon Forms\ClsTrainingTypeMasterCompliance.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsValidationTypeMasterCompliance.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsVatReports.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsVIEWFORAPP.vb" />
