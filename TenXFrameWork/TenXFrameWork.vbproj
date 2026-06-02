@@ -276,6 +276,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\Cls_StabilityProtocol.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClS_StabilityStudy.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\Countryregulatoryconfig.vb" />
+    <Compile Include="4.BusinessClasses\04.Addon Forms\CTDTemplateMaster.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\DeviceMaster.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\DossierSelection.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\DowntimeReason.vb" />
@@ -378,6 +379,7 @@
     <EmbeddedResource Include="5.XML\ExperimentManagement.xml" />
     <EmbeddedResource Include="5.XML\EquipmentMaster.xml" />
     <EmbeddedResource Include="5.XML\DossierSectionMaster.xml" />
+    <EmbeddedResource Include="5.XML\CTDTemplateMaster.xml" />
     <Content Include="5.XML\FtavatMstr.xml" />
     <EmbeddedResource Include="5.XML\LicenceNew.xml" />
     <EmbeddedResource Include="5.XML\Labtesting.xml" />
