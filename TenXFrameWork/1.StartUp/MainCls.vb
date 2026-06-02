@@ -133,6 +133,7 @@ Public Class MainCls
     Public ObjClsMstrDocumentRelationship As ClsMstrDocumentRelationship
     Public ObjClsMstrPharmaLeadTimeMaster As ClsMstrPharmaLeadTimeMaster
     Public objTriningTypeMaster As ClsTrainingTypeMasterCompliance
+    Public objRiskClarificationCompliance As ClsRiskClarificationCompliance
     Public objInvPost As ClsInvPost
     Public objOnboarding As ClsOnboarding
     'Vamshi Sai
@@ -348,6 +349,7 @@ Public Class MainCls
         ObjClsMstrDocumentRelationship = New ClsMstrDocumentRelationship
         ObjClsMstrPharmaLeadTimeMaster = New ClsMstrPharmaLeadTimeMaster
         objTriningTypeMaster = New ClsTrainingTypeMasterCompliance
+        objRiskClarificationCompliance = New ClsRiskClarificationCompliance
     End Sub
 #End Region
 
@@ -2043,6 +2045,8 @@ Public Class MainCls
                     ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
                 Case "10X_CMS_TRNTYP"
                     objTriningTypeMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_CMS_RISK"
+                    objRiskClarificationCompliance.MenuEvent(pVal, BubbleEvent)
                 Case "1282"
                     objform = objMain.objApplication.Forms.ActiveForm
                     If objform.TypeEx = "133" Then
@@ -2602,6 +2606,8 @@ Public Class MainCls
                         ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "TRMSTR" Then
                         objTriningTypeMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "RISKCLMSTR" Then
+                        objRiskClarificationCompliance.MenuEvent(pVal, BubbleEvent)
                     End If
                 Case "Delete Row"
                     objform = objMain.objApplication.Forms.ActiveForm
