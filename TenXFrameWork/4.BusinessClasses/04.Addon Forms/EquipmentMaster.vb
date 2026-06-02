@@ -218,7 +218,7 @@ SAPbouiCOM.BoModeVisualBehavior.mvb_False)
             objForm.Freeze(False)
 
             objMain.objApplication.StatusBar.SetText(
-            "Productionstage Form Loaded Successfully",
+            "Equipment Form Loaded Successfully",
             BoMessageTime.bmt_Short,
             BoStatusBarMessageType.smt_Success)
 

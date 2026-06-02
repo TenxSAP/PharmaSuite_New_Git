@@ -132,6 +132,8 @@ Public Class MainCls
     Public objregulatorySubmission As RegulatorySubmission
     Public ObjClsMstrDocumentRelationship As ClsMstrDocumentRelationship
     Public ObjClsMstrPharmaLeadTimeMaster As ClsMstrPharmaLeadTimeMaster
+    Public objTriningTypeMaster As ClsTrainingTypeMasterCompliance
+    Public objRiskClarificationCompliance As ClsRiskClarificationCompliance
     Public ObjClsMstrCostComponentMaster As ClsMstrCostComponentMaster
     Public objInvPost As ClsInvPost
     Public objOnboarding As ClsOnboarding
@@ -156,7 +158,8 @@ Public Class MainCls
     Public sCmp1 As SAPbobsCOM.CompanyService
     Public oGeneralParams1 As SAPbobsCOM.GeneralDataParams
     Public oitem As SAPbouiCOM.Item
-
+    'sreeja
+    Public objCTDTemplateMaster As CTDTemplateMaster
     Dim SOSeries As String = ""
     Dim SODocNum As String = ""
     Dim PaymentType As String = ""
@@ -262,7 +265,7 @@ Public Class MainCls
         ObjCorporateTaxConfiguration = New clsCorporateTexConfig
         ObjCorporateTaxCalculation = New ClsCorporateTaxCalcu
         ObjVatReport = New ClsVatReports
-        OBJFormulaCosting = New ClsFormulaCosting
+        objformulacosting = New ClsFormulaCosting
         objInvPost = New ClsInvPost
         objOnboarding = New ClsOnboarding
         ObjPayloadD = New ClsPayloadD
@@ -353,6 +356,16 @@ Public Class MainCls
         ObjClsMstrCostComponentMaster = New ClsMstrCostComponentMaster
         ObjClsVendorRequalification = New ClsVendorRequalification
 
+        objTriningTypeMaster = New ClsTrainingTypeMasterCompliance
+        objRiskClarificationCompliance = New ClsRiskClarificationCompliance
+        'sreeja
+        objCTDTemplateMaster = New CTDTemplateMaster
+        'sreeja
+        objCTDTemplateMaster = New CTDTemplateMaster
+        'sreeja
+        objCTDTemplateMaster = New CTDTemplateMaster
+        'sreeja
+        objCTDTemplateMaster = New CTDTemplateMaster
     End Sub
 #End Region
 
@@ -1803,6 +1816,13 @@ Public Class MainCls
                     objDossierSelection.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "REG_ARTTYP"
                     objArtrworkMaster.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_COSTM"
+                    ObjClsMstrCostComponentMaster.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_VREQ"
+                    ObjClsVendorRequalification.ItemEvent(FormUID, pVal, BubbleEvent)
+                    'sreeja
+                Case "REG_CTDTMP"
+                    objCTDTemplateMaster.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "TNX_REG_SUBTYP"
                     objregulatorySubmission.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "REG_STAT"
@@ -1813,10 +1833,6 @@ Public Class MainCls
                     ObjClsMstrDocumentRelationship.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "frm_LEAD"
                     ObjClsMstrPharmaLeadTimeMaster.ItemEvent(FormUID, pVal, BubbleEvent)
-                Case "frm_COSTM"
-                    ObjClsMstrCostComponentMaster.ItemEvent(FormUID, pVal, BubbleEvent)
-                Case "frm_VREQ"
-                    ObjClsVendorRequalification.ItemEvent(FormUID, pVal, BubbleEvent)
             End Select
         Catch ex As Exception
             objApplication.MessageBox(ex.Message)
@@ -1847,6 +1863,9 @@ Public Class MainCls
                 'Case "SUBTYPE"
                 '    ObjSUBTYPE.MenuEvent(pVal, BubbleEvent)
                 '    'Find
+                'sreeja
+                Case "10X_REG_CTDTMP"
+                    objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
                 Case "10X_FRM_MST"
                     objFormulaMaster.MenuEvent(pVal, BubbleEvent)
                 Case "10X_EXP_MGT"
@@ -2040,6 +2059,14 @@ Public Class MainCls
                     objLineClearance.MenuEvent(pVal, BubbleEvent)
                 Case "10X_RMS_DOSSEC"
                     objDossierSelection.MenuEvent(pVal, BubbleEvent)
+                Case "10X_CMS_TRNTYP"
+                    objTriningTypeMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_CMS_RISK"
+                    objRiskClarificationCompliance.MenuEvent(pVal, BubbleEvent)
+                Case "10X_COSTCPT"
+                    ObjClsMstrCostComponentMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_VEN_REQUAL"
+                    ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
                 Case "10X_RMS_STAT"
                     ObjRegulatoryStatus.MenuEvent(pVal, BubbleEvent)
                 Case "10X_RMS_ARTTYP"
@@ -2050,10 +2077,6 @@ Public Class MainCls
                     ObjClsMstrDocumentRelationship.MenuEvent(pVal, BubbleEvent)
                 Case "10X_PHRLEAD"
                     ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
-                Case "10X_COSTCPT"
-                    ObjClsMstrCostComponentMaster.MenuEvent(pVal, BubbleEvent)
-                Case "10X_VEN_REQUAL"
-                    ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
                 Case "1282"
                     objform = objMain.objApplication.Forms.ActiveForm
                     If objform.TypeEx = "133" Then
@@ -2149,6 +2172,11 @@ Public Class MainCls
                         objProductRegistration.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "BMRR" Then
                         ObjBmr.MenuEvent(pVal, BubbleEvent)
+                        'sreeja
+                    ElseIf objform.TypeEx = "REG_CTDTMP" Then
+                        objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VREQ" Then
+                        ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_STAT" Then
                         ObjRegulatoryStatus.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_ARTTYP" Then
@@ -2159,8 +2187,6 @@ Public Class MainCls
                         objregulatorySubmission.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_DOSSEC" Then
                         objDossierSelection.MenuEvent(pVal, BubbleEvent)
-                    ElseIf objform.TypeEx = "frm_VREQ" Then
-                        ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
                     End If
 
 
@@ -2174,7 +2200,9 @@ Public Class MainCls
                         ObjCorporateTaxCalculation.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "EXPMNG" Then
                         objExperimentManagement.MenuEvent(pVal, BubbleEvent)
-
+                        'sreeja
+                    ElseIf objform.TypeEx = "REG_CTDTMP" Then
+                        objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
                     End If
                     'Navigations
                     'Case "1288"
@@ -2211,7 +2239,9 @@ Public Class MainCls
                         '    ObjCorporateTaxCalculation.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_CMS_ESIGN" Then
                         ObjclsElectronicSignaturePolicy.MenuEvent(pVal, BubbleEvent)
-
+                        'sreeja
+                    ElseIf objform.TypeEx = "REG_CTDTMP" Then
+                        objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
                     End If
                     'If objform.TypeEx = "TNX_OAFC" Then
                     '    oApprovedForecating.MenuEvent(pVal, BubbleEvent)
@@ -2324,6 +2354,11 @@ Public Class MainCls
                         ObjClsMstrAttachmentType.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_SPEC" Then
                         ObjClsMstrSpecificationHD.MenuEvent(pVal, BubbleEvent)
+                        'sreeja
+                    ElseIf objform.TypeEx = "REG_CTDTMP" Then
+                        objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VREQ" Then
+                        ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_STAT" Then
                         ObjRegulatoryStatus.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_ARTTYP" Then
@@ -2334,8 +2369,6 @@ Public Class MainCls
                         objregulatorySubmission.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_DOSSEC" Then
                         objDossierSelection.MenuEvent(pVal, BubbleEvent)
-                    ElseIf objform.TypeEx = "frm_VREQ" Then
-                        ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
                     End If
 
                 Case "774"
@@ -2408,6 +2441,9 @@ Public Class MainCls
                         ObjTestMethod.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_SPEC" Then
                         ObjClsMstrSpecificationHD.MenuEvent(pVal, BubbleEvent)
+                        'sreeja
+                    ElseIf objform.TypeEx = "REG_CTDTMP" Then
+                        objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
                     End If
 
                     'Case "Add Row"
@@ -2427,6 +2463,9 @@ Public Class MainCls
                         ObjClsCorpTax.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "FTAV" Then
                         ObjclsFtaVat.MenuEvent(pVal, BubbleEvent)
+                        'sreeja
+                    ElseIf objform.TypeEx = "REG_CTDTMP" Then
+                        objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
                     End If
 
                 Case "520"
@@ -2443,6 +2482,9 @@ Public Class MainCls
                         ObjclsFtaVat.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "UDO_F_UDO_REG_PRDREG" Then
                         objProductRegistration.MenuEvent(pVal, BubbleEvent)
+                        'sreeja
+                    ElseIf objform.TypeEx = "REG_CTDTMP" Then
+                        objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
                     End If
                 Case "1284"
                     objform = objMain.objApplication.Forms.ActiveForm
@@ -2613,6 +2655,17 @@ Public Class MainCls
                         objDossierSelection.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_DOCREL" Then
                         ObjClsMstrDocumentRelationship.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "TRMSTR" Then
+                        objTriningTypeMaster.MenuEvent(pVal, BubbleEvent)
+                        'sreeja
+                    ElseIf objform.TypeEx = "TRMSTR" Then
+                        objTriningTypeMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "RISKCLMSTR" Then
+                        objRiskClarificationCompliance.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "TRMSTR" Then
+                        objTriningTypeMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "RISKCLMSTR" Then
+                        objRiskClarificationCompliance.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_LEAD" Then
                         ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_COSTM" Then

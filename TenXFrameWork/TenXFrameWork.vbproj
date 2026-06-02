@@ -260,6 +260,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsPharmaDispensing.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsRegistration.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsRegulatory.vb" />
+    <Compile Include="4.BusinessClasses\04.Addon Forms\ClsRiskClarificationCompliance.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsRiskMaster.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsSampleType.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\clsSAPAlertWindow.vb" />
@@ -268,6 +269,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsSubmissiontracking.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsTestMaster.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsTestMethod.vb" />
+    <Compile Include="4.BusinessClasses\04.Addon Forms\ClsTrainingTypeMasterCompliance.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsValidationTypeMasterCompliance.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsVatReports.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsVendorRequalification.vb" />
@@ -278,6 +280,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\Cls_StabilityProtocol.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClS_StabilityStudy.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\Countryregulatoryconfig.vb" />
+    <Compile Include="4.BusinessClasses\04.Addon Forms\CTDTemplateMaster.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\DeviceMaster.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\DossierSelection.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\DowntimeReason.vb" />
@@ -380,6 +383,7 @@
     <EmbeddedResource Include="5.XML\ExperimentManagement.xml" />
     <EmbeddedResource Include="5.XML\EquipmentMaster.xml" />
     <EmbeddedResource Include="5.XML\DossierSectionMaster.xml" />
+    <EmbeddedResource Include="5.XML\CTDTemplateMaster.xml" />
     <Content Include="5.XML\FtavatMstr.xml" />
     <EmbeddedResource Include="5.XML\LicenceNew.xml" />
     <EmbeddedResource Include="5.XML\Labtesting.xml" />
