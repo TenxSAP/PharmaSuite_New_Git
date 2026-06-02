@@ -43,6 +43,7 @@ Public Class MainCls
     Public ObjValidationTypeMaster As ClsValidationTypeMasterCompliance
     'Ba
     Public ObjProcess As ClsProcessRoute
+    Public ObjPackage As ClsPackageArt
     'vsm
     Public objInprogresschecklist As Inprocesschecklist
     Public ObjclsMstrProductCategory As ClsMstrProductCategory
@@ -260,6 +261,7 @@ Public Class MainCls
         objARDownPayment = New clsARDownPayment
         objAREinvoice = New CLSEinvoiceButton
         ObjProcess = New ClsProcessRoute
+        ObjPackage = New ClsPackageArt
 
         objPayLoad = New ClsPayLoad
         ObjCorporateTaxConfiguration = New clsCorporateTexConfig
@@ -1760,6 +1762,8 @@ Public Class MainCls
                     ObjTestMaster.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_ROUTE"
                     ObjProcess.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_ARTWRK"
+                    ObjPackage.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_QC_TM"
                     ObjTestMethod.ItemEvent(FormUID, pVal, BubbleEvent)
 
@@ -2008,6 +2012,8 @@ Public Class MainCls
                     ObjclsDevidation.MenuEvent(pVal, BubbleEvent)
                 Case "10X_COMPPR"
                     ObjProcess.MenuEvent(pVal, BubbleEvent)
+                Case "10X_COMPPA"
+                    ObjPackage.MenuEvent(pVal, BubbleEvent)
 
                 Case "10X_STB_PROTO"
                     Stabilityprotocal.MenuEvent(pVal, BubbleEvent)
@@ -2075,6 +2081,8 @@ Public Class MainCls
                         ObjVatReport.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_ROUTE" Then
                         ObjProcess.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ARTWRK" Then
+                        ObjPackage.MenuEvent(pVal, BubbleEvent)
 
                     ElseIf objform.TypeEx = "CTAXCAL" Then
                         ObjCorporateTaxCalculation.MenuEvent(pVal, BubbleEvent)
@@ -2360,7 +2368,11 @@ Public Class MainCls
                         'sreeja
                     ElseIf objform.TypeEx = "REG_CTDTMP" Then
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ARTWRK" Then
+                        ObjPackage.MenuEvent(pVal, BubbleEvent)
+
                     End If
+
 
                 Case "774"
                     objform = objMain.objApplication.Forms.ActiveForm
@@ -2437,6 +2449,9 @@ Public Class MainCls
                         'sreeja
                     ElseIf objform.TypeEx = "REG_CTDTMP" Then
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ARTWRK" Then
+                        ObjPackage.MenuEvent(pVal, BubbleEvent)
+
                     End If
 
                     'Case "Add Row"
@@ -2525,6 +2540,9 @@ Public Class MainCls
                         ObjSample.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_ROUTE" Then
                         ObjProcess.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ARTWRK" Then
+                        ObjPackage.MenuEvent(pVal, BubbleEvent)
+
 
                         'ElseIf objform.TypeEx = "TNX_USR" Then
                         '    oSubParameterSelection.MenuEvent(pVal, BubbleEvent)
