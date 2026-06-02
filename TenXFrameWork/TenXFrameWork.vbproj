@@ -237,6 +237,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsMstrAttachmentType.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\clsMstrComplianceSett.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\clsMstrCorrectiveAction.vb" />
+    <Compile Include="4.BusinessClasses\04.Addon Forms\ClsMstrCostComponentMaster.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\clsMstrDocumentNumSetup.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsMstrDocumentRelationship.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsMstrDosageForm.vb" />
@@ -269,6 +270,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsTestMethod.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsValidationTypeMasterCompliance.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsVatReports.vb" />
+    <Compile Include="4.BusinessClasses\04.Addon Forms\ClsVendorRequalification.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsVIEWFORAPP.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\Cls_SampleCollection.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\Cls_SampleRegistration.vb" />
@@ -440,12 +442,14 @@
     <EmbeddedResource Include="5.XML\MstrProcessStage.xml" />
     <EmbeddedResource Include="5.XML\MstrDocumentRelationship.xml" />
     <EmbeddedResource Include="5.XML\MstrPharmaLeadTimeMaster.xml" />
+    <EmbeddedResource Include="5.XML\MstrCostComponentMaster.xml" />
     <Content Include="5.XML\MstrSpecificationHD.xml" />
     <EmbeddedResource Include="5.XML\MstrTestParameter.xml" />
     <EmbeddedResource Include="5.XML\MstrVersionControlSetup.xml" />
     <EmbeddedResource Include="5.XML\RegulatoryStatusMaster.xml" />
     <EmbeddedResource Include="5.XML\RegulatorySubmission.xml" />
     <EmbeddedResource Include="5.XML\Regulatorydossier.xml" />
+    <EmbeddedResource Include="5.XML\VendorRequalification.xml" />
     <Content Include="bin\Menu.xml" />
     <Content Include="SQLQuery\TNX_VatReturnRtp.sql" />
     <EmbeddedResource Include="SQLQuery\VatReport Approved.sql" />

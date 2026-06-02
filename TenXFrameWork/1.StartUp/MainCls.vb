@@ -132,10 +132,14 @@ Public Class MainCls
     Public objregulatorySubmission As RegulatorySubmission
     Public ObjClsMstrDocumentRelationship As ClsMstrDocumentRelationship
     Public ObjClsMstrPharmaLeadTimeMaster As ClsMstrPharmaLeadTimeMaster
+    Public ObjClsMstrCostComponentMaster As ClsMstrCostComponentMaster
     Public objInvPost As ClsInvPost
     Public objOnboarding As ClsOnboarding
     'Vamshi Sai
     Public objInvoicePosting As ClsInvoicePsoting
+
+    'Vishwjeet
+    Public ObjClsVendorRequalification As ClsVendorRequalification
 
     Public oGeneralService As SAPbobsCOM.GeneralService
     Public oGeneralData As SAPbobsCOM.GeneralData
@@ -346,6 +350,9 @@ Public Class MainCls
         objDowntimeReason = New DowntimeReason
         ObjClsMstrDocumentRelationship = New ClsMstrDocumentRelationship
         ObjClsMstrPharmaLeadTimeMaster = New ClsMstrPharmaLeadTimeMaster
+        ObjClsMstrCostComponentMaster = New ClsMstrCostComponentMaster
+        ObjClsVendorRequalification = New ClsVendorRequalification
+
     End Sub
 #End Region
 
@@ -1806,6 +1813,10 @@ Public Class MainCls
                     ObjClsMstrDocumentRelationship.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "frm_LEAD"
                     ObjClsMstrPharmaLeadTimeMaster.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_COSTM"
+                    ObjClsMstrCostComponentMaster.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_VREQ"
+                    ObjClsVendorRequalification.ItemEvent(FormUID, pVal, BubbleEvent)
             End Select
         Catch ex As Exception
             objApplication.MessageBox(ex.Message)
@@ -2039,6 +2050,10 @@ Public Class MainCls
                     ObjClsMstrDocumentRelationship.MenuEvent(pVal, BubbleEvent)
                 Case "10X_PHRLEAD"
                     ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_COSTCPT"
+                    ObjClsMstrCostComponentMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_VEN_REQUAL"
+                    ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
                 Case "1282"
                     objform = objMain.objApplication.Forms.ActiveForm
                     If objform.TypeEx = "133" Then
@@ -2144,6 +2159,8 @@ Public Class MainCls
                         objregulatorySubmission.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_DOSSEC" Then
                         objDossierSelection.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VREQ" Then
+                        ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
                     End If
 
 
@@ -2317,6 +2334,8 @@ Public Class MainCls
                         objregulatorySubmission.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_DOSSEC" Then
                         objDossierSelection.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VREQ" Then
+                        ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
                     End If
 
                 Case "774"
@@ -2596,6 +2615,10 @@ Public Class MainCls
                         ObjClsMstrDocumentRelationship.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_LEAD" Then
                         ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_COSTM" Then
+                        ObjClsMstrCostComponentMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VREQ" Then
+                        ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
                     End If
                 Case "Delete Row"
                     objform = objMain.objApplication.Forms.ActiveForm
