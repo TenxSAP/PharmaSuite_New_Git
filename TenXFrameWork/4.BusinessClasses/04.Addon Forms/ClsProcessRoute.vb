@@ -62,7 +62,7 @@ Public Class ClsProcessRoute
     End Sub
     Sub MenuEvent(ByRef pVal As SAPbouiCOM.MenuEvent, ByRef BubbleEvent As Boolean)
         Try
-            If pVal.MenuUID = "10X_ROUTE" And pVal.BeforeAction = False Then
+            If pVal.MenuUID = "10X_COMPPR" And pVal.BeforeAction = False Then
                 Me.CreateForm()
 
             ElseIf pVal.MenuUID = "1281" And pVal.BeforeAction = False Then
@@ -213,6 +213,7 @@ Public Class ClsProcessRoute
         Try
 
             objForm = objMain.objApplication.Forms.Item(FormUID)
+            objForm.Freeze(True)
             oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_ROUTE1")
             ' objMatrix1 = objForm.Items.Item("0_U_G").Specific
 
@@ -240,7 +241,7 @@ Public Class ClsProcessRoute
                 objMatrix1.AutoResizeColumns()
 
             End If
-
+            objForm.Freeze(False)
         Catch ex As Exception
 
             objMain.objApplication.StatusBar.SetText(ex.Message)

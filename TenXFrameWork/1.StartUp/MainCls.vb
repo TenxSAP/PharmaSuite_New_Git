@@ -41,6 +41,8 @@ Public Class MainCls
     Public objProductRegistration As ProductRegistration
     Public objSopCategoryCompliance As ClsSOPCategoryCompliance
     Public ObjValidationTypeMaster As ClsValidationTypeMasterCompliance
+    'Ba
+    Public ObjProcess As ClsProcessRoute
     'vsm
     Public objInprogresschecklist As Inprocesschecklist
     Public ObjclsMstrProductCategory As ClsMstrProductCategory
@@ -257,6 +259,7 @@ Public Class MainCls
         objARCreditMemo = New clsARCreditMemo
         objARDownPayment = New clsARDownPayment
         objAREinvoice = New CLSEinvoiceButton
+        ObjProcess = New ClsProcessRoute
 
         objPayLoad = New ClsPayLoad
         ObjCorporateTaxConfiguration = New clsCorporateTexConfig
@@ -1755,6 +1758,8 @@ Public Class MainCls
                     ObjRegistration.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_TPARM"
                     ObjTestMaster.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_ROUTE"
+                    ObjProcess.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_QC_TM"
                     ObjTestMethod.ItemEvent(FormUID, pVal, BubbleEvent)
 
@@ -2001,6 +2006,8 @@ Public Class MainCls
                     ObjclsCOMTemplate.MenuEvent(pVal, BubbleEvent)
                 Case "10X_QC_DEVCAT"
                     ObjclsDevidation.MenuEvent(pVal, BubbleEvent)
+                Case "10X_COMPPR"
+                    ObjProcess.MenuEvent(pVal, BubbleEvent)
 
                 Case "10X_STB_PROTO"
                     Stabilityprotocal.MenuEvent(pVal, BubbleEvent)
@@ -2066,6 +2073,9 @@ Public Class MainCls
                         objARInvoice.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "VATR" Then
                         ObjVatReport.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ROUTE" Then
+                        ObjProcess.MenuEvent(pVal, BubbleEvent)
+
                     ElseIf objform.TypeEx = "CTAXCAL" Then
                         ObjCorporateTaxCalculation.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "COTX" Then
@@ -2278,6 +2288,8 @@ Public Class MainCls
                         ObjclsIncident.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_AUDCHK" Then
                         ObjclsAudit.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ROUTE" Then
+                        ObjProcess.MenuEvent(pVal, BubbleEvent)
 
                     ElseIf objform.TypeEx = "frm_CORACT" Then
                         ObjclsMstrCorrectiveAction.MenuEvent(pVal, BubbleEvent)
@@ -2420,6 +2432,8 @@ Public Class MainCls
                         ObjTestMethod.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_SPEC" Then
                         ObjClsMstrSpecificationHD.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ROUTE" Then
+                        ObjProcess.MenuEvent(pVal, BubbleEvent)
                         'sreeja
                     ElseIf objform.TypeEx = "REG_CTDTMP" Then
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
@@ -2509,6 +2523,8 @@ Public Class MainCls
                         objProductRegistration.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_STYPE" Then
                         ObjSample.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ROUTE" Then
+                        ObjProcess.MenuEvent(pVal, BubbleEvent)
 
                         'ElseIf objform.TypeEx = "TNX_USR" Then
                         '    oSubParameterSelection.MenuEvent(pVal, BubbleEvent)
