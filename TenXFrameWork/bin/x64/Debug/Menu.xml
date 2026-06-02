@@ -20,7 +20,7 @@
 						<!-- Commercial Planning-->
 						<!-- ===================================================== -->
 
-						<Menu UniqueID="10X_COMPLAN"
+						<Menu UniqueID="10X_TNX_ROUTELAN"
 							  Type="2"
 							  String="Commercial Planning"
 							  FatherUID="10X_PHARMA"

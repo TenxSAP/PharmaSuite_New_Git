@@ -257,6 +257,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsPayloadD.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsPharmaBPR.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsPharmaDispensing.vb" />
+    <Compile Include="4.BusinessClasses\04.Addon Forms\ClsProcessRoute.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsRegistration.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsRegulatory.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsRiskMaster.vb" />
@@ -447,6 +448,7 @@
     <EmbeddedResource Include="5.XML\RegulatoryStatusMaster.xml" />
     <EmbeddedResource Include="5.XML\RegulatorySubmission.xml" />
     <EmbeddedResource Include="5.XML\Regulatorydossier.xml" />
+    <EmbeddedResource Include="5.XML\ProcessRoute.xml" />
     <Content Include="bin\Menu.xml" />
     <Content Include="SQLQuery\TNX_VatReturnRtp.sql" />
     <EmbeddedResource Include="SQLQuery\VatReport Approved.sql" />
