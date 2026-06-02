@@ -261,6 +261,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsRegulatory.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsRiskClarificationCompliance.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsRiskMaster.vb" />
+    <Compile Include="4.BusinessClasses\04.Addon Forms\ClsRootCauseCompliance.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsSampleType.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\clsSAPAlertWindow.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsSOPCategoryCompliance.vb" />

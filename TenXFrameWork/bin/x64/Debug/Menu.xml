@@ -176,8 +176,13 @@
 									<Menu UniqueID="10X_COMPTP" Type="1" String="Training Plan" FatherUID="10X_COMP" Position="11" Enabled="1" Checked="0"/>
 									<Menu UniqueID="10X_COMPTE" Type="1" String="Training Excecution" FatherUID="10X_COMP" Position="12" Enabled="1" Checked="0"/>
 									<Menu UniqueID="10X_COMPTC" Type="1" String="Training Certificate" FatherUID="10X_COMP" Position="13" Enabled="1" Checked="0"/>
-									<Menu UniqueID="10X_COMPET" Type="1" String="Employee Training" FatherUID="10X_COMP" Position="14" Enabled="1" Checked="0"/>
-									<Menu UniqueID="10X_COMPREPORTS" Type="2" String="Reports" FatherUID="10X_COMP" Position="15" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMPET" Type="1" String="Employee Training" FatherUID="10X_COMP" Position="14" Enabled="1" Checked="0"/>									
+									<Menu UniqueID="10X_COMPPR" Type="1" String="Process Routing" FatherUID="10X_COMP" Position="15" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMPPA" Type="1" String="Packaging Artwork" FatherUID="10X_COMP" Position="16" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMPEM" Type="1" String="Environmental Monitoring" FatherUID="10X_COMP" Position="17" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMPBNL" Type="1" String="Batch Numbering Logic" FatherUID="10X_COMP" Position="18" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMPSP" Type="1" String="Stability Protocol" FatherUID="10X_COMP" Position="19" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_COMPREPORTS" Type="2" String="Reports" FatherUID="10X_COMP" Position="20" Enabled="1" Checked="0"/>
 
 								</action>
 							</Menus>
