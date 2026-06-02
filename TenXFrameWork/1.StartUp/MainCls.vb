@@ -160,6 +160,7 @@ Public Class MainCls
     Public oitem As SAPbouiCOM.Item
     'sreeja
     Public objCTDTemplateMaster As CTDTemplateMaster
+    Public objRootCauseMaster As ClsRootCauseCompliance
     Dim SOSeries As String = ""
     Dim SODocNum As String = ""
     Dim PaymentType As String = ""
@@ -360,12 +361,7 @@ Public Class MainCls
         objRiskClarificationCompliance = New ClsRiskClarificationCompliance
         'sreeja
         objCTDTemplateMaster = New CTDTemplateMaster
-        'sreeja
-        objCTDTemplateMaster = New CTDTemplateMaster
-        'sreeja
-        objCTDTemplateMaster = New CTDTemplateMaster
-        'sreeja
-        objCTDTemplateMaster = New CTDTemplateMaster
+        objRootCauseMaster = New ClsRootCauseCompliance
     End Sub
 #End Region
 
@@ -2077,6 +2073,12 @@ Public Class MainCls
                     ObjClsMstrDocumentRelationship.MenuEvent(pVal, BubbleEvent)
                 Case "10X_PHRLEAD"
                     ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_CMS_TRNTYP"
+                    objTriningTypeMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_CMS_RISK"
+                    objRiskClarificationCompliance.MenuEvent(pVal, BubbleEvent)
+                Case "10X_CMS_ROOT"
+                    objRootCauseMaster.MenuEvent(pVal, BubbleEvent)
                 Case "1282"
                     objform = objMain.objApplication.Forms.ActiveForm
                     If objform.TypeEx = "133" Then
@@ -2672,6 +2674,8 @@ Public Class MainCls
                         ObjClsMstrCostComponentMaster.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_VREQ" Then
                         ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "ROOTMSTR" Then
+                        objRootCauseMaster.MenuEvent(pVal, BubbleEvent)
                     End If
                 Case "Delete Row"
                     objform = objMain.objApplication.Forms.ActiveForm
