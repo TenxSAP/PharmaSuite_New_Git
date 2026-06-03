@@ -157,6 +157,7 @@ Public Class MainCls
     'sreeja
     Public objCTDTemplateMaster As CTDTemplateMaster
     Public objRootCauseMaster As ClsRootCauseCompliance
+    Public objNewMaterialRequest As ClsNewMaterialRequest
     Dim SOSeries As String = ""
     Dim SODocNum As String = ""
     Dim PaymentType As String = ""
@@ -355,6 +356,7 @@ Public Class MainCls
         'sreeja
         objCTDTemplateMaster = New CTDTemplateMaster
         objRootCauseMaster = New ClsRootCauseCompliance
+        objNewMaterialRequest = New ClsNewMaterialRequest
     End Sub
 #End Region
 
@@ -1818,6 +1820,8 @@ Public Class MainCls
                     'sreeja
                 Case "REG_CTDTMP"
                     objCTDTemplateMaster.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "TNX_MQ_NMR"
+                    objNewMaterialRequest.ItemEvent(FormUID, pVal, BubbleEvent)
             End Select
         Catch ex As Exception
             objApplication.MessageBox(ex.Message)
@@ -2060,6 +2064,8 @@ Public Class MainCls
                     objRiskClarificationCompliance.MenuEvent(pVal, BubbleEvent)
                 Case "10X_CMS_ROOT"
                     objRootCauseMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_NMR"
+                    objNewMaterialRequest.MenuEvent(pVal, BubbleEvent)
                 Case "1282"
                     objform = objMain.objApplication.Forms.ActiveForm
                     If objform.TypeEx = "133" Then
@@ -2376,7 +2382,9 @@ Public Class MainCls
                     If objform.TypeEx = "STAB_SHELF" Then
                         Shelflife.MenuEvent(pVal, BubbleEvent)
                     End If
-
+                    If objform.TypeEx = "TNX_MQ_NMR" Then
+                        objNewMaterialRequest.MenuEvent(pVal, BubbleEvent)
+                    End If
                     '    'ADD ROW
                 Case "1282"
                     objform = objMain.objApplication.Forms.ActiveForm
@@ -2423,6 +2431,8 @@ Public Class MainCls
                         'sreeja
                     ElseIf objform.TypeEx = "REG_CTDTMP" Then
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "TNX_MQ_NMR" Then
+                        objNewMaterialRequest.MenuEvent(pVal, BubbleEvent)
                     End If
 
                     'Case "Add Row"
@@ -2649,6 +2659,8 @@ Public Class MainCls
                         ObjClsMstrPharmaLeadTimeMaster.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "ROOTMSTR" Then
                         objRootCauseMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "TNX_MQ_NMR" Then
+                        objNewMaterialRequest.MenuEvent(pVal, BubbleEvent)
                     End If
                 Case "Delete Row"
                     objform = objMain.objApplication.Forms.ActiveForm
