@@ -7,7 +7,7 @@ Public Class DatabaseCreation
     Private objUtilities As Utilities
     Dim DBCode As String = "v0.400"
     Dim DBName As String = "v0.400"
-    Dim Version As String = "v0.701"
+    Dim Version As String = "v0.704"
 #End Region
 
 #Region "DB Creation Main"
@@ -232,6 +232,12 @@ Public Class DatabaseCreation
                 objMain.objUtilities.AddDateField("OITM", "TNX_ValidUpto", "Qualification Expiry", SAPbobsCOM.BoFldSubTypes.st_None)
                 objMain.objUtilities.AddAlphaField("OITM", "TNX_RiskCls", "Risk Class", 20)
                 objMain.objUtilities.AddAlphaField("OITM", "TNX_POBlock", "PO Block", 1)
+
+                objMain.objUtilities.AddDateField("@TNX_QC_COAT_H", "DTN", "Document Date", SAPbobsCOM.BoFldSubTypes.st_None)
+                objMain.objUtilities.AddDateField("@TNX_QC_AUDCHK_H", "DNL", "Document Date", SAPbobsCOM.BoFldSubTypes.st_None)
+                objMain.objUtilities.AddDateField("@TNX_ROUTE", "DCM", "Document Date", SAPbobsCOM.BoFldSubTypes.st_None)
+                objMain.objUtilities.AddDateField("@TNX_ARTWRK", "DER", "Document Date", SAPbobsCOM.BoFldSubTypes.st_None)
+
 
                 ' Business Partner (OCRD)
                 objMain.objUtilities.AddAlphaField("OCRD", "TNX_VendQual", "Vendor Qualification Status", 30)

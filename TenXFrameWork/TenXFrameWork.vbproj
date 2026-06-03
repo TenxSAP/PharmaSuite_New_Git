@@ -254,6 +254,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsMstrVersionControlSetup.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsNewMaterialRequest.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsOnboarding.vb" />
+    <Compile Include="4.BusinessClasses\04.Addon Forms\ClsPackageArt.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsPayLoad.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsPayloadD.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsPharmaBPR.vb" />
@@ -455,6 +456,7 @@
     <EmbeddedResource Include="5.XML\Regulatorydossier.xml" />
     <EmbeddedResource Include="5.XML\ProcessRoute.xml" />
     <EmbeddedResource Include="5.XML\NewMaterialRequest.xml" />
+    <EmbeddedResource Include="5.XML\PackageArtwork.xml" />
     <Content Include="bin\Menu.xml" />
     <Content Include="SQLQuery\TNX_VatReturnRtp.sql" />
     <EmbeddedResource Include="SQLQuery\VatReport Approved.sql" />
