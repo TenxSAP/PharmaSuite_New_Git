@@ -142,6 +142,8 @@ Public Class MainCls
 
     'Vishwjeet
     Public ObjClsVendorRequalification As ClsVendorRequalification
+    Public ObjClsVendorRiskAssessment As ClsVendorRiskAssessment
+    Public ObjClsVendorPerformance As VendorPerformanceReview
 
     Public oGeneralService As SAPbobsCOM.GeneralService
     Public oGeneralData As SAPbobsCOM.GeneralData
@@ -356,7 +358,8 @@ Public Class MainCls
         ObjClsMstrPharmaLeadTimeMaster = New ClsMstrPharmaLeadTimeMaster
         ObjClsMstrCostComponentMaster = New ClsMstrCostComponentMaster
         ObjClsVendorRequalification = New ClsVendorRequalification
-
+        ObjClsVendorRiskAssessment = New ClsVendorRiskAssessment
+        ObjClsVendorPerformance = New VendorPerformanceReview
         objTriningTypeMaster = New ClsTrainingTypeMasterCompliance
         objRiskClarificationCompliance = New ClsRiskClarificationCompliance
         'sreeja
@@ -1816,6 +1819,10 @@ Public Class MainCls
                     ObjClsMstrCostComponentMaster.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "frm_VREQ"
                     ObjClsVendorRequalification.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "frm_VRA"
+                    ObjClsVendorRiskAssessment.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "UDO_TNX_VPR"
+                    ObjClsVendorPerformance.ItemEvent(FormUID, pVal, BubbleEvent)
                     'sreeja
                 Case "REG_CTDTMP"
                     objCTDTemplateMaster.ItemEvent(FormUID, pVal, BubbleEvent)
@@ -2063,6 +2070,10 @@ Public Class MainCls
                     ObjClsMstrCostComponentMaster.MenuEvent(pVal, BubbleEvent)
                 Case "10X_VEN_REQUAL"
                     ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
+                Case "10X_VEN_RISK"
+                    ObjClsVendorRiskAssessment.MenuEvent(pVal, BubbleEvent)
+                Case "10X_VEN_PERF"
+                    ObjClsVendorPerformance.MenuEvent(pVal, BubbleEvent)
                 Case "10X_RMS_STAT"
                     ObjRegulatoryStatus.MenuEvent(pVal, BubbleEvent)
                 Case "10X_RMS_ARTTYP"
@@ -2179,6 +2190,10 @@ Public Class MainCls
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_VREQ" Then
                         ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VRA" Then
+                        ObjClsVendorRiskAssessment.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "UDO_TNX_VPR" Then
+                        ObjClsVendorPerformance.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_STAT" Then
                         ObjRegulatoryStatus.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_ARTTYP" Then
@@ -2202,6 +2217,12 @@ Public Class MainCls
                         ObjCorporateTaxCalculation.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "EXPMNG" Then
                         objExperimentManagement.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VRA" Then
+                        ObjClsVendorRiskAssessment.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VREQ" Then
+                        ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "UDO_TNX_VPR" Then
+                        ObjClsVendorPerformance.MenuEvent(pVal, BubbleEvent)
                         'sreeja
                     ElseIf objform.TypeEx = "REG_CTDTMP" Then
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
@@ -2361,6 +2382,10 @@ Public Class MainCls
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_VREQ" Then
                         ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VRA" Then
+                        ObjClsVendorRiskAssessment.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "UDO_TNX_VPR" Then
+                        ObjClsVendorPerformance.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_STAT" Then
                         ObjRegulatoryStatus.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_ARTTYP" Then
@@ -2443,6 +2468,12 @@ Public Class MainCls
                         ObjTestMethod.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_SPEC" Then
                         ObjClsMstrSpecificationHD.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "UDO_TNX_VPR" Then
+                        ObjClsVendorPerformance.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VREQ" Then
+                        ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VRA" Then
+                        ObjClsVendorRiskAssessment.MenuEvent(pVal, BubbleEvent)
                         'sreeja
                     ElseIf objform.TypeEx = "REG_CTDTMP" Then
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
@@ -2674,6 +2705,10 @@ Public Class MainCls
                         ObjClsMstrCostComponentMaster.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_VREQ" Then
                         ObjClsVendorRequalification.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "frm_VRA" Then
+                        ObjClsVendorRiskAssessment.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "UDO_TNX_VPR" Then
+                        ObjClsVendorPerformance.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "ROOTMSTR" Then
                         objRootCauseMaster.MenuEvent(pVal, BubbleEvent)
                     End If

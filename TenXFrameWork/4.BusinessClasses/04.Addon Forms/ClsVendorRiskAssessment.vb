@@ -1,6 +1,6 @@
 ﻿Imports SAPbouiCOM
 
-Public Class ClsVendorRequalification
+Public Class ClsVendorRiskAssessment
 
 #Region "       Declaration             "
     Public objForm As SAPbouiCOM.Form
@@ -19,20 +19,19 @@ Public Class ClsVendorRequalification
 
         Try
 
-            objMain.objUtilities.LoadForm("VendorRequalification.xml", "UDO_TNX_VREQ", ResourceType.Embeded)
-            objForm = objMain.objApplication.Forms.GetForm("frm_VREQ", objMain.objApplication.Forms.ActiveForm.TypeCount)
+            objMain.objUtilities.LoadForm("VendorRiskAssessment.xml", "frm_VRA", ResourceType.Embeded)
+            objForm = objMain.objApplication.Forms.GetForm("frm_VRA", objMain.objApplication.Forms.ActiveForm.TypeCount)
 
             objForm.Freeze(True)
 
-            oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_H")
-            oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_DOC")
-            oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_ACT")
+            oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_VRA_H")
+            oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_SCORE")
+            oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_REC")
 
-            oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_VREQ", "Primary"))
-
+            oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_VRA", "Primary"))
             oDBs_Head.SetValue("U_Status", oDBs_Head.Offset, "Open")
-            oDBs_Head.SetValue("U_FinalDecision", oDBs_Head.Offset, "")
-            oDBs_Head.SetValue("U_ApprovedBy", oDBs_Head.Offset, "")
+            oDBs_Head.SetValue("U_TotalScore", oDBs_Head.Offset, "0")
+            oDBs_Head.SetValue("U_RiskLevel", oDBs_Head.Offset, "")
 
             '====================================================
             ' MATRIX SETTINGS
@@ -94,7 +93,7 @@ Public Class ClsVendorRequalification
             objForm.Freeze(False)
 
             objMain.objApplication.StatusBar.SetText(
-            "Vendor Requalification Form Loaded Successfully",
+            "Vendor Risk Assessment Form Loaded Successfully",
             SAPbouiCOM.BoMessageTime.bmt_Short,
             SAPbouiCOM.BoStatusBarMessageType.smt_Success)
 
@@ -113,25 +112,24 @@ Public Class ClsVendorRequalification
         End Try
 
     End Sub
-
     Public Sub SetNewLine(ByVal FormUID As String)
 
         Try
 
             objForm = objMain.objApplication.Forms.Item(FormUID)
 
-            oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_H")
-            oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_DOC")
+            oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_VRA_H")
+            oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_SCORE")
 
             objMatrix1 = CType(objForm.Items.Item("0_U_G").Specific, SAPbouiCOM.Matrix)
 
             objMatrix1.AddRow()
 
             oDBs_Details1.SetValue("LineId", oDBs_Details1.Offset, objMatrix1.VisualRowCount)
-            oDBs_Details1.SetValue("U_DocType", oDBs_Details1.Offset, "")
-            oDBs_Details1.SetValue("U_OldExpiry", oDBs_Details1.Offset, "")
-            oDBs_Details1.SetValue("U_NewExpiry", oDBs_Details1.Offset, "")
-            oDBs_Details1.SetValue("U_Verified", oDBs_Details1.Offset, "N")
+            oDBs_Details1.SetValue("U_Factor", oDBs_Details1.Offset, "")
+            oDBs_Details1.SetValue("U_Weight", oDBs_Details1.Offset, "")
+            oDBs_Details1.SetValue("U_Score", oDBs_Details1.Offset, "")
+            oDBs_Details1.SetValue("U_WScore", oDBs_Details1.Offset, "")
             oDBs_Details1.SetValue("U_Remarks", oDBs_Details1.Offset, "")
 
             objMatrix1.SetLineData(objMatrix1.VisualRowCount)
@@ -147,25 +145,24 @@ Public Class ClsVendorRequalification
         End Try
 
     End Sub
-
     Public Sub SetNewLine1(ByVal FormUID As String)
 
         Try
 
             objForm = objMain.objApplication.Forms.Item(FormUID)
 
-            oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_H")
-            oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_ACT")
+            oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_VRA_H")
+            oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_REC")
 
             objMatrix2 = CType(objForm.Items.Item("1_U_G").Specific, SAPbouiCOM.Matrix)
 
             objMatrix2.AddRow()
 
             oDBs_Details2.SetValue("LineId", oDBs_Details2.Offset, objMatrix2.VisualRowCount)
-            oDBs_Details2.SetValue("U_Action", oDBs_Details2.Offset, "")
-            oDBs_Details2.SetValue("U_Owner", oDBs_Details2.Offset, "")
+            oDBs_Details2.SetValue("U_Recommendation", oDBs_Details2.Offset, "")
+            oDBs_Details2.SetValue("U_ActionType", oDBs_Details2.Offset, "")
             oDBs_Details2.SetValue("U_TargetDate", oDBs_Details2.Offset, "")
-            oDBs_Details2.SetValue("U_Status", oDBs_Details2.Offset, "Open")
+            oDBs_Details2.SetValue("U_Status", oDBs_Details2.Offset, "")
 
             objMatrix2.SetLineData(objMatrix2.VisualRowCount)
             objMatrix2.AutoResizeColumns()
@@ -180,29 +177,27 @@ Public Class ClsVendorRequalification
         End Try
 
     End Sub
-
     Public Sub SetDefault(ByVal FormUID As String)
 
         Try
 
             objForm = objMain.objApplication.Forms.Item(FormUID)
 
-            oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_H")
-            oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_DOC")
-            oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_ACT")
+            oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_VRA_H")
+            oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_SCORE")
+            oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_REC")
 
             objForm.Freeze(True)
 
             'Header Defaults
-            oDBs_Head.SetValue("DocNum", 0, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_VREQ", "Primary"))
+            oDBs_Head.SetValue("DocNum", 0, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_VRA", "Primary"))
 
             oDBs_Head.SetValue("U_Status", 0, "Open")
-            oDBs_Head.SetValue("U_FinalDecision", 0, "")
-            oDBs_Head.SetValue("U_ApprovedBy", 0, "")
+            oDBs_Head.SetValue("U_TotalScore", 0, "0")
+            oDBs_Head.SetValue("U_RiskLevel", 0, "")
 
             'Default Tab
             objForm.PaneLevel = 1
-
             objForm.Items.Item("0_U_FD").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
 
             'Matrix References
@@ -239,12 +234,11 @@ Public Class ClsVendorRequalification
         End Try
 
     End Sub
-
     Public Sub MenuEvent(ByRef pVal As SAPbouiCOM.MenuEvent, ByRef BubbleEvent As Boolean)
 
         Try
 
-            If pVal.MenuUID = "10X_VEN_REQUAL" AndAlso pVal.BeforeAction = False Then
+            If pVal.MenuUID = "10X_VEN_RISK" AndAlso pVal.BeforeAction = False Then
 
                 Me.CreateForm()
 
@@ -256,7 +250,7 @@ Public Class ClsVendorRequalification
 
                 objForm = objMain.objApplication.Forms.ActiveForm
 
-                If objForm.TypeEx <> "frm_VREQ" Then Exit Sub
+                If objForm.TypeEx <> "frm_VRA" Then Exit Sub
 
                 If objForm.PaneLevel = 1 Then
 
@@ -274,35 +268,41 @@ Public Class ClsVendorRequalification
 
                     objForm = objMain.objApplication.Forms.ActiveForm
 
-                    If objForm.TypeEx <> "frm_VREQ" Then Exit Sub
+                    If objForm.TypeEx <> "frm_VRA" Then Exit Sub
 
                     BubbleEvent = False
 
                     objForm.Freeze(True)
 
                     '=========================================================
-                    ' DELETE ROW - DOCUMENT MATRIX
+                    ' DELETE ROW - SCORE MATRIX
                     '=========================================================
                     If objForm.PaneLevel = 1 Then
 
                         objMatrix1 = CType(objForm.Items.Item("0_U_G").Specific, SAPbouiCOM.Matrix)
-                        oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_DOC")
+                        oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_SCORE")
 
                         Dim selectedRow As Integer = objMatrix1.GetNextSelectedRow(0, SAPbouiCOM.BoOrderType.ot_RowOrder)
 
                         If selectedRow <= 0 Then
 
-                            objMain.objApplication.StatusBar.SetText("Please select Document row to delete", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning)
+                            objMain.objApplication.StatusBar.SetText(
+                        "Please select row to delete",
+                        SAPbouiCOM.BoMessageTime.bmt_Short,
+                        SAPbouiCOM.BoStatusBarMessageType.smt_Warning)
 
                             Exit Try
 
                         End If
 
                         objMatrix1.DeleteRow(selectedRow)
+
                         objMatrix1.FlushToDataSource()
 
                         While oDBs_Details1.Size > objMatrix1.VisualRowCount
+
                             oDBs_Details1.RemoveRecord(oDBs_Details1.Size - 1)
+
                         End While
 
                         If oDBs_Details1.Size = 0 Then
@@ -310,10 +310,10 @@ Public Class ClsVendorRequalification
                             oDBs_Details1.InsertRecord(0)
 
                             oDBs_Details1.SetValue("LineId", 0, "1")
-                            oDBs_Details1.SetValue("U_DocType", 0, "")
-                            oDBs_Details1.SetValue("U_OldExpiry", 0, "")
-                            oDBs_Details1.SetValue("U_NewExpiry", 0, "")
-                            oDBs_Details1.SetValue("U_Verified", 0, "N")
+                            oDBs_Details1.SetValue("U_Factor", 0, "")
+                            oDBs_Details1.SetValue("U_Weight", 0, "")
+                            oDBs_Details1.SetValue("U_Score", 0, "")
+                            oDBs_Details1.SetValue("U_WScore", 0, "")
                             oDBs_Details1.SetValue("U_Remarks", 0, "")
 
                         End If
@@ -330,18 +330,21 @@ Public Class ClsVendorRequalification
                     End If
 
                     '=========================================================
-                    ' DELETE ROW - ACTION MATRIX
+                    ' DELETE ROW - RECOMMENDATION MATRIX
                     '=========================================================
                     If objForm.PaneLevel = 2 Then
 
                         objMatrix2 = CType(objForm.Items.Item("1_U_G").Specific, SAPbouiCOM.Matrix)
-                        oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_ACT")
+                        oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_REC")
 
                         Dim selectedRow As Integer = objMatrix2.GetNextSelectedRow(0, SAPbouiCOM.BoOrderType.ot_RowOrder)
 
                         If selectedRow <= 0 Then
 
-                            objMain.objApplication.StatusBar.SetText("Please select Action row to delete", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Warning)
+                            objMain.objApplication.StatusBar.SetText(
+                        "Please select row to delete",
+                        SAPbouiCOM.BoMessageTime.bmt_Short,
+                        SAPbouiCOM.BoStatusBarMessageType.smt_Warning)
 
                             Exit Try
 
@@ -352,7 +355,9 @@ Public Class ClsVendorRequalification
                         objMatrix2.FlushToDataSource()
 
                         While oDBs_Details2.Size > objMatrix2.VisualRowCount
+
                             oDBs_Details2.RemoveRecord(oDBs_Details2.Size - 1)
+
                         End While
 
                         If oDBs_Details2.Size = 0 Then
@@ -360,10 +365,10 @@ Public Class ClsVendorRequalification
                             oDBs_Details2.InsertRecord(0)
 
                             oDBs_Details2.SetValue("LineId", 0, "1")
-                            oDBs_Details2.SetValue("U_Action", 0, "")
-                            oDBs_Details2.SetValue("U_Owner", 0, "")
+                            oDBs_Details2.SetValue("U_Recommendation", 0, "")
+                            oDBs_Details2.SetValue("U_ActionType", 0, "")
                             oDBs_Details2.SetValue("U_TargetDate", 0, "")
-                            oDBs_Details2.SetValue("U_Status", 0, "Open")
+                            oDBs_Details2.SetValue("U_Status", 0, "")
 
                         End If
 
@@ -389,7 +394,10 @@ Public Class ClsVendorRequalification
 
                 Catch ex As Exception
 
-                    objMain.objApplication.StatusBar.SetText("Delete Row Error : " & ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                    objMain.objApplication.StatusBar.SetText(
+                "Delete Row Error : " & ex.Message,
+                SAPbouiCOM.BoMessageTime.bmt_Short,
+                SAPbouiCOM.BoStatusBarMessageType.smt_Error)
 
                 Finally
 
@@ -405,14 +413,16 @@ Public Class ClsVendorRequalification
         Catch ex As Exception
 
             objMain.objApplication.StatusBar.SetText(
-            ex.Message,
-            SAPbouiCOM.BoMessageTime.bmt_Short,
-            SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+        ex.Message,
+        SAPbouiCOM.BoMessageTime.bmt_Short,
+        SAPbouiCOM.BoStatusBarMessageType.smt_Error)
 
         End Try
 
     End Sub
-    Public Sub ItemEvent(ByVal FormUID As String, ByRef pVal As SAPbouiCOM.ItemEvent, ByRef BubbleEvent As Boolean)
+    Public Sub ItemEvent(ByVal FormUID As String,
+                         ByRef pVal As SAPbouiCOM.ItemEvent,
+                         ByRef BubbleEvent As Boolean)
 
         Try
 
@@ -466,15 +476,15 @@ Public Class ClsVendorRequalification
 
     '        objForm = objMain.objApplication.Forms.Item(FormUID)
 
-    '        oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_H")
-    '        oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_DOC")
-    '        oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_ACT")
+    '        oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_VRA_H")
+    '        oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_VRA_SCORE")
+    '        oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_REC")
 
 
     '        objMatrix1 = objForm.Items.Item("0_U_G").Specific
     '        objMatrix2 = objForm.Items.Item("1_U_G").Specific
 
-    '        oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_VREQ"))
+    '        oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_VRA"))
     '        'oDBs_Head.SetValue("U_CreatedOn", 0, DateTime.Now.ToString("yyyyMMdd"))
 
     '        objForm.Items.Item("0_U_FD").Click(BoCellClickType.ct_Regular)
@@ -494,11 +504,9 @@ Public Class ClsVendorRequalification
 
     '        objForm = objMain.objApplication.Forms.Item(FormUID)
 
-    '        oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_H")
-    '        oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_DOC")
-    '        oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_ACT")
-
-
+    '        oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_VRA_H")
+    '        oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_SCORE")
+    '        oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_REC")
 
     '        objMatrix1 = objForm.Items.Item("0_U_G").Specific
     '        objMatrix2 = objForm.Items.Item("1_U_G").Specific
@@ -510,10 +518,10 @@ Public Class ClsVendorRequalification
 
     '            oDBs_Details1.SetValue("LineId", oDBs_Details1.Offset, objMatrix1.VisualRowCount)
 
-    '            oDBs_Details1.SetValue("U_DocType", oDBs_Details1.Offset, "")
-    '            oDBs_Details1.SetValue("U_OldExpiry", oDBs_Details1.Offset, "")
-    '            oDBs_Details1.SetValue("U_NewExpiry", oDBs_Details1.Offset, "")
-    '            oDBs_Details1.SetValue("U_Verified", oDBs_Details1.Offset, "")
+    '            oDBs_Details1.SetValue("U_Factor", oDBs_Details1.Offset, "")
+    '            oDBs_Details1.SetValue("U_Weight", oDBs_Details1.Offset, "")
+    '            oDBs_Details1.SetValue("U_Score", oDBs_Details1.Offset, "")
+    '            oDBs_Details1.SetValue("U_WScore", oDBs_Details1.Offset, "")
     '            oDBs_Details1.SetValue("U_Remarks", oDBs_Details1.Offset, "")
 
     '            objMatrix1.SetLineData(objMatrix1.VisualRowCount)
@@ -528,8 +536,9 @@ Public Class ClsVendorRequalification
     '            objMatrix2.AddRow()
 
     '            oDBs_Details2.SetValue("LineId", oDBs_Details2.Offset, objMatrix2.VisualRowCount)
-    '            oDBs_Details2.SetValue("U_Action", oDBs_Details2.Offset, "")
-    '            oDBs_Details2.SetValue("U_Owner", oDBs_Details2.Offset, "")
+    '            oDBs_Details2.SetValue("U_Recommendation", oDBs_Details2.Offset, "")
+    '            oDBs_Details2.SetValue("U_ActionType", oDBs_Details2.Offset, "")
+    '            oDBs_Details2.SetValue("U_TargetDate", oDBs_Details2.Offset, "")
     '            oDBs_Details2.SetValue("U_Status", oDBs_Details2.Offset, "")
 
     '            objMatrix2.SetLineData(objMatrix2.VisualRowCount)
@@ -561,7 +570,7 @@ Public Class ClsVendorRequalification
 
     '            Case "0_U_G"
 
-    '                oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_DOC")
+    '                oDBs_Details1 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_SCORE")
 
     '                objMatrix1 = objForm.Items.Item("0_U_G").Specific
 
@@ -571,10 +580,10 @@ Public Class ClsVendorRequalification
     '                              oDBs_Details1.Offset,
     '                              objMatrix1.VisualRowCount.ToString())
 
-    '                oDBs_Details1.SetValue("U_DocType", oDBs_Details1.Offset, "")
-    '                oDBs_Details1.SetValue("U_OldExpiry", oDBs_Details1.Offset, "")
-    '                oDBs_Details1.SetValue("U_NewExpiry", oDBs_Details1.Offset, "")
-    '                oDBs_Details1.SetValue("U_Verified", oDBs_Details1.Offset, "")
+    '                oDBs_Details1.SetValue("U_Factor", oDBs_Details1.Offset, "")
+    '                oDBs_Details1.SetValue("U_Weight", oDBs_Details1.Offset, "")
+    '                oDBs_Details1.SetValue("U_Score", oDBs_Details1.Offset, "")
+    '                oDBs_Details1.SetValue("U_WScore", oDBs_Details1.Offset, "")
     '                oDBs_Details1.SetValue("U_Remarks", oDBs_Details1.Offset, "")
 
     '                objMatrix1.SetLineData(objMatrix1.VisualRowCount)
@@ -588,7 +597,7 @@ Public Class ClsVendorRequalification
 
     '            Case "1_U_G"
 
-    '                oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_VREQ_ACT")
+    '                oDBs_Details2 = objForm.DataSources.DBDataSources.Item("@TNX_VRA_REC")
 
     '                objMatrix2 = objForm.Items.Item("1_U_G").Specific
 
@@ -598,8 +607,8 @@ Public Class ClsVendorRequalification
     '                               oDBs_Details2.Offset,
     '                               objMatrix2.VisualRowCount.ToString())
 
-    '                oDBs_Details2.SetValue("U_Action", oDBs_Details2.Offset, "")
-    '                oDBs_Details2.SetValue("U_Owner", oDBs_Details2.Offset, "")
+    '                oDBs_Details2.SetValue("U_Recommendation", oDBs_Details2.Offset, "")
+    '                oDBs_Details2.SetValue("U_ActionType", oDBs_Details2.Offset, "")
     '                oDBs_Details2.SetValue("U_TargetDate", oDBs_Details2.Offset, "")
     '                oDBs_Details2.SetValue("U_Status", oDBs_Details2.Offset, "")
 
@@ -617,5 +626,4 @@ Public Class ClsVendorRequalification
     '    End Try
 
     'End Sub
-
 End Class
