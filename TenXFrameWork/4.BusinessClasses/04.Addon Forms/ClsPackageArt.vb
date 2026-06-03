@@ -1,6 +1,6 @@
 ﻿Imports SAPbouiCOM
 
-Public Class ClsProcessRoute
+Public Class ClsPackageArt
 
 #Region "       Declaration             "
     Public objForm As SAPbouiCOM.Form
@@ -17,22 +17,22 @@ Public Class ClsProcessRoute
 
     Sub CreateForm()
         Try
-            objMain.objUtilities.LoadForm("ProcessRoute.xml", "10X_ROUTE", ResourceType.Embeded)
-            objForm = objMain.objApplication.Forms.GetForm("10X_ROUTE", objMain.objApplication.Forms.ActiveForm.TypeCount)
+            objMain.objUtilities.LoadForm("PackageArtwork.xml", "10X_ARTWRK", ResourceType.Embeded)
+            objForm = objMain.objApplication.Forms.GetForm("10X_ARTWRK", objMain.objApplication.Forms.ActiveForm.TypeCount)
             objForm.Freeze(True)
             objutilities = New Utilities
-            oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_ROUTE")
-            oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_ROUTE1")
+            oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_ARTWRK")
+            oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_ARTWRK1")
 
             objMatrix1 = objForm.Items.Item("0_U_G").Specific
 
 
-            oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_ROUTE", "Primary"))
-            oDBs_Head.SetValue("U_DCM", 0, DateTime.Now.ToString("yyyyMMdd"))
+            oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_ARTWRK", "Primary"))
+            oDBs_Head.SetValue("U_DER", 0, DateTime.Now.ToString("yyyyMMdd"))
             objForm.Items.Item("DocNum").SetAutoManagedAttribute(SAPbouiCOM.BoAutoManagedAttr.ama_Editable, -1, SAPbouiCOM.BoModeVisualBehavior.mvb_False)
             objForm.Items.Item("DocNum").SetAutoManagedAttribute(SAPbouiCOM.BoAutoManagedAttr.ama_Editable, 4, SAPbouiCOM.BoModeVisualBehavior.mvb_True)
-            objForm.Items.Item("DCM").SetAutoManagedAttribute(SAPbouiCOM.BoAutoManagedAttr.ama_Editable, -1, SAPbouiCOM.BoModeVisualBehavior.mvb_False)
-            objForm.Items.Item("DCM").SetAutoManagedAttribute(SAPbouiCOM.BoAutoManagedAttr.ama_Editable, 4, SAPbouiCOM.BoModeVisualBehavior.mvb_True)
+            objForm.Items.Item("DER").SetAutoManagedAttribute(SAPbouiCOM.BoAutoManagedAttr.ama_Editable, -1, SAPbouiCOM.BoModeVisualBehavior.mvb_False)
+            objForm.Items.Item("DER").SetAutoManagedAttribute(SAPbouiCOM.BoAutoManagedAttr.ama_Editable, 4, SAPbouiCOM.BoModeVisualBehavior.mvb_True)
 
             Me.SetDefault(objForm.UniqueID)
 
@@ -52,7 +52,7 @@ Public Class ClsProcessRoute
             objForm.Freeze(False)
             objForm.EnableMenu("1292", True)
             objForm.EnableMenu("1293", True)
-            objForm.EnableMenu("1282", True)
+            ' objForm.EnableMenu("1282", True)
 
             objMain.objApplication.StatusBar.SetText("Successfully initialized, Please proceed...", SAPbouiCOM.BoMessageTime.bmt_Short, SAPbouiCOM.BoStatusBarMessageType.smt_Success)
         Catch ex As Exception
@@ -62,12 +62,12 @@ Public Class ClsProcessRoute
     End Sub
     Sub MenuEvent(ByRef pVal As SAPbouiCOM.MenuEvent, ByRef BubbleEvent As Boolean)
         Try
-            If pVal.MenuUID = "10X_COMPPR" And pVal.BeforeAction = False Then
+            If pVal.MenuUID = "10X_COMPPA" And pVal.BeforeAction = False Then
                 Me.CreateForm()
 
             ElseIf pVal.MenuUID = "1281" And pVal.BeforeAction = False Then
                 objForm = objMain.objApplication.Forms.ActiveForm
-                If objForm.TypeEx = "10X_ROUTE" Then
+                If objForm.TypeEx = "10X_ARTWRK" Then
                     objForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE
                 End If
 
@@ -186,7 +186,7 @@ Public Class ClsProcessRoute
 
             'objForm.Freeze(True)
 
-            oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_ROUTE")
+            oDBs_Head = objForm.DataSources.DBDataSources.Item("@TNX_ARTWRK")
 
             ' oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "TNXCOAUDO", "Primary"))
             ' oDBs_Head.SetValue("U_DDate", oDBs_Details.Offset, DateTime.Now.ToString("yyyyMMdd"))
@@ -195,9 +195,8 @@ Public Class ClsProcessRoute
 
             ' Dim objComboBox1 = objForm.Items.Item("Status").Specific
             'objComboBox1.Select("Open", SAPbouiCOM.BoSearchKey.psk_ByValue)
-            oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_ROUTE", "Primary"))
-            'oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_ROUTE"))
-            oDBs_Head.SetValue("U_DCM", oDBs_Head.Offset, DateTime.Now.ToString("yyyyMMdd"))
+            oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_ARTWRK"))
+            oDBs_Head.SetValue("U_DER", oDBs_Head.Offset, DateTime.Now.ToString("yyyyMMdd"))
             'oDS.SetValue("U_DOCDATE", oDS.Offset, DateTime.Now.ToString("yyyyMMdd"))
             Me.SetNewLine(FormUID)
             objForm.Freeze(False)
@@ -215,7 +214,7 @@ Public Class ClsProcessRoute
 
             objForm = objMain.objApplication.Forms.Item(FormUID)
             objForm.Freeze(True)
-            oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_ROUTE1")
+            oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_ARTWRK1")
             ' objMatrix1 = objForm.Items.Item("0_U_G").Specific
 
 
@@ -229,14 +228,10 @@ Public Class ClsProcessRoute
 
                 oDBs_Details.SetValue("LineId", oDBs_Details.Offset, objMatrix1.VisualRowCount)
                 oDBs_Details.SetValue("U_LineId", oDBs_Details.Offset, "")
-                oDBs_Details.SetValue("U_SeqNo", oDBs_Details.Offset, "")
-                oDBs_Details.SetValue("U_ProcessStage", oDBs_Details.Offset, "")
-                oDBs_Details.SetValue("U_ResourceCode", oDBs_Details.Offset, "")
-                oDBs_Details.SetValue("U_StdTime", oDBs_Details.Offset, "")
-                oDBs_Details.SetValue("U_InProcessQC", oDBs_Details.Offset, "")
-                oDBs_Details.SetValue("U_LineClearanceReq", oDBs_Details.Offset, "")
-                oDBs_Details.SetValue("U_CleaningReq", oDBs_Details.Offset, "")
-                oDBs_Details.SetValue("U_SOPCode", oDBs_Details.Offset, "")
+                oDBs_Details.SetValue("U_Stage", oDBs_Details.Offset, "")
+                oDBs_Details.SetValue("U_ApprovedBy", oDBs_Details.Offset, "")
+                oDBs_Details.SetValue("U_ApprovedDate", oDBs_Details.Offset, "")
+                oDBs_Details.SetValue("U_Remarks", oDBs_Details.Offset, "")
                 objMatrix1.SetLineData(objMatrix1.VisualRowCount)
 
                 objMatrix1.AutoResizeColumns()
@@ -266,7 +261,7 @@ Public Class ClsProcessRoute
 
                 Case "0_U_G"
 
-                    oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_ROUTE1")
+                    oDBs_Details = objForm.DataSources.DBDataSources.Item("@TNX_ARTWRK1")
 
                     objMatrix1 = objForm.Items.Item("0_U_G").Specific
 
@@ -276,15 +271,12 @@ Public Class ClsProcessRoute
                                           oDBs_Details.Offset,
                                           objMatrix1.VisualRowCount.ToString())
 
+                    ' oDBs_Details.SetValue("U_LineId", oDBs_Details.Offset, "")
                     oDBs_Details.SetValue("U_LineId", oDBs_Details.Offset, "")
-                    oDBs_Details.SetValue("U_SeqNo", oDBs_Details.Offset, "")
-                    oDBs_Details.SetValue("U_ProcessStage", oDBs_Details.Offset, "")
-                    oDBs_Details.SetValue("U_ResourceCode", oDBs_Details.Offset, "")
-                    oDBs_Details.SetValue("U_StdTime", oDBs_Details.Offset, "")
-                    oDBs_Details.SetValue("U_InProcessQC", oDBs_Details.Offset, "")
-                    oDBs_Details.SetValue("U_LineClearanceReq", oDBs_Details.Offset, "")
-                    oDBs_Details.SetValue("U_CleaningReq", oDBs_Details.Offset, "")
-                    oDBs_Details.SetValue("U_SOPCode", oDBs_Details.Offset, "")
+                    oDBs_Details.SetValue("U_Stage", oDBs_Details.Offset, "")
+                    oDBs_Details.SetValue("U_ApprovedBy", oDBs_Details.Offset, "")
+                    oDBs_Details.SetValue("U_ApprovedDate", oDBs_Details.Offset, "")
+                    oDBs_Details.SetValue("U_Remarks", oDBs_Details.Offset, "")
                     objMatrix1.SetLineData(objMatrix1.VisualRowCount)
 
                     objMatrix1.AutoResizeColumns()

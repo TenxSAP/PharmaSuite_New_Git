@@ -154,6 +154,7 @@
 									<Menu UniqueID="10X_REG_AUTH" Type="1" String="Authority Query Management" FatherUID="10X_REGHUB" Position="4" Enabled="1" Checked="0"/>
 									<Menu UniqueID="10X_REG_RENEW" Type="1" String="Registration Renewal" FatherUID="10X_REGHUB" Position="5" Enabled="1" Checked="0"/>
 									<Menu UniqueID="10X_REG_REPO" Type="1" String="Regulatory Repository" FatherUID="10X_REGHUB" Position="6" Enabled="1" Checked="0"/>
+									<Menu UniqueID="10X_REG_CRC" Type="1" String="Country Regulatory Configuration" FatherUID="10X_REGHUB" Position="7" Enabled="1" Checked="0"/>
 								</action>
 							</Menus>
 						</Menu>

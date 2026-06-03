@@ -22,9 +22,14 @@ Public Class clsSOPManagement
             objutilities = New Utilities
 
             Me.SetDefault(objForm.UniqueID)
-
+            oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TENX_SOP", "Primary"))
+            ' oDBs_Head.SetValue("U_DCM", 0, DateTime.Now.ToString("yyyyMMdd"))
             objForm.Items.Item("DocNum").SetAutoManagedAttribute(SAPbouiCOM.BoAutoManagedAttr.ama_Editable, -1, SAPbouiCOM.BoModeVisualBehavior.mvb_False)
             objForm.Items.Item("DocNum").SetAutoManagedAttribute(SAPbouiCOM.BoAutoManagedAttr.ama_Editable, 4, SAPbouiCOM.BoModeVisualBehavior.mvb_True)
+            ' objForm.Items.Item("DCM").SetAutoManagedAttribute(SAPbouiCOM.BoAutoManagedAttr.ama_Editable, -1, SAPbouiCOM.BoModeVisualBehavior.mvb_False)
+            'objForm.Items.Item("DCM").SetAutoManagedAttribute(SAPbouiCOM.BoAutoManagedAttr.ama_Editable, 4, SAPbouiCOM.BoModeVisualBehavior.mvb_True)
+
+
 
             objForm.Freeze(False)
             objForm.EnableMenu("1292", True)
@@ -160,7 +165,8 @@ Public Class clsSOPManagement
             objMatrix4 = objForm.Items.Item("MTX_4").Specific
             objMatrix5 = objForm.Items.Item("MTX_5").Specific
             objMatrix6 = objForm.Items.Item("MTX_6").Specific
-            oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_SOP"))
+            oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TENX_SOP", "Primary"))
+            'oDBs_Head.SetValue("DocNum", oDBs_Head.Offset, objMain.objUtilities.GetNextDocNum(objForm, "UDO_TNX_SOP"))
             oDBs_Head.SetValue("U_EffDate", 0, DateTime.Now.ToString("yyyyMMdd"))
 
             objForm.Items.Item("Item_75").Click(BoCellClickType.ct_Regular)

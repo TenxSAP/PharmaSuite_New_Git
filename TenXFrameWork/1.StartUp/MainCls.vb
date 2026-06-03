@@ -41,6 +41,11 @@ Public Class MainCls
     Public objProductRegistration As ProductRegistration
     Public objSopCategoryCompliance As ClsSOPCategoryCompliance
     Public ObjValidationTypeMaster As ClsValidationTypeMasterCompliance
+    'Ba
+    Public ObjProcess As ClsProcessRoute
+    Public ObjPackage As ClsPackageArt
+    Public ObjEnvironment As ClsEnvironmental
+    Public ObjBatchNum As ClsBatchNumbering
     'vsm
     Public objInprogresschecklist As Inprocesschecklist
     Public ObjclsMstrProductCategory As ClsMstrProductCategory
@@ -163,6 +168,7 @@ Public Class MainCls
     'sreeja
     Public objCTDTemplateMaster As CTDTemplateMaster
     Public objRootCauseMaster As ClsRootCauseCompliance
+    Public objNewMaterialRequest As ClsNewMaterialRequest
     Dim SOSeries As String = ""
     Dim SODocNum As String = ""
     Dim PaymentType As String = ""
@@ -263,6 +269,10 @@ Public Class MainCls
         objARCreditMemo = New clsARCreditMemo
         objARDownPayment = New clsARDownPayment
         objAREinvoice = New CLSEinvoiceButton
+        ObjProcess = New ClsProcessRoute
+        ObjPackage = New ClsPackageArt
+        ObjEnvironment = New ClsEnvironmental
+        ObjBatchNum = New ClsBatchNumbering
 
         objPayLoad = New ClsPayLoad
         ObjCorporateTaxConfiguration = New clsCorporateTexConfig
@@ -365,6 +375,7 @@ Public Class MainCls
         'sreeja
         objCTDTemplateMaster = New CTDTemplateMaster
         objRootCauseMaster = New ClsRootCauseCompliance
+        objNewMaterialRequest = New ClsNewMaterialRequest
     End Sub
 #End Region
 
@@ -1765,6 +1776,14 @@ Public Class MainCls
                     ObjRegistration.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_TPARM"
                     ObjTestMaster.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_ROUTE"
+                    ObjProcess.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_ARTWRK"
+                    ObjPackage.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_BNUM"
+                    ObjBatchNum.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_EMON"
+                    ObjEnvironment.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_QC_TM"
                     ObjTestMethod.ItemEvent(FormUID, pVal, BubbleEvent)
 
@@ -1836,6 +1855,11 @@ Public Class MainCls
                     ObjClsMstrDocumentRelationship.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "frm_LEAD"
                     ObjClsMstrPharmaLeadTimeMaster.ItemEvent(FormUID, pVal, BubbleEvent)
+                    'sreeja
+                Case "REG_CTDTMP"
+                    objCTDTemplateMaster.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "TNX_MQ_NMR"
+                    objNewMaterialRequest.ItemEvent(FormUID, pVal, BubbleEvent)
             End Select
         Catch ex As Exception
             objApplication.MessageBox(ex.Message)
@@ -2019,6 +2043,14 @@ Public Class MainCls
                     ObjclsCOMTemplate.MenuEvent(pVal, BubbleEvent)
                 Case "10X_QC_DEVCAT"
                     ObjclsDevidation.MenuEvent(pVal, BubbleEvent)
+                Case "10X_COMPPR"
+                    ObjProcess.MenuEvent(pVal, BubbleEvent)
+                Case "10X_COMPPA"
+                    ObjPackage.MenuEvent(pVal, BubbleEvent)
+                Case "10X_COMPEM"
+                    ObjEnvironment.MenuEvent(pVal, BubbleEvent)
+                Case "10X_COMPBNL"
+                    ObjBatchNum.MenuEvent(pVal, BubbleEvent)
 
                 Case "10X_STB_PROTO"
                     Stabilityprotocal.MenuEvent(pVal, BubbleEvent)
@@ -2090,12 +2122,21 @@ Public Class MainCls
                     objRiskClarificationCompliance.MenuEvent(pVal, BubbleEvent)
                 Case "10X_CMS_ROOT"
                     objRootCauseMaster.MenuEvent(pVal, BubbleEvent)
+                Case "10X_NMR"
+                    objNewMaterialRequest.MenuEvent(pVal, BubbleEvent)
                 Case "1282"
                     objform = objMain.objApplication.Forms.ActiveForm
                     If objform.TypeEx = "133" Then
                         objARInvoice.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "VATR" Then
                         ObjVatReport.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ROUTE" Then
+                        ObjProcess.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ARTWRK" Then
+                        ObjPackage.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_BNUM" Then
+                        ObjBatchNum.MenuEvent(pVal, BubbleEvent)
+
                     ElseIf objform.TypeEx = "CTAXCAL" Then
                         ObjCorporateTaxCalculation.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "COTX" Then
@@ -2132,6 +2173,8 @@ Public Class MainCls
                         objDowntimeReason.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_AUTH" Then
                         objRegulatoryAuthority.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_EMON" Then
+                        ObjEnvironment.MenuEvent(pVal, BubbleEvent)
                         'ElseIf objform.TypeEx = "License" Then
                         '    objLicenceNew.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "FORMULACOSTING" Then
@@ -2286,6 +2329,8 @@ Public Class MainCls
                         ObjRisk.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_STYPE" Then
                         ObjSample.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_EMON" Then
+                        ObjEnvironment.MenuEvent(pVal, BubbleEvent)
                         'ElseIf objform.TypeEx = "UDO_F_UDO_REG_PRDREG" Then
                         '    objProductRegistration.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_DOSFORM" Then
@@ -2320,6 +2365,8 @@ Public Class MainCls
                         ObjclsIncident.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_AUDCHK" Then
                         ObjclsAudit.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ROUTE" Then
+                        ObjProcess.MenuEvent(pVal, BubbleEvent)
 
                     ElseIf objform.TypeEx = "frm_CORACT" Then
                         ObjclsMstrCorrectiveAction.MenuEvent(pVal, BubbleEvent)
@@ -2396,7 +2443,16 @@ Public Class MainCls
                         objregulatorySubmission.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_DOSSEC" Then
                         objDossierSelection.MenuEvent(pVal, BubbleEvent)
+                        'sreeja
+                    ElseIf objform.TypeEx = "REG_CTDTMP" Then
+                        objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ARTWRK" Then
+                        ObjPackage.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_BNUM" Then
+                        ObjBatchNum.MenuEvent(pVal, BubbleEvent)
+
                     End If
+
 
                 Case "774"
                     objform = objMain.objApplication.Forms.ActiveForm
@@ -2424,7 +2480,9 @@ Public Class MainCls
                     If objform.TypeEx = "STAB_SHELF" Then
                         Shelflife.MenuEvent(pVal, BubbleEvent)
                     End If
-
+                    If objform.TypeEx = "TNX_MQ_NMR" Then
+                        objNewMaterialRequest.MenuEvent(pVal, BubbleEvent)
+                    End If
                     '    'ADD ROW
                 Case "1282"
                     objform = objMain.objApplication.Forms.ActiveForm
@@ -2468,6 +2526,10 @@ Public Class MainCls
                         ObjTestMethod.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_SPEC" Then
                         ObjClsMstrSpecificationHD.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ROUTE" Then
+                        ObjProcess.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_EMON" Then
+                        ObjEnvironment.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "UDO_TNX_VPR" Then
                         ObjClsVendorPerformance.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_VREQ" Then
@@ -2477,6 +2539,13 @@ Public Class MainCls
                         'sreeja
                     ElseIf objform.TypeEx = "REG_CTDTMP" Then
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ARTWRK" Then
+                        ObjPackage.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_BNUM" Then
+                        ObjBatchNum.MenuEvent(pVal, BubbleEvent)
+
+                    ElseIf objform.TypeEx = "TNX_MQ_NMR" Then
+                        objNewMaterialRequest.MenuEvent(pVal, BubbleEvent)
                     End If
 
                     'Case "Add Row"
@@ -2555,6 +2624,8 @@ Public Class MainCls
                         objPharmaDispensing.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_CAPACAT" Then
                         ObjCAPAMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_EMON" Then
+                        ObjEnvironment.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_SOP" Then
                         ObjSOP.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_RISK" Then
@@ -2563,6 +2634,13 @@ Public Class MainCls
                         objProductRegistration.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_STYPE" Then
                         ObjSample.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ROUTE" Then
+                        ObjProcess.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_ARTWRK" Then
+                        ObjPackage.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_BNUM" Then
+                        ObjBatchNum.MenuEvent(pVal, BubbleEvent)
+
 
                         'ElseIf objform.TypeEx = "TNX_USR" Then
                         '    oSubParameterSelection.MenuEvent(pVal, BubbleEvent)
@@ -2711,6 +2789,8 @@ Public Class MainCls
                         ObjClsVendorPerformance.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "ROOTMSTR" Then
                         objRootCauseMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "TNX_MQ_NMR" Then
+                        objNewMaterialRequest.MenuEvent(pVal, BubbleEvent)
                     End If
                 Case "Delete Row"
                     objform = objMain.objApplication.Forms.ActiveForm
