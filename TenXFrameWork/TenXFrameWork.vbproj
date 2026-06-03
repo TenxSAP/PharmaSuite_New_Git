@@ -221,6 +221,7 @@
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsDraftProcedureStages.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\CLSEinvoiceButton.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\clsElectronicSignaturePolicy.vb" />
+    <Compile Include="4.BusinessClasses\04.Addon Forms\ClsEnvironmental.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\clsEstimation.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\ClsExperimentManagement.vb" />
     <Compile Include="4.BusinessClasses\04.Addon Forms\clsFtaVat.vb" />
@@ -371,6 +372,7 @@
     <EmbeddedResource Include="5.XML\CAPACategoryMaster.xml" />
     <EmbeddedResource Include="5.XML\CAPACatogeryCompliance.xml" />
     <EmbeddedResource Include="5.XML\Artwork.xml" />
+    <EmbeddedResource Include="5.XML\BatchNumbering.xml" />
     <Content Include="5.XML\COATemplate.xml" />
     <Content Include="5.XML\ControlForm_v1.xml" />
     <Content Include="5.XML\CorporatetaxMstr.xml" />
@@ -385,6 +387,7 @@
     <EmbeddedResource Include="5.XML\EquipmentMaster.xml" />
     <EmbeddedResource Include="5.XML\DossierSectionMaster.xml" />
     <EmbeddedResource Include="5.XML\CTDTemplateMaster.xml" />
+    <EmbeddedResource Include="5.XML\EnvironmentalMonitoring.xml" />
     <Content Include="5.XML\FtavatMstr.xml" />
     <EmbeddedResource Include="5.XML\LicenceNew.xml" />
     <EmbeddedResource Include="5.XML\Labtesting.xml" />

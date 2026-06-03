@@ -7,7 +7,7 @@ Public Class DatabaseCreation
     Private objUtilities As Utilities
     Dim DBCode As String = "v0.400"
     Dim DBName As String = "v0.400"
-    Dim Version As String = "v0.704"
+    Dim Version As String = "v0.706"
 #End Region
 
 #Region "DB Creation Main"
@@ -237,6 +237,8 @@ Public Class DatabaseCreation
                 objMain.objUtilities.AddDateField("@TNX_QC_AUDCHK_H", "DNL", "Document Date", SAPbobsCOM.BoFldSubTypes.st_None)
                 objMain.objUtilities.AddDateField("@TNX_ROUTE", "DCM", "Document Date", SAPbobsCOM.BoFldSubTypes.st_None)
                 objMain.objUtilities.AddDateField("@TNX_ARTWRK", "DER", "Document Date", SAPbobsCOM.BoFldSubTypes.st_None)
+                objMain.objUtilities.AddDateField("@TNX_EMON", "DRT", "Document Date", SAPbobsCOM.BoFldSubTypes.st_None)
+                objMain.objUtilities.AddDateField("@TNX_BNUM", "DUE", "Document Date", SAPbobsCOM.BoFldSubTypes.st_None)
 
 
                 ' Business Partner (OCRD)

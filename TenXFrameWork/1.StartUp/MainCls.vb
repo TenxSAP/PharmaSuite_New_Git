@@ -44,6 +44,7 @@ Public Class MainCls
     'Ba
     Public ObjProcess As ClsProcessRoute
     Public ObjPackage As ClsPackageArt
+    Public ObjEnvironment As ClsEnvironmental
     'vsm
     Public objInprogresschecklist As Inprocesschecklist
     Public ObjclsMstrProductCategory As ClsMstrProductCategory
@@ -262,6 +263,7 @@ Public Class MainCls
         objAREinvoice = New CLSEinvoiceButton
         ObjProcess = New ClsProcessRoute
         ObjPackage = New ClsPackageArt
+        ObjEnvironment = New ClsEnvironmental
 
         objPayLoad = New ClsPayLoad
         ObjCorporateTaxConfiguration = New clsCorporateTexConfig
@@ -1764,6 +1766,8 @@ Public Class MainCls
                     ObjProcess.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_ARTWRK"
                     ObjPackage.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_EMON"
+                    ObjEnvironment.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_QC_TM"
                     ObjTestMethod.ItemEvent(FormUID, pVal, BubbleEvent)
 
@@ -2014,6 +2018,8 @@ Public Class MainCls
                     ObjProcess.MenuEvent(pVal, BubbleEvent)
                 Case "10X_COMPPA"
                     ObjPackage.MenuEvent(pVal, BubbleEvent)
+                Case "10X_COMPEM"
+                    ObjEnvironment.MenuEvent(pVal, BubbleEvent)
 
                 Case "10X_STB_PROTO"
                     Stabilityprotocal.MenuEvent(pVal, BubbleEvent)
@@ -2120,6 +2126,8 @@ Public Class MainCls
                         objDowntimeReason.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "REG_AUTH" Then
                         objRegulatoryAuthority.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_EMON" Then
+                        ObjEnvironment.MenuEvent(pVal, BubbleEvent)
                         'ElseIf objform.TypeEx = "License" Then
                         '    objLicenceNew.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "FORMULACOSTING" Then
@@ -2262,6 +2270,8 @@ Public Class MainCls
                         ObjRisk.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_STYPE" Then
                         ObjSample.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_EMON" Then
+                        ObjEnvironment.MenuEvent(pVal, BubbleEvent)
                         'ElseIf objform.TypeEx = "UDO_F_UDO_REG_PRDREG" Then
                         '    objProductRegistration.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "frm_DOSFORM" Then
@@ -2446,6 +2456,8 @@ Public Class MainCls
                         ObjClsMstrSpecificationHD.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_ROUTE" Then
                         ObjProcess.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_EMON" Then
+                        ObjEnvironment.MenuEvent(pVal, BubbleEvent)
                         'sreeja
                     ElseIf objform.TypeEx = "REG_CTDTMP" Then
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
@@ -2530,6 +2542,8 @@ Public Class MainCls
                         objPharmaDispensing.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_CAPACAT" Then
                         ObjCAPAMaster.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_EMON" Then
+                        ObjEnvironment.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_SOP" Then
                         ObjSOP.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_RISK" Then
