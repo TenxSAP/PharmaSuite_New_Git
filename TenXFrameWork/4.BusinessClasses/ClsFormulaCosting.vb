@@ -111,12 +111,12 @@ Public Class ClsFormulaCosting
 
             objForm.Freeze(False)
 
-                objMain.objApplication.StatusBar.SetText(
-            "VAT Report Form Loaded Successfully",
+            objMain.objApplication.StatusBar.SetText(
+            "Form Loaded Successfully",
             BoMessageTime.bmt_Short,
             BoStatusBarMessageType.smt_Success)
 
-            Catch ex As Exception
+        Catch ex As Exception
 
                 Try
                     objForm.Freeze(False)
