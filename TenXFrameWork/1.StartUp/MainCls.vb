@@ -45,6 +45,7 @@ Public Class MainCls
     Public ObjProcess As ClsProcessRoute
     Public ObjPackage As ClsPackageArt
     Public ObjEnvironment As ClsEnvironmental
+    Public ObjBatchNum As ClsBatchNumbering
     'vsm
     Public objInprogresschecklist As Inprocesschecklist
     Public ObjclsMstrProductCategory As ClsMstrProductCategory
@@ -265,6 +266,7 @@ Public Class MainCls
         ObjProcess = New ClsProcessRoute
         ObjPackage = New ClsPackageArt
         ObjEnvironment = New ClsEnvironmental
+        ObjBatchNum = New ClsBatchNumbering
 
         objPayLoad = New ClsPayLoad
         ObjCorporateTaxConfiguration = New clsCorporateTexConfig
@@ -1768,6 +1770,8 @@ Public Class MainCls
                     ObjProcess.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_ARTWRK"
                     ObjPackage.ItemEvent(FormUID, pVal, BubbleEvent)
+                Case "10X_BNUM"
+                    ObjBatchNum.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_EMON"
                     ObjEnvironment.ItemEvent(FormUID, pVal, BubbleEvent)
                 Case "10X_QC_TM"
@@ -2024,6 +2028,8 @@ Public Class MainCls
                     ObjPackage.MenuEvent(pVal, BubbleEvent)
                 Case "10X_COMPEM"
                     ObjEnvironment.MenuEvent(pVal, BubbleEvent)
+                Case "10X_COMPBNL"
+                    ObjBatchNum.MenuEvent(pVal, BubbleEvent)
 
                 Case "10X_STB_PROTO"
                     Stabilityprotocal.MenuEvent(pVal, BubbleEvent)
@@ -2095,6 +2101,8 @@ Public Class MainCls
                         ObjProcess.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_ARTWRK" Then
                         ObjPackage.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_BNUM" Then
+                        ObjBatchNum.MenuEvent(pVal, BubbleEvent)
 
                     ElseIf objform.TypeEx = "CTAXCAL" Then
                         ObjCorporateTaxCalculation.MenuEvent(pVal, BubbleEvent)
@@ -2386,6 +2394,8 @@ Public Class MainCls
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_ARTWRK" Then
                         ObjPackage.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_BNUM" Then
+                        ObjBatchNum.MenuEvent(pVal, BubbleEvent)
 
                     End If
 
@@ -2471,6 +2481,8 @@ Public Class MainCls
                         objCTDTemplateMaster.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_ARTWRK" Then
                         ObjPackage.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_BNUM" Then
+                        ObjBatchNum.MenuEvent(pVal, BubbleEvent)
 
                     ElseIf objform.TypeEx = "TNX_MQ_NMR" Then
                         objNewMaterialRequest.MenuEvent(pVal, BubbleEvent)
@@ -2566,6 +2578,8 @@ Public Class MainCls
                         ObjProcess.MenuEvent(pVal, BubbleEvent)
                     ElseIf objform.TypeEx = "10X_ARTWRK" Then
                         ObjPackage.MenuEvent(pVal, BubbleEvent)
+                    ElseIf objform.TypeEx = "10X_BNUM" Then
+                        ObjBatchNum.MenuEvent(pVal, BubbleEvent)
 
 
                         'ElseIf objform.TypeEx = "TNX_USR" Then
